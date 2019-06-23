@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="5.3.14" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="43335.8233032292" ReportOptions.Description.Text="" ReportOptions.LastChange="43339.7104654745" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxDBDataset1" DataSetName="frxDBDataset1"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="41.57483" Left="0" Top="18.89765" Width="718.1107" ColumnWidth="0" ColumnGap="0" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" RowCount="0">
+      <TfrxMemoView Name="Memo4" Left="438.42548" Top="18.88976378" Width="94.48825" Height="18.89765" DataField="Locn2" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;Locn2&#34;]"/>
+      <TfrxMemoView Name="Memo5" Left="535.30736" Top="18.88976378" Width="94.48825" Height="18.89765" DataField="au_Towns_1.pcName" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;au_Towns_1.pcName&#34;]"/>
+      <TfrxMemoView Name="Memo6" Left="637.5201" Top="18.88976378" Width="26.45671" Height="18.89765" DataField="au_Towns_1.pcState_Code" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;au_Towns_1.pcState_Code&#34;]"/>
+      <TfrxMemoView Name="Memo7" Left="660.19728" Top="18.88976378" Width="52.91342" Height="18.89765" DataField="au_Towns_1.pcCode" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;au_Towns_1.pcCode&#34;]"/>
+      <TfrxMemoView Name="Memo1" Left="1.77953" Top="1.88976377952756" Width="109.60637" Height="18.89765" DataField="SurName" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="[frxDBDataset1.&#34;SurName&#34;]"/>
+      <TfrxMemoView Name="Memo2" Left="113.89765" Top="1.88976378" Width="109.60637" Height="18.89765" DataField="FirstName" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;FirstName&#34;]"/>
+      <TfrxMemoView Name="Memo3" Left="227.33086" Top="19.11023378" Width="204.09462" Height="18.89765" DataField="Locn1" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;Locn1&#34;]"/>
+      <TfrxMemoView Name="Memo8" Left="225.85838" Top="0.779530000000001" Width="204.09462" Height="18.89765" DataField="Post1" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;Post1&#34;]"/>
+      <TfrxMemoView Name="Memo9" Left="439.20501" Top="0.779530000000001" Width="94.48825" Height="18.89765" DataField="Post2" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;Post2&#34;]"/>
+      <TfrxMemoView Name="Memo10" Left="536.69326" Top="0" Width="94.48825" Height="18.89765" DataField="au_Towns.pcName" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;au_Towns.pcName&#34;]"/>
+      <TfrxMemoView Name="Memo11" Left="636.74057" Top="1.88976378" Width="26.45669291" Height="18.89765" DataField="au_Towns.pcState_Code" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;au_Towns.pcState_Code&#34;]"/>
+      <TfrxMemoView Name="Memo12" Left="660.3154" Top="3.77953" Width="41.57480559" Height="18.89765" DataField="au_Towns.pcCode" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;au_Towns.pcCode&#34;]"/>
+    </TfrxMasterData>
+  </TfrxReportPage>
+</TfrxReport>

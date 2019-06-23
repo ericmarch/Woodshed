@@ -1,0 +1,119 @@
+object fLogin: TfLogin
+  Left = 500
+  Top = 150
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Login'
+  ClientHeight = 186
+  ClientWidth = 374
+  Color = clBtnFace
+  Constraints.MaxHeight = 225
+  Constraints.MaxWidth = 390
+  Constraints.MinHeight = 225
+  Constraints.MinWidth = 390
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesigned
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object ledUserName: TLabeledEdit
+    Left = 88
+    Top = 16
+    Width = 200
+    Height = 21
+    EditLabel.Width = 52
+    EditLabel.Height = 13
+    EditLabel.Caption = 'User Name'
+    LabelPosition = lpLeft
+    LabelSpacing = 15
+    OEMConvert = True
+    TabOrder = 0
+    OnEnter = ledUserNameEnter
+    OnKeyUp = ledUserNameKeyUp
+  end
+  object ledPassword: TLabeledEdit
+    Left = 88
+    Top = 76
+    Width = 200
+    Height = 21
+    EditLabel.Width = 46
+    EditLabel.Height = 13
+    EditLabel.Caption = 'Password'
+    Enabled = False
+    LabelPosition = lpLeft
+    LabelSpacing = 15
+    PasswordChar = '*'
+    TabOrder = 1
+    OnEnter = ledPasswordEnter
+    OnKeyUp = ledPasswordKeyUp
+  end
+  object edtUsernameError: TEdit
+    Left = 88
+    Top = 43
+    Width = 200
+    Height = 27
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 2
+    Text = '   User does not exist'
+    Visible = False
+  end
+  object edtPwdError: TEdit
+    Left = 88
+    Top = 108
+    Width = 200
+    Height = 27
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 4
+    Text = '     Invalid Password'
+    Visible = False
+  end
+  object btnOK: TButton
+    Left = 213
+    Top = 145
+    Width = 75
+    Height = 25
+    Caption = 'OK'
+    Enabled = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = btnOKClick
+  end
+  object btnCancel: TButton
+    Left = 88
+    Top = 145
+    Width = 75
+    Height = 25
+    Caption = 'Cancel'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+    OnClick = btnCancelClick
+  end
+end

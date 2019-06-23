@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="5.3.14" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="43335.8233032292" ReportOptions.Description.Text="" ReportOptions.LastChange="43338.3451603472" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxDBDataset1" DataSetName="frxDBDataset1"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="22.67718" Left="0" Top="18.89765" Width="718.1107" ColumnWidth="0" ColumnGap="0" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" RowCount="0">
+      <TfrxMemoView Name="Memo4" Left="438.42548" Top="1.88976378" Width="94.48825" Height="18.89765" DataField="Post2" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;Post2&#34;]"/>
+      <TfrxMemoView Name="Memo5" Left="535.30736" Top="1.88976378" Width="94.48825" Height="18.89765" DataField="pcName" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;pcName&#34;]"/>
+      <TfrxMemoView Name="Memo6" Left="637.5201" Top="1.88976378" Width="26.45671" Height="18.89765" DataField="pcState_Code" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;pcState_Code&#34;]"/>
+      <TfrxMemoView Name="Memo7" Left="660.19728" Top="1.88976378" Width="52.91342" Height="18.89765" DataField="pcCode" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;pcCode&#34;]"/>
+      <TfrxMemoView Name="Memo1" Left="1.77953" Top="1.88976377952756" Width="109.60637" Height="18.89765" DataField="SurName" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="[frxDBDataset1.&#34;SurName&#34;]"/>
+      <TfrxMemoView Name="Memo2" Left="113.89765" Top="1.88976377952756" Width="109.60637" Height="18.89765" DataField="FirstName" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;FirstName&#34;]"/>
+      <TfrxMemoView Name="Memo3" Left="227.33086" Top="1.88976378" Width="204.09462" Height="18.89765" DataField="Post1" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;Post1&#34;]"/>
+    </TfrxMasterData>
+  </TfrxReportPage>
+</TfrxReport>
