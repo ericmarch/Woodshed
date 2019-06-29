@@ -8,7 +8,8 @@ Uses
   Data.DB,
   Data.Win.ADODB,
   Datasnap.DBClient,
-  Vcl.DBGrids;
+  Vcl.DBGrids,
+  ContactReportsClass;
 
 Type
   TdmoReport = class(TDataModule)
@@ -21,13 +22,17 @@ Type
     Procedure  DataModuleDestroy(Sender: TObject);
   Private
     { Private declarations }
-    Procedure DoEmail;
+    Procedure SelectEmailInfo;
+    Procedure SelectGroupInfo;
   Public
     { Public declarations }
     sDataDirectory: String;
+    aReport: TReportClass;
     Function  GetReportData(sGroupList: TStringList):Integer;
+    Function  GroupName(iWhichGroup: Integer):String;
     Procedure availableCategories(BookmarkList: TBookmarkList);
-    Procedure SelectReportData(iReportNumber: Integer);
+    Procedure SetPrintRunData(aReport:TReportClass);
+    Function  SelectReportData(aReport:TReportClass): Integer;
   End;
 
 Var
@@ -38,8 +43,7 @@ Implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 Uses
-  dmoConnectU,
-  ContactBuildSelectString;
+  dmoConnectU;
 
 {$R *.dfm}
 
@@ -63,7 +67,16 @@ Begin
 End;
 
 
-Procedure  TdmoReport.availableCategories(BookmarkList: TBookmarkList);
+Function  TdmoReport.GroupName(iWhichGroup: Integer):String;
+Begin
+  dst1.Active:= False;
+  dst1.CommandText:= 'Select * FROM CardGroup Where ID = ' + IntToStr(iWhichGroup);
+  dst1.Active:= True;
+  Result:= dst1.FieldByName('Description').AsString;
+End;
+
+
+Procedure TdmoReport.availableCategories(BookmarkList: TBookmarkList);
 Var
   ii: Integer;
 Begin
@@ -121,19 +134,53 @@ Begin
 End;
 
 
-Procedure TdmoReport.DoEmail;
-Begin
+procedure TdmoReport.SelectEmailInfo;
+begin
   dstContactPrintRun.Active:= False;
   dstContactPrintRun.CommandText:= 'Select Surname, Firstname, Email from Card';
   dstContactPrintRun.Active:= True;
+end;
+
+procedure TdmoReport.SelectGroupInfo;
+begin
+  dstContactPrintRun.Active:= False;
+  dstContactPrintRun.CommandText:= 'Select Surname, Firstname, Email from Card';
+  dstContactPrintRun.Active:= True;
+end;
+
+Function  TdmoReport.SelectReportData(aReport:TReportClass): Integer;
+Begin
+  dst1.Active:= False;
+  dst1.CommandText:= 'Select * from tbReportSelect WHERE ReportName = ' + QuotedStr(aReport.rName);
+  dst1.Active:= True;
+  if dst1.RecordCount = 1 then
+  Begin
+    aReport.rID:= dst1.FieldByName('ID').AsInteger;
+    aReport.rSelect:= dst1.FieldByName('SelectColumns').AsString;
+    aReport.rFrom:= dst1.FieldByName('SelectFrom').AsString;
+    aReport.rWhere:= dst1.FieldByName('SelectWhere').AsString;
+    aReport.rOrderBy:= dst1.FieldByName('SelectOrderBy').AsString;
+    Result:= dst1.FieldByName('ID').AsInteger;
+  End
+  Else
+  Begin
+    Result:= 0;
+  End;
 End;
 
 
-Procedure TdmoReport.SelectReportData(iReportNumber: Integer);
+Procedure TdmoReport.SetPrintRunData(aReport: TReportClass);
+Var
+  s1: String;
 Begin
-  case iReportNumber OF
-    5 :  DoEmail;
-  end;
+  s1:= aReport.rSelect + ' ' + aReport.rFrom;
+  if aReport.rWhere > '' then
+    s1:= s1 + ' ' + aReport.rWhere;
+  if aReport.rOrderBy > '' Then
+    s1:= s1 + ' ' + aReport.rOrderBy;
+  dstContactPrintRun.Active:= False;
+  dstContactPrintRun.CommandText:= s1;
+  dstContactPrintRun.Active:= True;
 End;
 
 

@@ -21,30 +21,48 @@ uses
   SMDBGrid,
   frxClass,
   frxDBSet,
+  ContactReportsClass,
   SMDBGrid1;
 
 
 Type
   TfReportContact = class(TForm)
     MainMenu1: TMainMenu;
-    Select: TMenuItem;
-    Display1: TMenuItem;
-    Exit1: TMenuItem;
-    stgReports: TStringGrid;
+    mnuSelect: TMenuItem;
+    mnuDisplay: TMenuItem;
+    mnuExit: TMenuItem;
+    stgReportGrid: TStringGrid;
     StaticText1: TStaticText;
     frxDBDataset1: TfrxDBDataset;
-    dscPrintRun: TDataSource;
+    dscPrintRun01: TDataSource;
     frxReport1: TfrxReport;
-    Procedure Exit1Click(Sender: TObject);
+    frxDBDataset2: TfrxDBDataset;
+    dscPrintRun02: TDataSource;
+    edtFromSurname: TLabeledEdit;
+    edtToSurname: TLabeledEdit;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    ComboBox1: TComboBox;
+    ComboBox2: TComboBox;
+    lblGroup1: TLabel;
+    LblGroup2: TLabel;
+    lblGroup3: TLabel;
+    lblCategory1: TLabel;
+    lblToCategory: TLabel;
+    Procedure mnuExitClick(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
-    Procedure stgReportsDblClick(Sender: TObject);
-    Procedure stgReportsClick(Sender: TObject);
-    Procedure SelectClick(Sender: TObject);
+    Procedure stgReportGridDblClick(Sender: TObject);
+    Procedure stgReportGridClick(Sender: TObject);
+    Procedure mnuSelectClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure mnuDisplayClick(Sender: TObject);
   Private
     { Private declarations }
+    sReportDir: String;    // See dmoConnect - Directory where Report Files are stored
     Procedure DoSelect;
-    Procedure SearchFiles(aDirectory: string);
+    Procedure ShowReportNames(aDirectory: string);
     Procedure GetReportOptions;
     Procedure ClearForm;
   Public
@@ -53,8 +71,11 @@ Type
     fLeft: Integer;
   End;
 
+Const
+  CRLF = #13#10;
 Var
   fReportContact: TfReportContact;
+  aReport: TReportClass;    // ContactReportClass
 
 Implementation
 
@@ -62,94 +83,118 @@ Implementation
 
 Uses dmoReportU;
 
-Procedure TfReportContact.Exit1Click(Sender: TObject);
+Procedure TfReportContact.mnuExitClick(Sender: TObject);
 Begin
   Close;
 End;
 
 
 Procedure TfReportContact.FormCreate(Sender: TObject);
+var
+  ii, iLn, iFont: Integer;
 Begin
   dmoReport:= TdmoReport.Create(Self);
-  DoSelect;
+  aReport:= TReportClass.Create;
+  sReportDir:= dmoReport.sDataDirectory + 'frf\Contacts\';
 End;
 
 
 Procedure TfReportContact.FormDestroy(Sender: TObject);
 Begin
   dmoReport.Free;
+  aReport.Free;
 End;
 
 
-Procedure TfReportContact.SearchFiles(aDirectory: string);
+Procedure TfReportContact.FormShow(Sender: TObject);
+Begin
+  lblGroup1.Caption:= dmoReport.GroupName(1);
+  lblGroup2.Caption:= dmoReport.GroupName(2);
+  lblGroup3.Caption:= dmoReport.GroupName(3);
+  ClearForm;
+End;
+
+
+Procedure TfReportContact.ShowReportNames(aDirectory: string);
 Var
   MySearch: TSearchRec;
   s1: String;
   FindResult, iGridRow, iGridRowCount: Integer;
 Begin
+  iGridRow:= 0;
   FindResult:=FindFirst(aDirectory+'\*.*', faAnyFile, MySearch);
   While FindNext(MySearch)=0 do
   Begin
     if (MySearch.Attr<>faDirectory)and(MySearch.Name<>'.')and(MySearch.Name<>'..') then
     Begin
-      iGridRow:= stgReports.RowCount;
+      iGridRow:= stgReportGrid.RowCount;
       s1:= MySearch.Name;
-      stgReports.Cells[0, iGridRow-1]:= s1;
-      stgReports.RowCount:= iGridRow + 1;
+      stgReportGrid.Cells[0, iGridRow-1]:= s1;
+      stgReportGrid.RowCount:= iGridRow + 1;
     End;
   End;
-  stgReports.RowCount:= iGridRow - 1;
+  stgReportGrid.RowCount:= iGridRow - 1;
 End;
 
 
 Procedure TfReportContact.ClearForm;
 Begin
-   stgReports.RowCount:= 1;
-   stgReports.Cells[0, 0]:= '';
+  stgReportGrid.RowCount:= 1;
+  stgReportGrid.Cells[0, 0]:= '';
+  mnuDisplay.Enabled:= False;
+  ShowReportNames(sReportdir);
 End;
 
 
-Procedure TfReportContact.DoSelect;
-Var
-  sFrxDir: String;    // Directory where Report Files are stored
-Begin
-  sFrxDir:= dmoReport.sDataDirectory + 'frf\Contacts\';
-  SearchFiles(sFrxdir);
-End;
-
-
-Procedure TfReportContact.SelectClick(Sender: TObject);
+Procedure TfReportContact.mnuSelectClick(Sender: TObject);
 begin
   ClearForm;
-  DoSelect;
 End;
 
 
-Procedure TfReportContact.GetReportOptions;
-Var
-  sReportname, sFrxFile: String;
-  sFrxDir: String;    // Directory where Report Files are stored
+Procedure TfReportContact.mnuDisplayClick(Sender: TObject);
 Begin
-  sFrxDir:= dmoReport.sDataDirectory + 'frf\Contacts\';
-  sReportName:= stgReports.Cells[0, stgReports.Row];
-  sFrxFile:= sFrxDir + sReportName;
-//  ShowMessage(sFrxFile + ' ' + IntToStr(stgReports.Row));
-  dmoReport.SelectReportData(stgReports.Row + 1);
+  dmoReport.SetPrintRunData(aReport);
+
   frxDBDataset1.DataSet:= dmoReport.dstContactPrintRun;
-  frxReport1.LoadFromFile(sFrxFile);
+  frxReport1.LoadFromFile(aReport.rFileName);
   frxReport1.ShowReport;
 End;
 
 
-Procedure TfReportContact.stgReportsClick(Sender: TObject);
+Procedure TfReportContact.GetReportOptions;
+Begin
+  aReport.rName:= stgReportGrid.Cells[0, stgReportGrid.Row];
+  aReport.rFileName:= sReportDir + aReport.rName;
+  ShowMessage('File = ' + sReportDir + CRLF
+        + 'Name = ' + aReport.rName);
+  If dmoReport.SelectReportData(aReport) > 0 Then
+  Begin
+      mnuDisplay.Enabled:= True;
+  End
+  Else
+  Begin
+    mnuDisplay.Enabled:= False;
+    ShowMessage('Selected report does not exist in ' + CRLF + 'Table tbReportSelect');
+  End;
+End;
+
+
+Procedure TfReportContact.stgReportGridClick(Sender: TObject);
 Begin
   GetReportOptions;
 End;
 
 
-Procedure TfReportContact.stgReportsDblClick(Sender: TObject);
+Procedure TfReportContact.stgReportGridDblClick(Sender: TObject);
 Begin
   GetReportOptions;
+End;
+
+
+Procedure TfReportContact.DoSelect;
+Begin
+  ShowReportNames(sReportdir);
 End;
 
 
