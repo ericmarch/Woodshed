@@ -23,6 +23,9 @@ type
     StaticText1: TStaticText;
     txtFirstName: TStaticText;
     btnAddOK: TSpeedButton;
+    cbxGroup4: TCheckBox;
+    cbxGroup5: TCheckBox;
+    cbxGroup6: TCheckBox;
     Procedure edtSurnameKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     Procedure btnAddOKClick(Sender: TObject);
@@ -57,24 +60,21 @@ Begin
   aContact.Group1:= False;
   aContact.Group2:= False;
   aContact.Group3:= False;
-  aContact.Group1Desc:= '';
-  aContact.Group2Desc:= '';
-  aContact.Group3Desc:= '';
+  aContact.Group4:= False;
+  aContact.Group5:= False;
+  aContact.Group6:= False;
 
   if cbxGroup1.Checked then
   Begin
     aContact.Group1:= True;
-    aContact.Group1Desc:= cbxGroup1.Caption;
   End;
   if cbxGroup2.Checked then
   Begin
     aContact.Group2:= True;
-    aContact.Group2Desc:= cbxGroup2.Caption;
   End;
   if cbxGroup3.Checked then
   Begin
     aContact.Group3:= True;
-    aContact.Group3Desc:= cbxGroup3.Caption;
   End;
   aContact.sIDAlpha:= aContact.sNewAlphaID;
 End;

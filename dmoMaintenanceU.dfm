@@ -163,7 +163,7 @@ object dmoMaintenance: TdmoMaintenance
   object dstOmnibus: TADODataSet
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
-    CommandText = 'select Description from CardGroup where ID = 1'
+    CommandText = 'select ID, Description from tbGroup where ID = 1'
     Parameters = <>
     Left = 72
     Top = 240
@@ -245,5 +245,12 @@ object dmoMaintenance: TdmoMaintenance
     Parameters = <>
     Left = 472
     Top = 168
+  end
+  object qryCardTemp: TADOQuery
+    Connection = dmoConnect.conConnect
+    Filtered = True
+    Parameters = <>
+    Left = 640
+    Top = 32
   end
 end

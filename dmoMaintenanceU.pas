@@ -43,13 +43,13 @@ type
     dstMemOccLink: TADODataSet;
     dstMemOccupation: TADODataSet;
     dstPartnerType: TADODataSet;
+    qryCardTemp: TADOQuery;
 
     Procedure DataModuleCreate(Sender: TObject);
     Procedure DataModuleDestroy(Sender: TObject);
     Procedure dstNoteAbbrevAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
-    Procedure SaveContactGroup(iCardID: Integer; aContact:TContact);
     Procedure AddCardNote(iCardID: Integer; sNote: String);
     Function  NewCardID:Integer;
   public
@@ -67,7 +67,6 @@ type
     Procedure SetID_SearchGrid(aContact:TContact);
     Procedure GetID_Address(aContact:TContact);
     Function  GroupName(iGroupID: Integer):String;
-    Function  ContactInGroup(iCardID, iGroupID: Integer):Boolean;
     Function  IsContactAMember:Boolean;
     Procedure GetCardCategories(iCardID: Integer);
     Procedure AddCategory(iCatID: Integer);
@@ -82,8 +81,8 @@ type
     Procedure FilterPostCode(sTown, sState: String);
     Procedure GetCustomFieldNames;
     Function  SaveCustomFieldName(sNewName: String):Boolean;
-    Procedure RecTemp;
-    Procedure StartCardSearch;
+    Procedure RecTemp1;
+    Procedure RecTemp2;
     Procedure AddContactFamily(fTypeID: Integer; fSurname, fFirstName, fMobile,
                                fLandLine, fEmail, fMoreInfo: String);
 
@@ -108,37 +107,6 @@ uses dmoConnectU;
 {$R *.dfm}
 
 { TdmoMaintContact }
-
-Procedure TdmoMaintenance.RecTemp;
-Var
-  nn: Integer;
-  s1, sIDAlpha, sSurname, sFirstName, sIDasSTR: String;
-Begin
-  s1:= 'Select ID, IDAlpha, Surname, FirstName From Card Order By ID';
-  qryCard.Active:= False;
-  qryCard.SQL.Clear;
-  qryCard.SQL.Add(s1);
-  qryCard.Active:= True;
-  while NOT qryCard.Eof do
-  Begin
-    sSurname:= qryCard.FieldByName('Surname').AsString;
-    nn:= Length(sSurname);
-    if nn > 3 then
-      sSurname:= Copy(sSurname, 1, 3);
-    sFirstName:= qryCard.FieldByName('FirstName').AsString;
-    if Length(sFirstName) > 3 then
-      sFirstName:= Copy(sFirstName, 1, 3);
-    sIDasSTR:= IntToStr(qryCard.FieldByName('ID').AsInteger);
-    while Length(sIDasStr) < 4 do
-    Begin
-      sIDasStr:= '0' + sIDasStr;
-    End;
-    sIDAlpha:= sSurname + sFirstName + sIDasSTR;
-    qryCard.FieldByName('IDAlpha').AsString:= sIDAlpha;
-    qryCard.Post;
-    qryCard.Next;
-  End;
-End;
 
 
 Procedure TdmoMaintenance.DataModuleCreate(Sender: TObject);
@@ -292,20 +260,6 @@ Begin
 End;
 
 
-function TdmoMaintenance.ContactInGroup(iCardID, iGroupID: Integer):Boolean;
-Begin
-  dstOmnibus.Active:= False;
-  dstOmnibus.CommandText:= 'SELECT CardID, GroupID From CardGroupLink '
-           + 'WHERE CardID = ' + IntToStr(iCardID)
-           + ' AND GroupID = ' + IntToStr(iGroupID);
-  dstOmnibus.Active:= True;
-  if dstOmnibus.RecordCount = 1 Then
-    Result:= True
-  Else
-    Result:= False;
-End;
-
-
 Procedure TdmoMaintenance.GetNoteAbbrev(iCardID: Integer);
 Begin
   dstNoteAbbrev.Active:= False;
@@ -320,8 +274,7 @@ End;
 function TdmoMaintenance.GroupName(iGroupID: Integer): String;
 Begin
   dstOmnibus.Active:= False;
-  dstOmnibus.Active:= False;
-  dstOmnibus.CommandText:= 'SELECT ID, Description From CardGroup '
+  dstOmnibus.CommandText:= 'SELECT ID, Description From tbGroup '
            + 'WHERE ID = ' + IntToStr(iGroupID);
   dstOmnibus.Active:= True;
   if dstOmnibus.RecordCount = 1 Then
@@ -482,60 +435,6 @@ Begin
   dstCardSearch.Active:= False;
   dstCardSearch.CommandText:= SelectStr;
   dstCardSearch.Active:= True;
-End;
-
-
-Procedure TdmoMaintenance.SaveContactGroup(iCardID: Integer; aContact:TContact);
-Begin
- IF NOT((ContactInGroup(iCardID, 1)) = (aContact.Group1)) Then            // If contact not in group1
-  Begin
-    if aContact.Group1 then                                                 // Should Contact be in Group1 THEN
-    Begin                                                                   // Insert contact into group1
-      cmd1.CommandText:= 'Insert Into CardGroupLink (CardID, GroupID) VALUES ('
-              + IntToStr(iCardID) + ', ' + IntToStr(1) + ')';
-    END
-    ELSE
-    Begin
-      cmd1.CommandText:= 'Delete FROM CardGroupLink '                       // ELSE Delete it from group1
-              + 'WHERE CardID = ' + IntToStr(iCardID)
-              + ' AND GroupID = 1';
-    End;
-    cmd1.Execute;
-  End;
-
-  IF NOT((ContactInGroup(iCardID, 2)) = (aContact.Group2)) Then            // If contact not in group2
-  Begin
-    if aContact.Group2 then                                                // Should Contact be in group2 THEN
-    Begin                                                                  // Insert contact into group2
-      cmd1.CommandText:= 'Insert Into CardGroupLink (CardID, GroupID) VALUES ('
-              + IntToStr(iCardID) + ', ' + IntToStr(2) + ')';
-    END
-    ELSE
-    Begin
-      cmd1.CommandText:= 'Delete FROM CardGroupLink '                       // ELSE Delete it from group2
-              + 'WHERE CardID = ' + IntToStr(iCardID)
-              + ' AND GroupID = 2';
-    End;
-    cmd1.Execute;
-  End;
-
-
-  IF NOT((ContactInGroup(iCardID, 3)) = (aContact.Group3)) Then            // If contact not in group3
-  Begin
-    if aContact.Group3 then                                                 // Should Contact be in group3 THEN
-    Begin                                                                   // Insert contact into group3
-      cmd1.CommandText:= 'Insert Into CardGroupLink (CardID, GroupID) VALUES ('
-              + IntToStr(iCardID) + ', ' + IntToStr(3) + ')';
-    END
-    ELSE
-    Begin                                                                   // ELSE Delete it from group2
-      cmd1.CommandText:= 'Delete FROM CardGroupLink '
-              + 'WHERE CardID = ' + IntToStr(iCardID)
-              + ' AND GroupID = 3';
-    End;
-    cmd1.Execute;
-  End;
-
 End;
 
 
@@ -737,8 +636,6 @@ begin
   cmd1.Execute;
   CardReset;
   aContact.iCardID:= iRecID;
-  //  Add or Delete Groups for this contact;
-  SaveContactGroup(iRecID, aContact);
 
   qryCard.Active:= False;
   qryCard.SQL.Clear;
@@ -809,7 +706,6 @@ Var
 Begin
   iCardID:= qryCard.FieldByName('ID').AsInteger;
   iOrgIDOld:= qryCard.FieldByName('OrgID').AsInteger;
-  SaveContactGroup(iCardID, aContact);
   if NOT (qryCard.State in [dsEdit, dsInsert]) then
   Begin
     qryCard.Edit;
@@ -846,6 +742,12 @@ Begin
   aContact.sIDAlpha:= qryCard.FieldByName('IDAlpha').AsString;
   aContact.sSurname:= qryCard.FieldByName('Surname').AsString;
   aContact.sFirstName:= qryCard.FieldByName('FirstName').AsString;
+  aContact.Group1:= qryCard.FieldByName('Group1').AsBoolean;
+  aContact.Group2:= qryCard.FieldByName('Group2').AsBoolean;
+  aContact.Group3:= qryCard.FieldByName('Group3').AsBoolean;
+  aContact.Group4:= qryCard.FieldByName('Group4').AsBoolean;
+  aContact.Group5:= qryCard.FieldByName('Group5').AsBoolean;
+  aContact.Group6:= qryCard.FieldByName('Group6').AsBoolean;
   GetCardCategories(aContact.iCardID);
   aContact.bIsMember:= IsContactAMember;
 
@@ -879,15 +781,6 @@ Begin
   dstFamily.Active:= True;
 End;
 
-
-Procedure TdmoMaintenance.StartCardSearch;
-Begin
-  dst1.Active:= False;
-  dstCardSearch.Active:= False;
-  dstCardSearch.CommandText:= 'SELECT * FROM qCardCatGroup '
-            + 'ORDER BY SurName, FirstName, IDAlpha';
-  dstCardSearch.Active:= True;
-End;
 
 //--------------------------- Member Information -----------------------------------//
 
@@ -987,6 +880,95 @@ begin
 //  qryMember.Post;
 End;
 
+
+
+
+Procedure TdmoMaintenance.RecTemp1;
+Var
+  nn: Integer;
+  s1, sIDAlpha, sSurname, sFirstName, sIDasSTR: String;
+Begin
+  s1:= 'Select ID, IDAlpha, Surname, FirstName From Card Order By ID';
+  qryCard.Active:= False;
+  qryCard.SQL.Clear;
+  qryCard.SQL.Add(s1);
+  qryCard.Active:= True;
+  while NOT qryCard.Eof do
+  Begin
+    sSurname:= qryCard.FieldByName('Surname').AsString;
+    nn:= Length(sSurname);
+    if nn > 3 then
+      sSurname:= Copy(sSurname, 1, 3);
+    sFirstName:= qryCard.FieldByName('FirstName').AsString;
+    if Length(sFirstName) > 3 then
+      sFirstName:= Copy(sFirstName, 1, 3);
+    sIDasSTR:= IntToStr(qryCard.FieldByName('ID').AsInteger);
+    while Length(sIDasStr) < 4 do
+    Begin
+      sIDasStr:= '0' + sIDasStr;
+    End;
+    sIDAlpha:= sSurname + sFirstName + sIDasSTR;
+    qryCard.FieldByName('IDAlpha').AsString:= sIDAlpha;
+    qryCard.Post;
+    qryCard.Next;
+  End;
+End;
+
+
+Procedure TdmoMaintenance.RecTemp2;
+Var
+  b1, b2, b3: Boolean;
+  nn: Integer;
+  s1 : String;
+Begin
+  dstOmnibus.Active:= False;
+  dstOmnibus.CommandText:= 'Select ID, Group1, Group2, Group3, Group4, Group5, Group6 From Card Order By ID';
+  dstOmnibus.Active:= True;
+  while NOT dstOmnibus.Eof do
+  Begin
+    nn:= dstOmnibus.FieldByName('ID').AsInteger;
+    s1:= 'Select * From Card WHERE ID = ' + IntToStr(nn);
+    qryCardTemp.Active:= False;
+    qryCardTemp.SQL.Clear;
+    qryCardTemp.SQL.Add(s1);
+    qryCardTemp.Active:= True;
+    qryCardTemp.Edit;
+
+    qryCardTemp.FieldByName('Group1').AsBoolean:= False;
+    qryCardTemp.FieldByName('Group2').AsBoolean:= False;
+    qryCardTemp.FieldByName('Group3').AsBoolean:= False;
+    qryCardTemp.FieldByName('Group4').AsBoolean:= False;
+    qryCardTemp.FieldByName('Group5').AsBoolean:= False;
+    qryCardTemp.FieldByName('Group6').AsBoolean:= False;
+
+    s1:= 'Select CardID, GroupID From CardGroupLink Where ((CardID = ' + IntToStr(nn) + ') AND (GroupID = 1))';
+    dst1.Active:= False;
+    dst1.CommandText:= s1;
+    dst1.Active:= True;
+    if dst1.RecordCount = 1 then
+    Begin
+      qryCardTemp.FieldByName('Group3').AsBoolean:= True;
+    End;
+    s1:= 'Select CardID, GroupID From CardGroupLink Where ((CardID = ' + IntToStr(nn) + ') AND (GroupID = 2))';
+    dst1.Active:= False;
+    dst1.CommandText:= s1;
+    dst1.Active:= True;
+    if dst1.RecordCount = 1 then
+    Begin
+      qryCardTemp.FieldByName('Group4').AsBoolean:= True;
+    End;
+    s1:= 'Select CardID, GroupID From CardGroupLink Where ((CardID = ' + IntToStr(nn) + ') AND (GroupID = 3))';
+    dst1.Active:= False;
+    dst1.CommandText:= s1;
+    dst1.Active:= True;
+    if dst1.RecordCount = 1 then
+    Begin
+      qryCardTemp.FieldByName('Group5').AsBoolean:= True;
+    End;
+    qryCardTemp.Post;
+    dstOmnibus.Next;
+  End;
+End;
 
 
 End.

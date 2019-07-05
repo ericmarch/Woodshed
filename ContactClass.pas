@@ -19,9 +19,9 @@ type
     bGroup1: Boolean;
     bGroup2: Boolean;
     bGroup3: Boolean;
-    sGroup1Desc: String;
-    sGroup2Desc: String;
-    sGroup3Desc: String;
+    bGroup4: Boolean;
+    bGroup5: Boolean;
+    bGroup6: Boolean;
     bNoteAdded: Boolean;
     sPostalTown: String;
     sPostalState: String;
@@ -44,9 +44,9 @@ type
     property Group1: Boolean read bGroup1 write bGroup1;
     property Group2: Boolean read bGroup2 write bGroup2;
     property Group3: Boolean read bGroup3 write bGroup3;
-    property Group1Desc: String read sGroup1Desc write sGroup1Desc;
-    property Group2Desc: String read sGroup2Desc write sGroup2Desc;
-    property Group3Desc: String read sGroup3Desc write sGroup3Desc;
+    property Group4: Boolean read bGroup4 write bGroup4;
+    property Group5: Boolean read bGroup5 write bGroup5;
+    property Group6: Boolean read bGroup6 write bGroup6;
     property NoteAdded: Boolean read bNoteAdded write bNoteAdded;
     property PostalTown: String read sPostalTown write sPostalTown;
     property PostalState: String read sPostalState write sPostalState;

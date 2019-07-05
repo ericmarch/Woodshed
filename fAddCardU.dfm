@@ -3,7 +3,7 @@ object fAddCard: TfAddCard
   Top = 0
   BorderIcons = []
   Caption = 'New Contact'
-  ClientHeight = 206
+  ClientHeight = 242
   ClientWidth = 442
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,46 +17,46 @@ object fAddCard: TfAddCard
   PixelsPerInch = 96
   TextHeight = 13
   object btnAddCancel: TSpeedButton
-    Left = 216
-    Top = 96
+    Left = 199
+    Top = 176
     Width = 50
     Height = 22
     Caption = 'Cancel'
     OnClick = btnAddCancelClick
   end
   object btnAddOK: TSpeedButton
-    Left = 216
-    Top = 124
+    Left = 199
+    Top = 204
     Width = 50
     Height = 22
     Caption = '&OK'
     OnClick = btnAddOKClick
   end
   object cbxGroup1: TCheckBox
-    Left = 72
-    Top = 80
+    Left = 73
+    Top = 84
     Width = 97
     Height = 17
     Alignment = taLeftJustify
-    Caption = 'Woodshed'
+    Caption = 'Business'
     TabOrder = 2
   end
   object cbxGroup2: TCheckBox
     Left = 72
-    Top = 110
+    Top = 114
     Width = 97
     Height = 17
     Alignment = taLeftJustify
-    Caption = 'Other Org'
+    Caption = 'Customer'
     TabOrder = 3
   end
   object cbxGroup3: TCheckBox
     Left = 80
-    Top = 133
+    Top = 144
     Width = 90
     Height = 17
     Alignment = taLeftJustify
-    Caption = 'Personal'
+    Caption = 'Membership'
     TabOrder = 4
   end
   object edtFirstName: TEdit
@@ -89,5 +89,32 @@ object fAddCard: TfAddCard
     Height = 17
     Caption = 'First Name'
     TabOrder = 6
+  end
+  object cbxGroup4: TCheckBox
+    Left = 264
+    Top = 84
+    Width = 97
+    Height = 17
+    Alignment = taLeftJustify
+    Caption = 'Organisation'
+    TabOrder = 7
+  end
+  object cbxGroup5: TCheckBox
+    Left = 264
+    Top = 114
+    Width = 97
+    Height = 17
+    Alignment = taLeftJustify
+    Caption = 'Personal'
+    TabOrder = 8
+  end
+  object cbxGroup6: TCheckBox
+    Left = 271
+    Top = 144
+    Width = 90
+    Height = 17
+    Alignment = taLeftJustify
+    Caption = 'Supplier'
+    TabOrder = 9
   end
 end

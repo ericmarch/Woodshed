@@ -5,19 +5,12 @@ object dmoReport: TdmoReport
   Height = 309
   Width = 452
   object dstGridSelection: TADODataSet
+    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
-    CommandText = 'select * from CardReportName'
+    CommandText = 'select * from ReportSelect'
     Parameters = <>
     Left = 40
-    Top = 29
-  end
-  object dstCardGroup: TADODataSet
-    Connection = dmoConnect.conConnect
-    CursorType = ctStatic
-    CommandText = 'select IsSelected, ID, Description from CardGroup'
-    Parameters = <>
-    Left = 168
     Top = 29
   end
   object dstContactPrintRun: TADODataSet
@@ -25,17 +18,30 @@ object dmoReport: TdmoReport
     CursorType = ctStatic
     LockType = ltReadOnly
     CommandText = 
-      'SELECT Card.SurName, Card.FirstName, Card.Locn1, Card.Locn2, au_' +
-      'Towns.pcName, au_Towns.pcState_Code, au_Towns.pcCode, Card.IDAlp' +
-      'ha, CardGroupLink.GroupID FROM ((Card LEFT JOIN CardGroupLink ON' +
-      ' Card.ID = CardGroupLink.CardID) LEFT JOIN CardGroup ON CardGrou' +
-      'pLink.GroupID = CardGroup.ID) LEFT JOIN au_Towns ON Card.LocnauT' +
-      'ownsID = au_Towns.ID'
-    Parameters = <>
+      'select SurName, FirstName, Email, Mobile, LandLine, Post1, Post2' +
+      ', PostPostCode, PostState, CustomFieldName1, CustomField1, Custo' +
+      'mFieldName2, CustomField2 from vContactCard'
+    Parameters = <
+      item
+        Name = 'CustomFieldName1'
+        Attributes = [paNullable]
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 510
+      end
+      item
+        Name = 'CustomFieldName2'
+        Attributes = [paNullable]
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 510
+      end>
     Left = 168
     Top = 93
   end
-  object dstCardCategory: TADODataSet
+  object dstHeader: TADODataSet
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     CommandText = 'select ID, IsSelected, Description from CardCategory'
@@ -52,5 +58,12 @@ object dmoReport: TdmoReport
     Parameters = <>
     Left = 296
     Top = 88
+  end
+  object dstGroup: TADODataSet
+    Connection = dmoConnect.conConnect
+    CursorType = ctStatic
+    Parameters = <>
+    Left = 168
+    Top = 29
   end
 end

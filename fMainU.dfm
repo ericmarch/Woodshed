@@ -516,14 +516,7 @@ object fMain: TfMain
     object Reports1: TMenuItem
       Caption = 'Reports'
       Enabled = False
-      object ContactsReports: TMenuItem
-        Caption = 'Contacts'
-        OnClick = ContactsReportsClick
-      end
-      object MembersReports: TMenuItem
-        Caption = 'Members'
-        OnClick = MembersReportsClick
-      end
+      OnClick = Reports1Click
     end
     object Search1: TMenuItem
       Caption = '&Search'

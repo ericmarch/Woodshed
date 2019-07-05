@@ -27,12 +27,6 @@ uses
 
 Type
   TfReportContact = class(TForm)
-    MainMenu1: TMainMenu;
-    mnuSelect: TMenuItem;
-    mnuDisplay: TMenuItem;
-    mnuExit: TMenuItem;
-    stgReportGrid: TStringGrid;
-    StaticText1: TStaticText;
     frxDBDataset1: TfrxDBDataset;
     dscPrintRun01: TDataSource;
     frxReport1: TfrxReport;
@@ -50,20 +44,24 @@ Type
     lblGroup3: TLabel;
     lblCategory1: TLabel;
     lblToCategory: TLabel;
+    lblGroup4: TLabel;
+    CheckBox4: TCheckBox;
+    SMDBGrid1: TSMDBGrid;
+    dscGridSelection: TDataSource;
+    MainMenu1: TMainMenu;
+    mnuPrint: TMenuItem;
+    mnuXL: TMenuItem;
+    mnuExit: TMenuItem;
     Procedure mnuExitClick(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
-    Procedure stgReportGridDblClick(Sender: TObject);
-    Procedure stgReportGridClick(Sender: TObject);
-    Procedure mnuSelectClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure mnuDisplayClick(Sender: TObject);
+    procedure mnuPrintClick(Sender: TObject);
+    procedure SMDBGrid1CellClick(Column: TColumn);
   Private
     { Private declarations }
     sReportDir: String;    // See dmoConnect - Directory where Report Files are stored
-    Procedure DoSelect;
-    Procedure ShowReportNames(aDirectory: string);
-    Procedure GetReportOptions;
+    Procedure NewReportSelects(aDirectory: string);
     Procedure ClearForm;
   Public
     { Public declarations }
@@ -95,7 +93,7 @@ var
 Begin
   dmoReport:= TdmoReport.Create(Self);
   aReport:= TReportClass.Create;
-  sReportDir:= dmoReport.sDataDirectory + 'frf\Contacts\';
+  sReportDir:= dmoReport.sDataDirectory + 'frf\';
 End;
 
 
@@ -111,13 +109,14 @@ Begin
   lblGroup1.Caption:= dmoReport.GroupName(1);
   lblGroup2.Caption:= dmoReport.GroupName(2);
   lblGroup3.Caption:= dmoReport.GroupName(3);
+  lblGroup4.Caption:= dmoReport.GroupName(4);
   ClearForm;
 End;
 
 
-Procedure TfReportContact.ShowReportNames(aDirectory: string);
-Var
-  MySearch: TSearchRec;
+Procedure TfReportContact.NewReportSelects(aDirectory: string);       // Check Text File against Fast Report Files
+Var                                                                   // Update as necessary
+  MySearch: TSearchRec;                                               // To Do as at 1/7/19
   s1: String;
   FindResult, iGridRow, iGridRowCount: Integer;
 Begin
@@ -127,74 +126,47 @@ Begin
   Begin
     if (MySearch.Attr<>faDirectory)and(MySearch.Name<>'.')and(MySearch.Name<>'..') then
     Begin
-      iGridRow:= stgReportGrid.RowCount;
-      s1:= MySearch.Name;
-      stgReportGrid.Cells[0, iGridRow-1]:= s1;
-      stgReportGrid.RowCount:= iGridRow + 1;
+//      iGridRow:= stgReportGrid.RowCount;
+//      s1:= MySearch.Name;
+//      stgReportGrid.Cells[0, iGridRow-1]:= s1;
+//      stgReportGrid.RowCount:= iGridRow + 1;
     End;
   End;
-  stgReportGrid.RowCount:= iGridRow - 1;
+//  stgReportGrid.RowCount:= iGridRow - 1;
 End;
 
+
+procedure TfReportContact.SMDBGrid1CellClick(Column: TColumn);
+begin
+  aReport.rID:= dmoReport.dstGridSelection.FieldByName('ID').AsInteger;
+  dmoReport.SelectReportData(aReport);
+  if aReport.rID > 0 then
+  Begin
+    mnuPrint.Enabled:= True;
+  End
+  Else
+  Begin
+    mnuPrint.Enabled:= False;
+    ShowMessage('Report info not in ReportSelect Table');
+  End;
+End;
 
 Procedure TfReportContact.ClearForm;
 Begin
-  stgReportGrid.RowCount:= 1;
-  stgReportGrid.Cells[0, 0]:= '';
-  mnuDisplay.Enabled:= False;
-  ShowReportNames(sReportdir);
+  CheckBox1.Checked:= True;
+  CheckBox2.Checked:= True;
+  CheckBox3.Checked:= True;
+  CheckBox4.Checked:= True;
 End;
 
 
-Procedure TfReportContact.mnuSelectClick(Sender: TObject);
-begin
-  ClearForm;
-End;
-
-
-Procedure TfReportContact.mnuDisplayClick(Sender: TObject);
+Procedure TfReportContact.mnuPrintClick(Sender: TObject);
 Begin
   dmoReport.SetPrintRunData(aReport);
 
   frxDBDataset1.DataSet:= dmoReport.dstContactPrintRun;
   frxReport1.LoadFromFile(aReport.rFileName);
   frxReport1.ShowReport;
-End;
-
-
-Procedure TfReportContact.GetReportOptions;
-Begin
-  aReport.rName:= stgReportGrid.Cells[0, stgReportGrid.Row];
-  aReport.rFileName:= sReportDir + aReport.rName;
-  ShowMessage('File = ' + sReportDir + CRLF
-        + 'Name = ' + aReport.rName);
-  If dmoReport.SelectReportData(aReport) > 0 Then
-  Begin
-      mnuDisplay.Enabled:= True;
-  End
-  Else
-  Begin
-    mnuDisplay.Enabled:= False;
-    ShowMessage('Selected report does not exist in ' + CRLF + 'Table tbReportSelect');
-  End;
-End;
-
-
-Procedure TfReportContact.stgReportGridClick(Sender: TObject);
-Begin
-  GetReportOptions;
-End;
-
-
-Procedure TfReportContact.stgReportGridDblClick(Sender: TObject);
-Begin
-  GetReportOptions;
-End;
-
-
-Procedure TfReportContact.DoSelect;
-Begin
-  ShowReportNames(sReportdir);
 End;
 
 

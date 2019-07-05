@@ -3,7 +3,11 @@ unit fMainU;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
@@ -27,18 +31,15 @@ type
     Reports1: TMenuItem;
     Exit1: TMenuItem;
     Image1: TImage;
-    ContactsReports: TMenuItem;
-    MembersReports: TMenuItem;
     Logon1: TMenuItem;
     Search1: TMenuItem;
     procedure Exit1Click(Sender: TObject);
-    procedure ContactsReportsClick(Sender: TObject);
-    procedure MembersReportsClick(Sender: TObject);
-    procedure Maintenance1Click(Sender: TObject);
     procedure Logon1Click(Sender: TObject);
+    procedure Maintenance1Click(Sender: TObject);
+    procedure Reports1Click(Sender: TObject);
+    procedure Search1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure Search1Click(Sender: TObject);
       private
     { Private declarations }
   public
@@ -90,8 +91,6 @@ Begin
       Logon1.Caption:= '&Logoff';
       Maintenance1.Enabled:= True;
       Reports1.Enabled:= True;
-      ContactsReports.Enabled:= True;
-      MembersReports.Enabled:= True;
     End;
   End
   Else
@@ -99,8 +98,6 @@ Begin
     Logon1.Caption:= '&Logon';
     Maintenance1.Enabled:= False;
     Reports1.Enabled:= False;
-    ContactsReports.Enabled:= False;
-    MembersReports.Enabled:= False;
   End;
 End;
 
@@ -117,32 +114,20 @@ Begin
 End;
 
 
-Procedure TfMain.ContactsReportsClick(Sender: TObject);
-var
-  afReportContact: TfReportContact;
+Procedure TfMain.Reports1Click(Sender: TObject);
+Var
+  afReport: TfReportContact;
 Begin
-  afReportContact:= TfReportContact.Create(Self);
-  afReportContact.fTop:= Top - 60;
-  afReportContact.fLeft:= Left - 20;
-  afReportContact.ShowModal;
-  FreeAndNil(afReportContact);
-End;
-
-
-Procedure TfMain.MembersReportsClick(Sender: TObject);
-var
-  afReportContact: TfReportContact;
-Begin
-  afReportContact:= TfReportContact.Create(Self);
-  afReportContact.fTop:= Top - 60;
-  afReportContact.fLeft:= Left - 20;
-  afReportContact.ShowModal;
-  FreeAndNil(afReportContact);
+  afReport:= TfReportContact.Create(Self);
+  afReport.fTop:= Top - 60;
+  afReport.fLeft:= Left - 20;
+  afReport.ShowModal;
+  FreeAndNil(afReport);
 End;
 
 
 Procedure TfMain.Search1Click(Sender: TObject);
-var
+Var
   afSearch: TfSearch;
 Begin
   afSearch:= TfSearch.Create(Self);

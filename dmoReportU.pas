@@ -14,16 +14,14 @@ Uses
 Type
   TdmoReport = class(TDataModule)
     dstGridSelection: TADODataSet;
-    dstCardGroup: TADODataSet;
     dstContactPrintRun: TADODataSet;
-    dstCardCategory: TADODataSet;
+    dstHeader: TADODataSet;
     dst1: TADODataSet;
+    dstGroup: TADODataSet;
     Procedure  DataModuleCreate(Sender: TObject);
     Procedure  DataModuleDestroy(Sender: TObject);
   Private
     { Private declarations }
-    Procedure SelectEmailInfo;
-    Procedure SelectGroupInfo;
   Public
     { Public declarations }
     sDataDirectory: String;
@@ -32,7 +30,7 @@ Type
     Function  GroupName(iWhichGroup: Integer):String;
     Procedure availableCategories(BookmarkList: TBookmarkList);
     Procedure SetPrintRunData(aReport:TReportClass);
-    Function  SelectReportData(aReport:TReportClass): Integer;
+    Procedure SelectReportData(aReport:TReportClass);
   End;
 
 Var
@@ -53,8 +51,6 @@ Uses
 Procedure  TdmoReport.DataModuleCreate(Sender: TObject);
 Begin
   dstGridSelection.Active:= True;
-  dstCardGroup.Active:= True;
-  dstCardCategory.Active:= True;
   sDataDirectory:= dmoConnect.sDirectory;
 End;
 
@@ -62,17 +58,15 @@ End;
 Procedure  TdmoReport.DataModuleDestroy(Sender: TObject);
 Begin
   dstGridSelection.Active:= False;
-  dstCardGroup.Active:= False;
-  dstCardCategory.Active:= False;
 End;
 
 
 Function  TdmoReport.GroupName(iWhichGroup: Integer):String;
 Begin
-  dst1.Active:= False;
-  dst1.CommandText:= 'Select * FROM CardGroup Where ID = ' + IntToStr(iWhichGroup);
-  dst1.Active:= True;
-  Result:= dst1.FieldByName('Description').AsString;
+  dstGroup.Active:= False;
+  dstGroup.CommandText:= 'Select ID, Description FROM tbGroup WHERE ' + IntToStr(iWhichGroup);
+  dstGroup.Active:= True;
+  Result:= dstGroup.FieldByName('Description').AsString;
 End;
 
 
@@ -80,10 +74,10 @@ Procedure TdmoReport.availableCategories(BookmarkList: TBookmarkList);
 Var
   ii: Integer;
 Begin
-  for ii := 0 to BookmarkList.Count - 1 do
-  Begin
-    dstCardGroup.GotoBookmark(BookmarkList[ii]);
-  End;
+//  for ii := 0 to BookmarkList.Count - 1 do
+//  Begin
+//    dstCardGroup.GotoBookmark(BookmarkList[ii]);
+//  End;
 End;
 
 
@@ -97,13 +91,13 @@ Begin
   sFrom:= dstGridSelection.FieldByName('SelectFrom').AsString;
   sWherePlus:= dstGridSelection.FieldByName('SelectWhere').AsString;
   sOrderBy:= dstGridSelection.FieldByName('SelectOrderBy').AsString;
-  sWhere:= 'WHERE ((CardGroup.Description = ';
+  sWhere:= 'WHERE ((Group.Description = ';
   for ii := 0 to sGroupList.Count - 1 do
   Begin
     sWhere:= sWhere + QuotedStr(sGrouplist[ii]) + ')';
     if ii < sGroupList.Count - 1 then
     Begin
-      sWhere:= sWhere + ' OR (CardGroup.Description = ';
+      sWhere:= sWhere + ' OR (Group.Description = ';
     End;
   End;
 
@@ -134,24 +128,10 @@ Begin
 End;
 
 
-procedure TdmoReport.SelectEmailInfo;
-begin
-  dstContactPrintRun.Active:= False;
-  dstContactPrintRun.CommandText:= 'Select Surname, Firstname, Email from Card';
-  dstContactPrintRun.Active:= True;
-end;
-
-procedure TdmoReport.SelectGroupInfo;
-begin
-  dstContactPrintRun.Active:= False;
-  dstContactPrintRun.CommandText:= 'Select Surname, Firstname, Email from Card';
-  dstContactPrintRun.Active:= True;
-end;
-
-Function  TdmoReport.SelectReportData(aReport:TReportClass): Integer;
+Procedure TdmoReport.SelectReportData(aReport:TReportClass);
 Begin
   dst1.Active:= False;
-  dst1.CommandText:= 'Select * from tbReportSelect WHERE ReportName = ' + QuotedStr(aReport.rName);
+  dst1.CommandText:= 'Select * from ReportSelect WHERE ID = ' + IntToStr(aReport.rID);
   dst1.Active:= True;
   if dst1.RecordCount = 1 then
   Begin
@@ -160,11 +140,10 @@ Begin
     aReport.rFrom:= dst1.FieldByName('SelectFrom').AsString;
     aReport.rWhere:= dst1.FieldByName('SelectWhere').AsString;
     aReport.rOrderBy:= dst1.FieldByName('SelectOrderBy').AsString;
-    Result:= dst1.FieldByName('ID').AsInteger;
   End
   Else
   Begin
-    Result:= 0;
+    aReport.rID:= 0;
   End;
 End;
 

@@ -136,568 +136,9 @@ object fMaintenance: TfMaintenance
           end>
       end
     end
-    object tshContact: TTabSheet
-      Caption = 'Contact'
-      OnShow = tshContactShow
-      object lblSurname: TLabel
-        Left = 30
-        Top = 19
-        Width = 103
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'Surname or Company'
-      end
-      object lblFirstname: TLabel
-        Left = 82
-        Top = 46
-        Width = 51
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'First Name'
-      end
-      object lblPreferredName: TLabel
-        Left = 57
-        Top = 73
-        Width = 76
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'Preferred Name'
-      end
-      object txtGroup1Name: TStaticText
-        Left = 624
-        Top = 19
-        Width = 104
-        Height = 17
-        AutoSize = False
-        Caption = 'txtGroup1Name'
-        TabOrder = 0
-      end
-      object txtGroups: TStaticText
-        Left = 624
-        Top = 1
-        Width = 49
-        Height = 20
-        Caption = 'Groups'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 1
-      end
-      object cbxGroup1: TCheckBox
-        Left = 595
-        Top = 19
-        Width = 15
-        Height = 17
-        TabOrder = 2
-      end
-      object txtGroup2Name: TStaticText
-        Left = 624
-        Top = 46
-        Width = 104
-        Height = 21
-        AutoSize = False
-        Caption = 'txtGroup2Name'
-        TabOrder = 3
-      end
-      object cbxGroup2: TCheckBox
-        Left = 595
-        Top = 46
-        Width = 15
-        Height = 17
-        TabOrder = 4
-      end
-      object txtGroup3Name: TStaticText
-        Left = 624
-        Top = 73
-        Width = 104
-        Height = 17
-        AutoSize = False
-        Caption = 'txtGroup3Name'
-        TabOrder = 5
-      end
-      object cbxGroup3: TCheckBox
-        Left = 595
-        Top = 73
-        Width = 15
-        Height = 17
-        TabOrder = 6
-      end
-      object txtAddressPostal: TStaticText
-        Left = 79
-        Top = 108
-        Width = 44
-        Height = 20
-        Caption = 'Postal'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 7
-      end
-      object cbxPostAust: TCheckBox
-        Left = 65
-        Top = 135
-        Width = 73
-        Height = 17
-        Alignment = taLeftJustify
-        Caption = 'Australian'
-        Checked = True
-        State = cbChecked
-        TabOrder = 8
-      end
-      object txtAddressLocation: TStaticText
-        Left = 405
-        Top = 108
-        Width = 59
-        Height = 20
-        Caption = 'Location'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 9
-      end
-      object cbxLocnAust: TCheckBox
-        Left = 391
-        Top = 135
-        Width = 73
-        Height = 17
-        Alignment = taLeftJustify
-        Caption = 'Australian'
-        Checked = True
-        State = cbChecked
-        TabOrder = 10
-      end
-      object dbeLandLine: TDBEdit
-        Left = 480
-        Top = 70
-        Width = 90
-        Height = 21
-        DataField = 'LandLine'
-        DataSource = dscCard
-        TabOrder = 11
-        OnEnter = dbeLandLineEnter
-        OnExit = dbeLandLineExit
-      end
-      object dbeLocationLine1: TDBEdit
-        Left = 480
-        Top = 107
-        Width = 220
-        Height = 21
-        DataField = 'Locn1'
-        DataSource = dscCard
-        TabOrder = 12
-      end
-      object dbeLocationLine2: TDBEdit
-        Left = 480
-        Top = 134
-        Width = 220
-        Height = 21
-        DataField = 'Locn2'
-        DataSource = dscCard
-        TabOrder = 13
-      end
-      object dbeLocationPostCode: TDBEdit
-        Left = 545
-        Top = 188
-        Width = 70
-        Height = 21
-        TabStop = False
-        DataField = 'pcCode'
-        DataSource = dscAddressLocation
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Orientation = 1
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 14
-      end
-      object dbeLocationState: TDBEdit
-        Left = 480
-        Top = 188
-        Width = 43
-        Height = 21
-        DataField = 'pcState_Code'
-        DataSource = dscAddressLocation
-        TabOrder = 15
-      end
-      object dbeMobile: TDBEdit
-        Left = 480
-        Top = 43
-        Width = 90
-        Height = 21
-        DataField = 'Mobile'
-        DataSource = dscCard
-        TabOrder = 16
-        OnEnter = dbeMobileEnter
-        OnExit = dbeMobileExit
-        OnKeyUp = dbeMobileKeyUp
-      end
-      object dbePostalLine1: TDBEdit
-        Left = 150
-        Top = 107
-        Width = 220
-        Height = 21
-        DataField = 'Post1'
-        DataSource = dscCard
-        TabOrder = 17
-      end
-      object dbePostalLine2: TDBEdit
-        Left = 150
-        Top = 134
-        Width = 220
-        Height = 21
-        DataField = 'Post2'
-        DataSource = dscCard
-        TabOrder = 18
-      end
-      object dbePostalPostcade: TDBEdit
-        Left = 205
-        Top = 188
-        Width = 70
-        Height = 21
-        DataField = 'pcCode'
-        DataSource = dscAddressPostal
-        TabOrder = 19
-      end
-      object dbePostalState: TDBEdit
-        Left = 150
-        Top = 188
-        Width = 43
-        Height = 21
-        DataField = 'pcState_Code'
-        DataSource = dscAddressPostal
-        TabOrder = 20
-      end
-      object dblucbTownLocation: TDBLookupComboBox
-        Left = 480
-        Top = 161
-        Width = 220
-        Height = 21
-        DataField = 'LocnauTownsID'
-        DataSource = dscCard
-        DropDownRows = 10
-        KeyField = 'ID'
-        ListField = 'pcName'
-        ListSource = dscPostCode
-        TabOrder = 21
-      end
-      object dblucbTownPostal: TDBLookupComboBox
-        Left = 150
-        Top = 161
-        Width = 220
-        Height = 21
-        DataField = 'PostauTownsID'
-        DataSource = dscCard
-        DropDownRows = 10
-        KeyField = 'ID'
-        ListField = 'pcName'
-        ListSource = dscPostCode
-        TabOrder = 22
-      end
-      object txtMobile: TStaticText
-        Left = 430
-        Top = 46
-        Width = 34
-        Height = 17
-        Caption = 'Mobile'
-        TabOrder = 23
-      end
-      object txtLandLine: TStaticText
-        Left = 418
-        Top = 76
-        Width = 46
-        Height = 17
-        Caption = 'LandLine'
-        TabOrder = 24
-      end
-      object txtEmail: TStaticText
-        Left = 110
-        Top = 218
-        Width = 28
-        Height = 17
-        Caption = 'Email'
-        TabOrder = 25
-      end
-      object txtOrganisation: TStaticText
-        Left = 110
-        Top = 245
-        Width = 22
-        Height = 17
-        Caption = 'Org'
-        TabOrder = 26
-      end
-      object dbluComboBoxOrg: TDBLookupComboBox
-        Left = 150
-        Top = 245
-        Width = 577
-        Height = 21
-        DataField = 'OrgID'
-        DataSource = dscCard
-        KeyField = 'ID'
-        ListField = 'Description'
-        ListSource = dscOrganisation
-        TabOrder = 27
-        OnCloseUp = dbluComboBoxOrgCloseUp
-      end
-      object dbeEmail: TDBEdit
-        Left = 150
-        Top = 215
-        Width = 577
-        Height = 21
-        DataField = 'Email'
-        DataSource = dscCard
-        TabOrder = 28
-      end
-      object txtUDF_Header: TStaticText
-        Left = 97
-        Top = 271
-        Width = 125
-        Height = 20
-        Caption = 'User Defined Fields'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 29
-      end
-      object txtUDF_Add: TStaticText
-        Left = 246
-        Top = 266
-        Width = 20
-        Height = 27
-        Caption = '+'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -19
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 30
-        OnClick = txtUDF_AddClick
-      end
-      object dblucbUDF1: TDBLookupComboBox
-        Left = 16
-        Top = 288
-        Width = 136
-        Height = 21
-        DataField = 'CustomField1NameKey'
-        DataSource = dscCard
-        KeyField = 'id'
-        ListField = 'Description'
-        ListSource = dscUDF1Names
-        TabOrder = 31
-      end
-      object dblucbUDF2: TDBLookupComboBox
-        Left = 16
-        Top = 315
-        Width = 136
-        Height = 21
-        DataField = 'CustomField2NameKey'
-        DataSource = dscCard
-        KeyField = 'id'
-        ListField = 'Description'
-        ListSource = dscUDF2Names
-        TabOrder = 32
-      end
-      object dbeUDF1Detail: TDBEdit
-        Left = 164
-        Top = 288
-        Width = 564
-        Height = 21
-        DataField = 'CustomField1'
-        DataSource = dscCard
-        TabOrder = 33
-      end
-      object dbeUDF2Detail: TDBEdit
-        Left = 164
-        Top = 315
-        Width = 564
-        Height = 21
-        DataField = 'CustomField2'
-        DataSource = dscCard
-        TabOrder = 34
-      end
-      object DBLookupListBoxCategories: TDBLookupListBox
-        Left = 766
-        Top = 27
-        Width = 260
-        Height = 147
-        KeyField = 'CatID'
-        ListField = 'Description'
-        ListSource = dscCardCategory
-        TabOrder = 35
-        OnDblClick = DBLookupListBoxCategoriesDblClick
-      end
-      object txtCategories: TStaticText
-        Left = 856
-        Top = 1
-        Width = 74
-        Height = 20
-        Caption = 'Categories'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 36
-      end
-      object dbluComboBoxCategories: TDBLookupComboBox
-        Left = 766
-        Top = 188
-        Width = 260
-        Height = 21
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        KeyField = 'ID'
-        ListField = 'Description'
-        ListSource = dscCardCatLink
-        ParentFont = False
-        TabOrder = 37
-        OnCloseUp = dbluComboBoxCategoriesCloseUp
-      end
-      object dbeFirstName: TDBEdit
-        Left = 150
-        Top = 43
-        Width = 121
-        Height = 21
-        DataField = 'FirstName'
-        DataSource = dscCard
-        TabOrder = 38
-      end
-      object dbeSurname: TDBEdit
-        Left = 150
-        Top = 16
-        Width = 420
-        Height = 21
-        DataField = 'SurName'
-        DataSource = dscCard
-        TabOrder = 39
-      end
-      object dbePreferredName: TDBEdit
-        Left = 150
-        Top = 70
-        Width = 121
-        Height = 21
-        DataField = 'PreferredName'
-        DataSource = dscCard
-        TabOrder = 40
-      end
-      object smdbgFamily: TSMDBGrid
-        Left = 16
-        Top = 364
-        Width = 857
-        Height = 276
-        DataSource = dscFamily
-        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-        TabOrder = 41
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
-        Flat = False
-        BandsFont.Charset = DEFAULT_CHARSET
-        BandsFont.Color = clWindowText
-        BandsFont.Height = -11
-        BandsFont.Name = 'Tahoma'
-        BandsFont.Style = []
-        Groupings = <>
-        GridStyle.Style = gsNormal
-        GridStyle.OddColor = clWindow
-        GridStyle.EvenColor = clWindow
-        TitleHeight.PixelCount = 24
-        FooterColor = clBtnFace
-        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoFilterAutoApply, eoCellWordWrap]
-        RegistryKey = 'Software\Scalabium'
-        RegistrySection = 'SMDBGrid'
-        WidthOfIndicator = 11
-        DefaultRowHeight = 17
-        ScrollBars = ssHorizontal
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'Description'
-            Title.Caption = 'Type'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'SurName'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'FirstName'
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'Mobile'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'MoreInfo'
-            Width = 442
-            Visible = True
-          end>
-      end
-      object txtAssociates: TStaticText
-        Left = 97
-        Top = 342
-        Width = 146
-        Height = 20
-        Caption = 'Family and Associates'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 42
-      end
-      object txtFamily: TStaticText
-        Left = 249
-        Top = 336
-        Width = 20
-        Height = 27
-        Caption = '+'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -19
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 43
-        OnClick = txtFamilyClick
-      end
-    end
     object tshNotes: TTabSheet
       Caption = 'Notes'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object StaticText1: TStaticText
         Left = 58
         Top = 3
@@ -797,14 +238,577 @@ object fMaintenance: TfMaintenance
         TabOrder = 4
       end
     end
+    object tshContact: TTabSheet
+      Caption = 'Contact'
+      OnShow = tshContactShow
+      object lblSurname: TLabel
+        Left = 30
+        Top = 19
+        Width = 103
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Surname or Company'
+      end
+      object lblFirstname: TLabel
+        Left = 82
+        Top = 46
+        Width = 51
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'First Name'
+      end
+      object lblPreferredName: TLabel
+        Left = 57
+        Top = 73
+        Width = 76
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Preferred Name'
+      end
+      object txtGroups: TStaticText
+        Left = 595
+        Top = -4
+        Width = 49
+        Height = 20
+        Caption = 'Groups'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+      end
+      object txtAddressPostal: TStaticText
+        Left = 79
+        Top = 108
+        Width = 44
+        Height = 20
+        Caption = 'Postal'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+      end
+      object cbxPostAust: TCheckBox
+        Left = 65
+        Top = 135
+        Width = 73
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Australian'
+        Checked = True
+        State = cbChecked
+        TabOrder = 2
+      end
+      object txtAddressLocation: TStaticText
+        Left = 405
+        Top = 108
+        Width = 59
+        Height = 20
+        Caption = 'Location'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 3
+      end
+      object cbxLocnAust: TCheckBox
+        Left = 391
+        Top = 135
+        Width = 73
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Australian'
+        Checked = True
+        State = cbChecked
+        TabOrder = 4
+      end
+      object dbeLandLine: TDBEdit
+        Left = 480
+        Top = 70
+        Width = 90
+        Height = 21
+        DataField = 'LandLine'
+        DataSource = dscCard
+        TabOrder = 5
+        OnEnter = dbeLandLineEnter
+        OnExit = dbeLandLineExit
+      end
+      object dbeLocationLine1: TDBEdit
+        Left = 480
+        Top = 107
+        Width = 220
+        Height = 21
+        DataField = 'Locn1'
+        DataSource = dscCard
+        TabOrder = 6
+      end
+      object dbeLocationLine2: TDBEdit
+        Left = 480
+        Top = 134
+        Width = 220
+        Height = 21
+        DataField = 'Locn2'
+        DataSource = dscCard
+        TabOrder = 7
+      end
+      object dbeLocationPostCode: TDBEdit
+        Left = 545
+        Top = 188
+        Width = 70
+        Height = 21
+        TabStop = False
+        DataField = 'pcCode'
+        DataSource = dscAddressLocation
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Orientation = 1
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 8
+      end
+      object dbeLocationState: TDBEdit
+        Left = 480
+        Top = 188
+        Width = 43
+        Height = 21
+        DataField = 'pcState_Code'
+        DataSource = dscAddressLocation
+        TabOrder = 9
+      end
+      object dbeMobile: TDBEdit
+        Left = 480
+        Top = 43
+        Width = 90
+        Height = 21
+        DataField = 'Mobile'
+        DataSource = dscCard
+        TabOrder = 10
+        OnEnter = dbeMobileEnter
+        OnExit = dbeMobileExit
+        OnKeyUp = dbeMobileKeyUp
+      end
+      object dbePostalLine1: TDBEdit
+        Left = 150
+        Top = 107
+        Width = 220
+        Height = 21
+        DataField = 'Post1'
+        DataSource = dscCard
+        TabOrder = 11
+      end
+      object dbePostalLine2: TDBEdit
+        Left = 150
+        Top = 134
+        Width = 220
+        Height = 21
+        DataField = 'Post2'
+        DataSource = dscCard
+        TabOrder = 12
+      end
+      object dbePostalPostcade: TDBEdit
+        Left = 205
+        Top = 188
+        Width = 70
+        Height = 21
+        DataField = 'pcCode'
+        DataSource = dscAddressPostal
+        TabOrder = 13
+      end
+      object dbePostalState: TDBEdit
+        Left = 150
+        Top = 188
+        Width = 43
+        Height = 21
+        DataField = 'pcState_Code'
+        DataSource = dscAddressPostal
+        TabOrder = 14
+      end
+      object dblucbTownLocation: TDBLookupComboBox
+        Left = 480
+        Top = 161
+        Width = 220
+        Height = 21
+        DataField = 'LocnauTownsID'
+        DataSource = dscCard
+        DropDownRows = 10
+        KeyField = 'ID'
+        ListField = 'pcName'
+        ListSource = dscPostCode
+        TabOrder = 15
+      end
+      object dblucbTownPostal: TDBLookupComboBox
+        Left = 150
+        Top = 161
+        Width = 220
+        Height = 21
+        DataField = 'PostauTownsID'
+        DataSource = dscCard
+        DropDownRows = 10
+        KeyField = 'ID'
+        ListField = 'pcName'
+        ListSource = dscPostCode
+        TabOrder = 16
+      end
+      object txtMobile: TStaticText
+        Left = 430
+        Top = 46
+        Width = 34
+        Height = 17
+        Caption = 'Mobile'
+        TabOrder = 17
+      end
+      object txtLandLine: TStaticText
+        Left = 418
+        Top = 76
+        Width = 46
+        Height = 17
+        Caption = 'LandLine'
+        TabOrder = 18
+      end
+      object txtEmail: TStaticText
+        Left = 110
+        Top = 218
+        Width = 28
+        Height = 17
+        Caption = 'Email'
+        TabOrder = 19
+      end
+      object txtOrganisation: TStaticText
+        Left = 110
+        Top = 245
+        Width = 22
+        Height = 17
+        Caption = 'Org'
+        TabOrder = 20
+      end
+      object dbluComboBoxOrg: TDBLookupComboBox
+        Left = 150
+        Top = 245
+        Width = 577
+        Height = 21
+        DataField = 'OrgID'
+        DataSource = dscCard
+        KeyField = 'ID'
+        ListField = 'Description'
+        ListSource = dscOrganisation
+        TabOrder = 21
+        OnCloseUp = dbluComboBoxOrgCloseUp
+      end
+      object dbeEmail: TDBEdit
+        Left = 150
+        Top = 215
+        Width = 577
+        Height = 21
+        DataField = 'Email'
+        DataSource = dscCard
+        TabOrder = 22
+      end
+      object txtUDF_Header: TStaticText
+        Left = 97
+        Top = 271
+        Width = 125
+        Height = 20
+        Caption = 'User Defined Fields'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 23
+      end
+      object txtUDF_Add: TStaticText
+        Left = 246
+        Top = 266
+        Width = 20
+        Height = 27
+        Caption = '+'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 24
+        OnClick = txtUDF_AddClick
+      end
+      object dblucbUDF1: TDBLookupComboBox
+        Left = 16
+        Top = 288
+        Width = 136
+        Height = 21
+        DataField = 'CustomField1NameKey'
+        DataSource = dscCard
+        KeyField = 'id'
+        ListField = 'Description'
+        ListSource = dscUDF1Names
+        TabOrder = 25
+      end
+      object dblucbUDF2: TDBLookupComboBox
+        Left = 16
+        Top = 315
+        Width = 136
+        Height = 21
+        DataField = 'CustomField2NameKey'
+        DataSource = dscCard
+        KeyField = 'id'
+        ListField = 'Description'
+        ListSource = dscUDF2Names
+        TabOrder = 26
+      end
+      object dbeUDF1Detail: TDBEdit
+        Left = 164
+        Top = 288
+        Width = 564
+        Height = 21
+        DataField = 'CustomField1'
+        DataSource = dscCard
+        TabOrder = 27
+      end
+      object dbeUDF2Detail: TDBEdit
+        Left = 164
+        Top = 315
+        Width = 564
+        Height = 21
+        DataField = 'CustomField2'
+        DataSource = dscCard
+        TabOrder = 28
+      end
+      object DBLookupListBoxCategories: TDBLookupListBox
+        Left = 766
+        Top = 116
+        Width = 260
+        Height = 173
+        KeyField = 'CatID'
+        ListField = 'Description'
+        ListSource = dscCardCategory
+        TabOrder = 29
+        OnDblClick = DBLookupListBoxCategoriesDblClick
+      end
+      object txtCategories: TStaticText
+        Left = 856
+        Top = 92
+        Width = 74
+        Height = 20
+        Caption = 'Categories'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 30
+      end
+      object dbluComboBoxCategories: TDBLookupComboBox
+        Left = 766
+        Top = 315
+        Width = 260
+        Height = 21
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        KeyField = 'ID'
+        ListField = 'Description'
+        ListSource = dscCardCatLink
+        ParentFont = False
+        TabOrder = 31
+        OnCloseUp = dbluComboBoxCategoriesCloseUp
+      end
+      object dbeFirstName: TDBEdit
+        Left = 150
+        Top = 43
+        Width = 121
+        Height = 21
+        DataField = 'FirstName'
+        DataSource = dscCard
+        TabOrder = 32
+      end
+      object dbeSurname: TDBEdit
+        Left = 150
+        Top = 16
+        Width = 420
+        Height = 21
+        DataField = 'SurName'
+        DataSource = dscCard
+        TabOrder = 33
+      end
+      object dbePreferredName: TDBEdit
+        Left = 150
+        Top = 70
+        Width = 121
+        Height = 21
+        DataField = 'PreferredName'
+        DataSource = dscCard
+        TabOrder = 34
+      end
+      object smdbgFamily: TSMDBGrid
+        Left = 16
+        Top = 364
+        Width = 857
+        Height = 276
+        DataSource = dscFamily
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 35
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        Flat = False
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'Tahoma'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsNormal
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoFilterAutoApply, eoCellWordWrap]
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'Description'
+            Title.Caption = 'Type'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'SurName'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'FirstName'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Mobile'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'MoreInfo'
+            Width = 442
+            Visible = True
+          end>
+      end
+      object txtAssociates: TStaticText
+        Left = 97
+        Top = 342
+        Width = 146
+        Height = 20
+        Caption = 'Family and Associates'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 36
+      end
+      object txtFamily: TStaticText
+        Left = 249
+        Top = 336
+        Width = 20
+        Height = 27
+        Caption = '+'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 37
+        OnClick = txtFamilyClick
+      end
+      object dbchbGroup1: TDBCheckBox
+        Left = 598
+        Top = 23
+        Width = 97
+        Height = 17
+        Caption = 'Group1'
+        DataField = 'Group1'
+        DataSource = dscCard
+        TabOrder = 38
+      end
+      object dbchbGroup2: TDBCheckBox
+        Left = 598
+        Top = 46
+        Width = 97
+        Height = 17
+        Caption = 'Group2'
+        DataField = 'Group2'
+        DataSource = dscCard
+        TabOrder = 39
+      end
+      object dbchbGroup3: TDBCheckBox
+        Left = 598
+        Top = 69
+        Width = 97
+        Height = 17
+        Caption = 'Group3'
+        DataField = 'Group3'
+        DataSource = dscCard
+        TabOrder = 40
+      end
+      object dbchbGroup4: TDBCheckBox
+        Left = 735
+        Top = 23
+        Width = 97
+        Height = 17
+        Caption = 'Group4'
+        DataField = 'Group4'
+        DataSource = dscCard
+        TabOrder = 41
+      end
+      object dbchbGroup5: TDBCheckBox
+        Left = 735
+        Top = 46
+        Width = 97
+        Height = 17
+        Caption = 'Group5'
+        DataField = 'Group5'
+        DataSource = dscCard
+        TabOrder = 42
+      end
+      object dbchbGroup6: TDBCheckBox
+        Left = 735
+        Top = 69
+        Width = 97
+        Height = 17
+        Caption = 'Group6'
+        DataField = 'Group6'
+        DataSource = dscCard
+        TabOrder = 43
+      end
+    end
     object tshMember: TTabSheet
       Caption = 'Member'
       ImageIndex = 1
       OnShow = tshMemberShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object txtIsInactive: TStaticText
         Left = 61
         Top = 159
@@ -1201,8 +1205,8 @@ object fMaintenance: TfMaintenance
   end
   object dscAddressPostal: TDataSource
     DataSet = dmoMaintenance.qryAddressPostal
-    Left = 864
-    Top = 52
+    Left = 928
+    Top = 36
   end
   object dscAddressLocation: TDataSource
     DataSet = dmoMaintenance.qryAddressLocation
