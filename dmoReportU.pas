@@ -26,9 +26,8 @@ Type
     { Public declarations }
     sDataDirectory: String;
     aReport: TReportClass;
-    Function  GetReportData(sGroupList: TStringList):Integer;
+    Function  UpdateWhere:String;
     Function  GroupName(iWhichGroup: Integer):String;
-    Procedure availableCategories(BookmarkList: TBookmarkList);
     Procedure SetPrintRunData(aReport:TReportClass);
     Procedure SelectReportData(aReport:TReportClass);
   End;
@@ -70,76 +69,44 @@ Begin
 End;
 
 
-Procedure TdmoReport.availableCategories(BookmarkList: TBookmarkList);
+Function  TdmoReport.UpdateWhere:String;
 Var
   ii: Integer;
-Begin
-//  for ii := 0 to BookmarkList.Count - 1 do
-//  Begin
-//    dstCardGroup.GotoBookmark(BookmarkList[ii]);
-//  End;
-End;
-
-
-Function  TdmoReport.GetReportData(sGroupList: TStringList):Integer;
-Var
-  ii: Integer;
-  sCols, sFrom, sWherePlus, sOrderBy, sWhere: String;
+  sWherePlus, sWhere: String;
   SelectStr: WideString;
 Begin
-  sCols:= dstGridSelection.FieldByName('SelectString').AsString;
-  sFrom:= dstGridSelection.FieldByName('SelectFrom').AsString;
-  sWherePlus:= dstGridSelection.FieldByName('SelectWhere').AsString;
-  sOrderBy:= dstGridSelection.FieldByName('SelectOrderBy').AsString;
-  sWhere:= 'WHERE ((Group.Description = ';
-  for ii := 0 to sGroupList.Count - 1 do
-  Begin
-    sWhere:= sWhere + QuotedStr(sGrouplist[ii]) + ')';
-    if ii < sGroupList.Count - 1 then
-    Begin
-      sWhere:= sWhere + ' OR (Group.Description = ';
-    End;
-  End;
+  sWhere:= areport.rWhere;
 
-  if sWherePlus > 'x' then
+  if sWherePlus > ' ' then
   Begin
     sWhere:= sWhere + ' AND (' + sWherePlus + ')'
   End;
-  sWhere:= sWhere + ')';
+  sWhere:= aReport.rWhere;
 
-    SelectStr:= sCols + ' '
-            + sFrom + ' '
+  SelectStr:= aReport.rSelect + ' '
+            + aReport.rFrom + ' '
             + sWhere + ' '
-            + sOrderBy;
-    dstContactPrintRun.Active:= False;
-    dstContactPrintRun.CommandText:= SelectStr;
-    dstContactPrintRun.Active:= True;
-    if dstContactPrintRun.RecordCount > 0 then
-    Begin
-      Result:= dstContactPrintRun.RecordCount;
-      dst1.Active:= False;
-      dst1.CommandText:= 'SELECT COUNT(CardID)' + ' ' + sFrom + ' ' + sWhere;   // Used in report
-      dst1.Active:= True;
-    End
-    Else
-    Begin
-      Result:= 0;
-    End;
+            + aReport.rOrderBy;
+  aReport.rSelect:= SelectStr;
 End;
 
 
 Procedure TdmoReport.SelectReportData(aReport:TReportClass);
 Begin
+  aReport.rID:= dstGridSelection.FieldByName('rID').AsInteger;
   dst1.Active:= False;
-  dst1.CommandText:= 'Select * from ReportSelect WHERE ID = ' + IntToStr(aReport.rID);
+  dst1.CommandText:= 'Select * from ReportSelect WHERE rID = ' + IntToStr(aReport.rID);
   dst1.Active:= True;
   if dst1.RecordCount = 1 then
   Begin
-    aReport.rID:= dst1.FieldByName('ID').AsInteger;
-    aReport.rSelect:= dst1.FieldByName('SelectColumns').AsString;
-    aReport.rFrom:= dst1.FieldByName('SelectFrom').AsString;
-    aReport.rWhere:= dst1.FieldByName('SelectWhere').AsString;
-    aReport.rOrderBy:= dst1.FieldByName('SelectOrderBy').AsString;
+    aReport.rDefault:= dst1.FieldByName('rDefault').AsBoolean;
+    aReport.rName:= dst1.FieldByName('rName').AsString;
+    aReport.rFileName:= sDataDirectory + 'DBReports\' + aReport.rName;
+    aReport.rDescription:= dst1.FieldByName('rDescription').AsString;
+    aReport.rSelect:= dst1.FieldByName('rColumns').AsString;
+    aReport.rFrom:= dst1.FieldByName('rFrom').AsString;
+    aReport.rWhere:= dst1.FieldByName('rWhere').AsString;
+    aReport.rOrderBy:= dst1.FieldByName('rOrderBy').AsString;
   End
   Else
   Begin

@@ -273,14 +273,14 @@ End;
 
 function TdmoMaintenance.GroupName(iGroupID: Integer): String;
 Begin
-  dstOmnibus.Active:= False;
-  dstOmnibus.CommandText:= 'SELECT ID, Description From tbGroup '
-           + 'WHERE ID = ' + IntToStr(iGroupID);
-  dstOmnibus.Active:= True;
-  if dstOmnibus.RecordCount = 1 Then
-    Result:= dstOmnibus.FieldByName('Description').AsString
-  Else
-    Result:= 'Invalid Group ID ' + IntToStr(iGroupID);
+//  dstOmnibus.Active:= False;
+//  dstOmnibus.CommandText:= 'SELECT ID, Description From tbGroup '
+//           + 'WHERE ID = ' + IntToStr(iGroupID);
+//  dstOmnibus.Active:= True;
+//  if dstOmnibus.RecordCount = 1 Then
+//    Result:= dstOmnibus.FieldByName('Description').AsString
+//  Else
+//    Result:= 'Invalid Group ID ' + IntToStr(iGroupID);
 End;
 
 

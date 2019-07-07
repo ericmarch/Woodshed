@@ -5,39 +5,20 @@ object dmoReport: TdmoReport
   Height = 309
   Width = 452
   object dstGridSelection: TADODataSet
-    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
-    CommandText = 'select * from ReportSelect'
+    CommandText = 'select rID, rName, rDescription from ReportSelect'
     Parameters = <>
     Left = 40
     Top = 29
   end
   object dstContactPrintRun: TADODataSet
+    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     LockType = ltReadOnly
-    CommandText = 
-      'select SurName, FirstName, Email, Mobile, LandLine, Post1, Post2' +
-      ', PostPostCode, PostState, CustomFieldName1, CustomField1, Custo' +
-      'mFieldName2, CustomField2 from vContactCard'
-    Parameters = <
-      item
-        Name = 'CustomFieldName1'
-        Attributes = [paNullable]
-        DataType = ftWideString
-        NumericScale = 255
-        Precision = 255
-        Size = 510
-      end
-      item
-        Name = 'CustomFieldName2'
-        Attributes = [paNullable]
-        DataType = ftWideString
-        NumericScale = 255
-        Precision = 255
-        Size = 510
-      end>
+    CommandText = 'Select * FROM vContactCard'
+    Parameters = <>
     Left = 168
     Top = 93
   end

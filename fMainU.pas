@@ -121,6 +121,7 @@ Begin
   afReport:= TfReportContact.Create(Self);
   afReport.fTop:= Top - 60;
   afReport.fLeft:= Left - 20;
+  afReport.aSysUser:= aSysUser;
   afReport.ShowModal;
   FreeAndNil(afReport);
 End;

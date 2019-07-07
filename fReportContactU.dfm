@@ -21,30 +21,6 @@ object fReportContact: TfReportContact
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object lblGroup1: TLabel
-    Left = 180
-    Top = 20
-    Width = 45
-    Height = 13
-    Alignment = taRightJustify
-    Caption = 'lblGroup1'
-  end
-  object LblGroup2: TLabel
-    Left = 180
-    Top = 50
-    Width = 45
-    Height = 13
-    Alignment = taRightJustify
-    Caption = 'lblGroup2'
-  end
-  object lblGroup3: TLabel
-    Left = 180
-    Top = 80
-    Width = 45
-    Height = 13
-    Alignment = taRightJustify
-    Caption = 'lblGroup2'
-  end
   object lblCategory1: TLabel
     Left = 38
     Top = 163
@@ -61,14 +37,6 @@ object fReportContact: TfReportContact
     Alignment = taRightJustify
     Caption = 'To Category'
   end
-  object lblGroup4: TLabel
-    Left = 180
-    Top = 110
-    Width = 45
-    Height = 13
-    Alignment = taRightJustify
-    Caption = 'lblGroup3'
-  end
   object edtFromSurname: TLabeledEdit
     Left = 120
     Top = 227
@@ -78,7 +46,7 @@ object fReportContact: TfReportContact
     EditLabel.Height = 13
     EditLabel.Caption = 'From Surname  '
     LabelPosition = lpLeft
-    TabOrder = 1
+    TabOrder = 0
     Text = '*'
   end
   object edtToSurname: TLabeledEdit
@@ -91,63 +59,15 @@ object fReportContact: TfReportContact
     EditLabel.Caption = 'To Surname  '
     LabelPosition = lpLeft
     LabelSpacing = 5
-    TabOrder = 2
+    TabOrder = 1
     Text = '*'
-  end
-  object CheckBox1: TCheckBox
-    Left = 240
-    Top = 20
-    Width = 17
-    Height = 17
-    Alignment = taLeftJustify
-    Checked = True
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 0
-  end
-  object CheckBox2: TCheckBox
-    Left = 240
-    Top = 50
-    Width = 17
-    Height = 17
-    Alignment = taLeftJustify
-    Checked = True
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 3
-  end
-  object CheckBox3: TCheckBox
-    Left = 240
-    Top = 80
-    Width = 17
-    Height = 17
-    Alignment = taLeftJustify
-    Checked = True
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 4
   end
   object ComboBox1: TComboBox
     Left = 120
     Top = 160
     Width = 145
     Height = 21
-    TabOrder = 5
+    TabOrder = 2
     Text = 'ComboBox1'
   end
   object ComboBox2: TComboBox
@@ -155,24 +75,8 @@ object fReportContact: TfReportContact
     Top = 195
     Width = 145
     Height = 21
-    TabOrder = 6
+    TabOrder = 3
     Text = 'ComboBox2'
-  end
-  object CheckBox4: TCheckBox
-    Left = 240
-    Top = 110
-    Width = 17
-    Height = 17
-    Alignment = taLeftJustify
-    Checked = True
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 7
   end
   object SMDBGrid1: TSMDBGrid
     Left = 278
@@ -182,13 +86,14 @@ object fReportContact: TfReportContact
     Align = alRight
     DataSource = dscGridSelection
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-    TabOrder = 8
+    TabOrder = 4
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnCellClick = SMDBGrid1CellClick
+    OnDblClick = SMDBGrid1DblClick
     Flat = False
     BandsFont.Charset = DEFAULT_CHARSET
     BandsFont.Color = clWindowText
@@ -210,28 +115,98 @@ object fReportContact: TfReportContact
     Columns = <
       item
         Expanded = False
-        FieldName = 'ID'
+        FieldName = 'rID'
+        Title.Caption = 'ID'
         Width = 23
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'Description'
+        FieldName = 'rDescription'
+        Title.Caption = 'Description'
         Width = 190
         Visible = True
       end>
   end
+  object txtGroups: TStaticText
+    Left = 80
+    Top = -4
+    Width = 49
+    Height = 20
+    Caption = 'Groups'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+  end
+  object dbchbGroup1: TDBCheckBox
+    Left = 11
+    Top = 23
+    Width = 97
+    Height = 17
+    Caption = 'Group1'
+    DataField = 'Group1'
+    TabOrder = 6
+  end
+  object dbchbGroup2: TDBCheckBox
+    Left = 11
+    Top = 46
+    Width = 97
+    Height = 17
+    Caption = 'Group2'
+    DataField = 'Group2'
+    TabOrder = 7
+  end
+  object dbchbGroup3: TDBCheckBox
+    Left = 11
+    Top = 69
+    Width = 97
+    Height = 17
+    Caption = 'Group3'
+    DataField = 'Group3'
+    TabOrder = 8
+  end
+  object dbchbGroup4: TDBCheckBox
+    Left = 155
+    Top = 31
+    Width = 97
+    Height = 17
+    Caption = 'Group4'
+    DataField = 'Group4'
+    TabOrder = 9
+  end
+  object dbchbGroup5: TDBCheckBox
+    Left = 155
+    Top = 54
+    Width = 97
+    Height = 17
+    Caption = 'Group5'
+    DataField = 'Group5'
+    TabOrder = 10
+  end
+  object dbchbGroup6: TDBCheckBox
+    Left = 155
+    Top = 77
+    Width = 97
+    Height = 17
+    Caption = 'Group6'
+    DataField = 'Group6'
+    TabOrder = 11
+  end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxDBDataset1'
     CloseDataSource = False
-    DataSource = dscPrintRun01
+    DataSet = dmoReport.dstContactPrintRun
     BCDToCurrency = False
     Left = 89
     Top = 192
   end
   object dscPrintRun01: TDataSource
     DataSet = dmoReport.dstContactPrintRun
-    Left = 16
+    Left = 22
     Top = 88
   end
   object frxReport1: TfrxReport
@@ -242,15 +217,16 @@ object fReportContact: TfReportContact
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43335.823303229200000000
-    ReportOptions.LastChange = 43338.873828379600000000
+    ReportOptions.CreateDate = 43653.684748865700000000
+    ReportOptions.LastChange = 43653.722062858800000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
+      ''
       'begin'
       ''
       'end.')
-    Left = 96
-    Top = 88
+    Left = 216
+    Top = 8
     Datasets = <
       item
         DataSet = frxDBDataset1
@@ -271,60 +247,258 @@ object fReportContact: TfReportContact
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 18.897650000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo12: TfrxMemoView
+          AllowVectorExport = True
+          Left = 257.008040000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'All Information')
+        end
+      end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
         Frame.Typ = []
-        Height = 22.677180000000000000
-        Top = 18.897650000000000000
+        Height = 79.370130000000000000
+        Top = 98.267780000000000000
         Width = 718.110700000000000000
         DataSet = frxDBDataset1
         DataSetName = 'frxDBDataset1'
         RowCount = 0
-        object Memo1: TfrxMemoView
+        object Memo20: TfrxMemoView
           AllowVectorExport = True
-          Left = 11.338590000000000000
-          Top = 3.023622050000000000
-          Width = 109.606370000000000000
+          Left = 0.811006540000000000
+          Top = 19.007874015748000000
+          Width = 105.826771650000000000
           Height = 18.897650000000000000
-          DataField = 'SurName'
-          DataSet = frxDBDataset1
-          DataSetName = 'frxDBDataset1'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[frxDBDataset1."SurName"]')
-          ParentFont = False
-        end
-        object Memo2: TfrxMemoView
-          AllowVectorExport = True
-          Left = 121.118120000000000000
-          Top = 3.023622050000000000
-          Width = 109.606370000000000000
-          Height = 18.897650000000000000
-          DataField = 'FirstName'
+          DataField = 'Mobile'
           DataSet = frxDBDataset1
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."FirstName"]')
+            '[frxDBDataset1."Mobile"]')
         end
-        object Memo3: TfrxMemoView
+        object Memo22: TfrxMemoView
           AllowVectorExport = True
-          Left = 234.330860000000000000
-          Top = 3.023622050000000000
-          Width = 336.378170000000000000
+          Left = 135.874150000000000000
+          Top = 19.007874015748000000
+          Width = 113.385826770000000000
+          Height = 18.897650000000000000
+          DataField = 'LandLine'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."LandLine"]')
+        end
+        object Memo21: TfrxMemoView
+          AllowVectorExport = True
+          Left = 1.472480000000000000
+          Top = 56.692913390000000000
+          Width = 249.448911650000000000
+          Height = 18.897650000000000000
+          DataField = 'Locn1'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."Locn1"]')
+        end
+        object Memo4: TfrxMemoView
+          AllowVectorExport = True
+          ShiftMode = smWhenOverlapped
+          Left = 2.252010000000000000
+          Top = 2.000000000000000000
+          Width = 317.480520000000000000
+          Height = 18.897650000000000000
+          Restrictions = [rfDontEdit]
+          Clipped = False
+          DataField = 'FullName'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."FullName"]')
+        end
+        object Memo34: TfrxMemoView
+          AllowVectorExport = True
+          Left = 377.953000000000000000
+          Top = 39.795275590551200000
+          Width = 238.110390000000000000
+          Height = 18.897650000000000000
+          DataField = 'CustomField2'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."CustomField2"]')
+        end
+        object Memo37: TfrxMemoView
+          AllowVectorExport = True
+          Left = 260.787338110000000000
+          Top = 39.795275590551200000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          DataField = 'CustFldName2'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."CustFldName2"]')
+        end
+        object Memo33: TfrxMemoView
+          AllowVectorExport = True
+          Left = 377.953000000000000000
+          Top = 21.653543307086600000
+          Width = 238.110390000000000000
+          Height = 18.897650000000000000
+          DataField = 'CustomField1'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."CustomField1"]')
+        end
+        object Memo36: TfrxMemoView
+          AllowVectorExport = True
+          Left = 260.787338110000000000
+          Top = 21.653543307086600000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          DataField = 'CustFldName1'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."CustFldName1"]')
+        end
+        object Memo6: TfrxMemoView
+          Align = baRight
+          AllowVectorExport = True
+          Left = 631.181510000000000000
+          Top = -1.779529999999990000
+          Width = 86.929190000000000000
+          Height = 18.897650000000000000
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Contact Code')
+        end
+        object Memo5: TfrxMemoView
+          Align = baRight
+          AllowVectorExport = True
+          Left = 631.181510000000000000
+          Top = 17.118110240000000000
+          Width = 86.929190000000000000
           Height = 18.897650000000000000
           AutoWidth = True
-          DataField = 'Email'
+          DataField = 'IDAlpha'
           DataSet = frxDBDataset1
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."Email"]')
+            '[frxDBDataset1."IDAlpha"]')
+        end
+        object Memo7: TfrxMemoView
+          AllowVectorExport = True
+          Left = 328.425480000000000000
+          Top = 6.889763780000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Custom Fields')
+        end
+        object Memo8: TfrxMemoView
+          AllowVectorExport = True
+          Left = 260.787401570000000000
+          Top = 56.692913390000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          AutoWidth = True
+          DataField = 'LocnTown'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."LocnTown"]')
+        end
+        object Memo9: TfrxMemoView
+          AllowVectorExport = True
+          Left = 377.953000000000000000
+          Top = 56.803149610000000000
+          Width = 37.795275590000000000
+          Height = 18.897650000000000000
+          DataField = 'LocnState'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."LocnState"]')
+        end
+        object Memo10: TfrxMemoView
+          AllowVectorExport = True
+          Left = 434.645950000000000000
+          Top = 56.803149610000000000
+          Width = 56.692913390000000000
+          Height = 18.897650000000000000
+          DataField = 'LocnPostCode'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."LocnPostCode"]')
+        end
+        object Memo11: TfrxMemoView
+          AllowVectorExport = True
+          Top = 39.795275590000000000
+          Width = 249.448911650000000000
+          Height = 18.897650000000000000
+          DataField = 'Locn2'
+          DataSet = frxDBDataset1
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."Locn2"]')
+        end
+        object Line1: TfrxLineView
+          AllowVectorExport = True
+          Width = 718.110245980000000000
+          Color = clBlack
+          Frame.Typ = [ftTop]
+        end
+      end
+      object PageFooter1: TfrxPageFooter
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 238.110390000000000000
+        Width = 718.110700000000000000
+        object Memo23: TfrxMemoView
+          AllowVectorExport = True
+          Left = 617.945270000000000000
+          Top = -7.559059999999990000
+          Width = 45.354360000000000000
+          Height = 18.897650000000000000
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Page')
+        end
+        object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
+          Left = 665.197280000000000000
+          Top = -7.559059999999990000
+          Width = 52.913420000000000000
+          Height = 18.897650000000000000
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[PAGE#]')
         end
       end
     end
@@ -347,8 +521,7 @@ object fReportContact: TfReportContact
     Top = 32
   end
   object MainMenu1: TMainMenu
-    Left = 16
-    Top = 32
+    Left = 102
     object mnuPrint: TMenuItem
       Caption = '&Print'
       Enabled = False

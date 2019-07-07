@@ -22,7 +22,8 @@ uses
   frxClass,
   frxDBSet,
   ContactReportsClass,
-  SMDBGrid1;
+  SysUserClass,
+  SMDBGrid1, Vcl.DBCtrls;
 
 
 Type
@@ -34,40 +35,40 @@ Type
     dscPrintRun02: TDataSource;
     edtFromSurname: TLabeledEdit;
     edtToSurname: TLabeledEdit;
-    CheckBox1: TCheckBox;
-    CheckBox2: TCheckBox;
-    CheckBox3: TCheckBox;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
-    lblGroup1: TLabel;
-    LblGroup2: TLabel;
-    lblGroup3: TLabel;
     lblCategory1: TLabel;
     lblToCategory: TLabel;
-    lblGroup4: TLabel;
-    CheckBox4: TCheckBox;
     SMDBGrid1: TSMDBGrid;
     dscGridSelection: TDataSource;
     MainMenu1: TMainMenu;
     mnuPrint: TMenuItem;
     mnuXL: TMenuItem;
     mnuExit: TMenuItem;
+    txtGroups: TStaticText;
+    dbchbGroup1: TDBCheckBox;
+    dbchbGroup2: TDBCheckBox;
+    dbchbGroup3: TDBCheckBox;
+    dbchbGroup4: TDBCheckBox;
+    dbchbGroup5: TDBCheckBox;
+    dbchbGroup6: TDBCheckBox;
     Procedure mnuExitClick(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure mnuPrintClick(Sender: TObject);
+    procedure SMDBGrid1DblClick(Sender: TObject);
     procedure SMDBGrid1CellClick(Column: TColumn);
   Private
     { Private declarations }
-    sReportDir: String;    // See dmoConnect - Directory where Report Files are stored
-    Procedure NewReportSelects(aDirectory: string);
-    Procedure ClearForm;
+    Procedure Printit;
+    Procedure NewReportSelects(aDirectory: string);      //  Tempory Code to reflect DB Changes
   Public
     { Public declarations }
     fTop: Integer;
     fLeft: Integer;
-  End;
+    aSysUser: TSysUser;
+End;
 
 Const
   CRLF = #13#10;
@@ -93,7 +94,6 @@ var
 Begin
   dmoReport:= TdmoReport.Create(Self);
   aReport:= TReportClass.Create;
-  sReportDir:= dmoReport.sDataDirectory + 'frf\';
 End;
 
 
@@ -106,18 +106,46 @@ End;
 
 Procedure TfReportContact.FormShow(Sender: TObject);
 Begin
-  lblGroup1.Caption:= dmoReport.GroupName(1);
-  lblGroup2.Caption:= dmoReport.GroupName(2);
-  lblGroup3.Caption:= dmoReport.GroupName(3);
-  lblGroup4.Caption:= dmoReport.GroupName(4);
-  ClearForm;
+  dbchbGroup1.Caption:= aSysUser.sGroup1Caption;
+  dbchbGroup2.Caption:= aSysUser.sGroup2Caption;
+  dbchbGroup3.Caption:= aSysUser.sGroup3Caption;
+  dbchbGroup4.Caption:= aSysUser.sGroup4Caption;
+  dbchbGroup5.Caption:= aSysUser.sGroup5Caption;
+  dbchbGroup6.Caption:= aSysUser.sGroup6Caption;
 End;
 
 
-Procedure TfReportContact.NewReportSelects(aDirectory: string);       // Check Text File against Fast Report Files
-Var                                                                   // Update as necessary
-  MySearch: TSearchRec;                                               // To Do as at 1/7/19
-  s1: String;
+Procedure TfReportContact.Printit;
+Begin
+  dmoReport.SelectReportData(aReport);
+  dmoReport.SetPrintRunData(aReport);
+  frxDBDataset1.DataSet:= dmoReport.dstContactPrintRun;
+  frxReport1.LoadFromFile(aReport.rFileName);
+  frxReport1.ShowReport;
+End;
+
+
+procedure TfReportContact.SMDBGrid1CellClick(Column: TColumn);
+begin
+  Printit;
+end;
+
+Procedure TfReportContact.SMDBGrid1DblClick(Sender: TObject);
+Begin
+  Printit;
+End;
+
+
+Procedure TfReportContact.mnuPrintClick(Sender: TObject);
+Begin
+  Printit;
+End;
+
+
+Procedure TfReportContact.NewReportSelects(aDirectory: string);       //  Tempory Code to reflect DB Changes
+Var                                                                   // Check Text File against Fast Report Files
+  MySearch: TSearchRec;                                               // Update as necessary
+  s1: String;                                                         // To Do as at 1/7/19
   FindResult, iGridRow, iGridRowCount: Integer;
 Begin
   iGridRow:= 0;
@@ -133,40 +161,6 @@ Begin
     End;
   End;
 //  stgReportGrid.RowCount:= iGridRow - 1;
-End;
-
-
-procedure TfReportContact.SMDBGrid1CellClick(Column: TColumn);
-begin
-  aReport.rID:= dmoReport.dstGridSelection.FieldByName('ID').AsInteger;
-  dmoReport.SelectReportData(aReport);
-  if aReport.rID > 0 then
-  Begin
-    mnuPrint.Enabled:= True;
-  End
-  Else
-  Begin
-    mnuPrint.Enabled:= False;
-    ShowMessage('Report info not in ReportSelect Table');
-  End;
-End;
-
-Procedure TfReportContact.ClearForm;
-Begin
-  CheckBox1.Checked:= True;
-  CheckBox2.Checked:= True;
-  CheckBox3.Checked:= True;
-  CheckBox4.Checked:= True;
-End;
-
-
-Procedure TfReportContact.mnuPrintClick(Sender: TObject);
-Begin
-  dmoReport.SetPrintRunData(aReport);
-
-  frxDBDataset1.DataSet:= dmoReport.dstContactPrintRun;
-  frxReport1.LoadFromFile(aReport.rFileName);
-  frxReport1.ShowReport;
 End;
 
 
