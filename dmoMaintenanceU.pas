@@ -32,7 +32,6 @@ type
     qryCustomFieldName: TADOQuery;
     qryNote: TADOQuery;
     dstNoteAbbrev: TADODataSet;
-    dstOmnibus: TADODataSet;
     dstFamily: TADODataSet;
     qryMember: TADOQuery;
     dstMemCat: TADODataSet;
@@ -44,6 +43,7 @@ type
     dstMemOccupation: TADODataSet;
     dstPartnerType: TADODataSet;
     qryCardTemp: TADOQuery;
+    dstOmnibus: TADODataSet;
 
     Procedure DataModuleCreate(Sender: TObject);
     Procedure DataModuleDestroy(Sender: TObject);
@@ -56,24 +56,25 @@ type
     { Public declarations }
 
     //------------------- Contact Procedures ------------------------------//
+    Procedure AddContact(aContact: TContact;aSysUser:TSysUser);
+    Procedure AddContactFamily(fTypeID: Integer; fSurname, fFirstName, fMobile,
+                               fLandLine, fEmail, fMoreInfo: String);
+    Procedure AddCategory(iCatID: Integer);
+    Procedure AddOrganisation;
     Procedure SelectContact(aContact: TContact;aSysUser: TSysUser);
     Function  CardExists(fSname, fFname: String): Boolean;
-    Procedure AddContact(aContact: TContact;aSysUser:TSysUser);
-    procedure UpdateOperatorColumns(aContact: TContact;aSysUser: TSysUser);
+    Function  CheckCardOrg(s1: String):Boolean;
     Function  CardIDAlpha(aContact: TContact; iRecID: Integer):String;
     Procedure CardReset;
     Procedure SaveContact(iOrgID: Integer; aContact:TContact);
     Procedure FilterGridName(sSname, sFname, sMobile, sOrg: String);
     Procedure SetID_SearchGrid(aContact:TContact);
-    Procedure GetID_Address(aContact:TContact);
-    Function  GroupName(iGroupID: Integer):String;
     Function  IsContactAMember:Boolean;
-    Procedure GetCardCategories(iCardID: Integer);
-    Procedure AddCategory(iCatID: Integer);
     Procedure DelCategory;
+    Procedure GetCardCategories(iCardID: Integer);
     Function  GetCardOrgID(s1: String): Integer;
-    Function  CheckCardOrg(s1: String):Boolean;
-    Procedure AddOrganisation;
+    Function  GetGroupName(iID: Integer): String;
+    Procedure GetID_Address(aContact:TContact);
     Procedure GetNoteAbbrev(iCardID: Integer);
     Function  GetNote(iCardID: Integer): String;
     Procedure SaveCardNote(aContact:TContact);
@@ -83,8 +84,7 @@ type
     Function  SaveCustomFieldName(sNewName: String):Boolean;
     Procedure RecTemp1;
     Procedure RecTemp2;
-    Procedure AddContactFamily(fTypeID: Integer; fSurname, fFirstName, fMobile,
-                               fLandLine, fEmail, fMoreInfo: String);
+    procedure UpdateOperatorColumns(aContact: TContact;aSysUser: TSysUser);
 
     //------------------- Member Procedures ------------------------------//
     Function  GetMember(aMember: TMember):Boolean;
@@ -271,17 +271,10 @@ Begin
 End;
 
 
-function TdmoMaintenance.GroupName(iGroupID: Integer): String;
-Begin
-//  dstOmnibus.Active:= False;
-//  dstOmnibus.CommandText:= 'SELECT ID, Description From tbGroup '
-//           + 'WHERE ID = ' + IntToStr(iGroupID);
-//  dstOmnibus.Active:= True;
-//  if dstOmnibus.RecordCount = 1 Then
-//    Result:= dstOmnibus.FieldByName('Description').AsString
-//  Else
-//    Result:= 'Invalid Group ID ' + IntToStr(iGroupID);
-End;
+//function TdmoMaintenance.GroupName(iGroupID: Integer): String;
+//Var Ll: Integer;
+//Begin
+//End;
 
 
 
@@ -326,6 +319,13 @@ Procedure TdmoMaintenance.GetCustomFieldNames;
 Begin
   qryCustomFieldName.Active:= False;
   qryCustomFieldName.Active:= True;
+End;
+
+
+Function TdmoMaintenance.GetGroupName(iID: Integer): String;
+Begin
+//  dstOmnibus.Active:= False;
+  dst1.Active:= False;
 End;
 
 

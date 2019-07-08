@@ -16,7 +16,8 @@ uses
   dmoSearchU in 'dmoSearchU.pas' {dmoSearch: TDataModule},
   fReportContactU in 'fReportContactU.pas' {fReportContact},
   dmoReportU in 'dmoReportU.pas' {dmoReport: TDataModule},
-  ContactBuildSelectString in 'ContactBuildSelectString.pas';
+  ContactReportsClass in 'ContactReportsClass.pas',
+  dmoSystemU in 'dmoSystemU.pas' {dmoSystem: TDataModule};
 
 {$R *.res}
 

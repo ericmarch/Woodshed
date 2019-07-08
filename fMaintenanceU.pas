@@ -233,12 +233,12 @@ Procedure TfMaintenance.FormShow(Sender: TObject);
 Begin
 //  Top:= fTop;
 //  Left:= fLeft;
-  dbchbGroup1.Caption:= dmoMaintenance.GroupName(1);
-  dbchbGroup2.Caption:= dmoMaintenance.GroupName(2);
-  dbchbGroup3.Caption:= dmoMaintenance.GroupName(3);
-  dbchbGroup4.Caption:= dmoMaintenance.GroupName(4);
-  dbchbGroup5.Caption:= dmoMaintenance.GroupName(5);
-  dbchbGroup6.Caption:= dmoMaintenance.GroupName(6);
+  dbchbGroup1.Caption:= TheSysUser.sGroup1Caption;     //  Can be differnt Group Names for different users
+  dbchbGroup2.Caption:= TheSysUser.sGroup2Caption;
+  dbchbGroup3.Caption:= TheSysUser.sGroup3Caption;
+  dbchbGroup4.Caption:= TheSysUser.sGroup4Caption;
+  dbchbGroup5.Caption:= TheSysUser.sGroup5Caption;
+  dbchbGroup6.Caption:= TheSysUser.sGroup6Caption;
 
 //  dmoMaintenance.RecTemp2;
 //  Close;

@@ -21,6 +21,7 @@ uses
   Vcl.Menus,
   Vcl.Imaging.jpeg,
   CheckPhoneNumberU,
+  dmoSystemU,
   SysUserClass,
   ContactClass;
 
@@ -70,6 +71,7 @@ End;
 
 Procedure TfMain.FormCreate(Sender: TObject);
 Begin
+  dmoSystem:= TdmoSystem.Create(Self);
   aSysUser:= TSysUser.Create;
   aContact:= TContact.Create;
   fLogin:= TfLogin.Create(Self);
@@ -77,6 +79,7 @@ End;
 
 Procedure TfMain.FormDestroy(Sender: TObject);
 Begin
+  dmoSystem.Free;
   aSysUser.Free;
   aContact.Free;
   fLogin.Free;
@@ -88,6 +91,7 @@ Begin
   Begin
     If fLogin.ShowModal = mrOK Then
     Begin
+      aSysUser.sExeDirectory:= dmoConnect.sDirectory;
       Logon1.Caption:= '&Logoff';
       Maintenance1.Enabled:= True;
       Reports1.Enabled:= True;

@@ -10,6 +10,7 @@ uses
 type
   TSysUser = class
   private
+    fsExeDirectory: String;
     fID: Integer;
     fAccessLevel: Integer;
     fUID: String;
@@ -18,9 +19,6 @@ type
     fEmail: String;
     fLoggedOn: Boolean;
     fLogonTime: TDateTime;
-//    function GetKms: Integer;
-//    function GetMakeModel: String;
-//    function GetRego: String;
     fsGroup1Caption: String;             //  Can be differnt Group Names for different users
     fsGroup2Caption: String;
     fsGroup3Caption: String;
@@ -28,9 +26,8 @@ type
     fsGroup5Caption: String;
     fsGroup6Caption: String;
     Procedure GetGroupCaptions;
-//    function GetKms: Integer;
-//    function GetMakeModel: String;
   public
+    property sExeDirectory: String read fsExeDirectory write fsExeDirectory;
     property ID: Integer read fID write fID;
     property AccessLevel: Integer read fAccessLevel write fAccessLevel;
     property UID: String read fUID write fUID;
@@ -54,7 +51,7 @@ implementation
 
 { TContact }
 
-uses dmoMaintenanceU;
+uses dmoSystemU;
 
 constructor TSysUser.Create;
 begin
@@ -70,12 +67,12 @@ end;
 
 procedure TSysUser.GetGroupCaptions;
 Begin
-    fsGroup1Caption:= dmoMaintenance.GroupName(1);
-    fsGroup2Caption:= dmoMaintenance.GroupName(2);
-    fsGroup3Caption:= dmoMaintenance.GroupName(3);
-    fsGroup4Caption:= dmoMaintenance.GroupName(4);
-    fsGroup5Caption:= dmoMaintenance.GroupName(5);
-    fsGroup6Caption:= dmoMaintenance.GroupName(6);
+  fsGroup1Caption:= dmoSystem.GetGroupCaption(1);
+  fsGroup2Caption:= dmoSystem.GetGroupCaption(2);
+  fsGroup3Caption:= dmoSystem.GetGroupCaption(3);
+  fsGroup4Caption:= dmoSystem.GetGroupCaption(4);
+  fsGroup5Caption:= dmoSystem.GetGroupCaption(5);
+  fsGroup6Caption:= dmoSystem.GetGroupCaption(6);
 End;
 
 

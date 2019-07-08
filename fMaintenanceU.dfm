@@ -139,6 +139,10 @@ object fMaintenance: TfMaintenance
     object tshNotes: TTabSheet
       Caption = 'Notes'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object StaticText1: TStaticText
         Left = 58
         Top = 3
@@ -241,6 +245,10 @@ object fMaintenance: TfMaintenance
     object tshContact: TTabSheet
       Caption = 'Contact'
       OnShow = tshContactShow
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblSurname: TLabel
         Left = 30
         Top = 19
@@ -809,6 +817,10 @@ object fMaintenance: TfMaintenance
       Caption = 'Member'
       ImageIndex = 1
       OnShow = tshMemberShow
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object txtIsInactive: TStaticText
         Left = 61
         Top = 159

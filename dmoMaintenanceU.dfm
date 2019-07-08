@@ -160,14 +160,6 @@ object dmoMaintenance: TdmoMaintenance
     Left = 248
     Top = 96
   end
-  object dstOmnibus: TADODataSet
-    Connection = dmoConnect.conConnect
-    CursorType = ctStatic
-    CommandText = 'select ID, Description from tbGroup where ID = 1'
-    Parameters = <>
-    Left = 72
-    Top = 240
-  end
   object dstFamily: TADODataSet
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
@@ -252,5 +244,12 @@ object dmoMaintenance: TdmoMaintenance
     Parameters = <>
     Left = 640
     Top = 32
+  end
+  object dstOmnibus: TADODataSet
+    Connection = dmoConnect.conConnect
+    CommandText = 'select ID, Description from tbGroup where ID = 1'
+    Parameters = <>
+    Left = 64
+    Top = 240
   end
 end
