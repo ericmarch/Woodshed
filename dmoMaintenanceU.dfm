@@ -5,14 +5,10 @@ object dmoMaintenance: TdmoMaintenance
   Height = 493
   Width = 747
   object dstCardSearch: TADODataSet
+    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
-    CommandText = 
-      'SELECT Card.ID, Card.IDAlpha, Card.SurName, Card.FirstName, Card' +
-      '.Mobile, au_Towns.pcName, au_Towns.ID, au_Towns.pcState_Code, au' +
-      '_Towns.pcCode '#13#10'FROM Card LEFT JOIN au_Towns ON Card.PostauTowns' +
-      'ID = au_Towns.ID '#13#10'ORDER BY Card.SurName, Card.FirstName, Card.I' +
-      'DAlpha;'#13#10
+    CommandText = 'SELECT * FROM vContactCard;'
     Parameters = <>
     Left = 48
     Top = 24

@@ -57,7 +57,7 @@ object fMaintenance: TfMaintenance
     Top = 45
     Width = 1104
     Height = 675
-    ActivePage = tshContact
+    ActivePage = tshSearch
     Align = alBottom
     TabOrder = 0
     object tshSearch: TTabSheet
@@ -130,7 +130,7 @@ object fMaintenance: TfMaintenance
           end
           item
             Expanded = False
-            FieldName = 'cardOrganisation.Description'
+            FieldName = 'Organisation'
             Width = 300
             Visible = True
           end>
@@ -139,10 +139,6 @@ object fMaintenance: TfMaintenance
     object tshNotes: TTabSheet
       Caption = 'Notes'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object StaticText1: TStaticText
         Left = 58
         Top = 3
@@ -245,10 +241,6 @@ object fMaintenance: TfMaintenance
     object tshContact: TTabSheet
       Caption = 'Contact'
       OnShow = tshContactShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblSurname: TLabel
         Left = 30
         Top = 19
@@ -454,7 +446,7 @@ object fMaintenance: TfMaintenance
         TabOrder = 15
       end
       object dblucbTownPostal: TDBLookupComboBox
-        Left = 150
+        Left = 154
         Top = 161
         Width = 220
         Height = 21
@@ -817,10 +809,6 @@ object fMaintenance: TfMaintenance
       Caption = 'Member'
       ImageIndex = 1
       OnShow = tshMemberShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object txtIsInactive: TStaticText
         Left = 61
         Top = 159
@@ -1091,7 +1079,7 @@ object fMaintenance: TfMaintenance
         Width = 100
         Height = 21
         Date = 43478.000000000000000000
-        Time = 0.902307256947096900
+        Time = 0.902307256947097000
         TabOrder = 27
       end
       object dtpAcceptedDate: TDateTimePicker
@@ -1100,7 +1088,7 @@ object fMaintenance: TfMaintenance
         Width = 100
         Height = 21
         Date = 43479.000000000000000000
-        Time = 0.909811886573152200
+        Time = 0.909811886573152100
         TabOrder = 28
         OnCloseUp = dtpAcceptedDateCloseUp
       end

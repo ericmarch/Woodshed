@@ -331,14 +331,12 @@ End;
 
 procedure TdmoMaintenance.SetID_SearchGrid(aContact: TContact);
 Var
-  s1: String;
+  s1: WideString;
 begin
   dstCardSearch.Active:= False;
-  s1:= 'SELECT Card.ID, Card.IDAlpha, Card.SurName, Card.FirstName, Card.Mobile, '
-        + 'au_Towns.pcName, au_Towns.ID, au_Towns.pcState_Code, au_Towns.pcCode '
-        + 'FROM Card LEFT JOIN au_Towns ON Card.PostauTownsID = au_Towns.ID '
-        + 'ORDER BY Card.SurName, Card.FirstName, Card.IDAlpha'
-      + 'WHERE ID = ' + IntToStr(aContact.iCardID);
+  s1:= 'SELECT * '
+      + ' FROM vCard'
+      + 'WHERE Card.ID = ' + IntToStr(aContact.iCardID);
   dstCardSearch.CommandText:= s1;
   dstCardSearch.Active:= True;
 End;
@@ -349,11 +347,11 @@ Var
   s1: String;
 Begin
   s1:= dstCardSearch.CommandText;             // Debug use only
-  s1:= dstCardSearch.FieldByName('PostalTownName').AsString;
+  s1:= dstCardSearch.FieldByName('PostTown').AsString;
   aContact.iCardID:= dstCardSearch.FieldByName('ID').AsInteger;
   aContact.PostalPcode:= dstCardSearch.FieldByName('PostauTownsID').AsInteger;
-  aContact.PostalTown:= dstCardSearch.FieldByName('PostalTownName').AsString;
-  aContact.PostalState:= dstCardSearch.FieldByName('PostalState').AsString;
+  aContact.PostalTown:= dstCardSearch.FieldByName('PostTown').AsString;
+  aContact.PostalState:= dstCardSearch.FieldByName('PostState').AsString;
 End;
 
 
@@ -386,60 +384,58 @@ Begin
     sOrg:= '%' + sOrg + '%';
     iOrganisation:= 1;
   End;
+  SelectStr:= 'SELECT * '
+            + 'FROM vContactCard ';
   iSelectOption:= 90000 + iSname + iFname + iMobile+ iOrganisation;
   if iSelectOption > 90000 then
   Begin
-    SelectStr:= 'SELECT * FROM qCardCatGroup WHERE ';
+    SelectStr:= SelectStr + ' WHERE ';
     case iSelectOption of
-       90001 : SelectStr:= SelectStr + 'CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+       90001 : SelectStr:= SelectStr + 'Organisation LIKE ' + QuotedStr(sOrg);
        90010 : SelectStr:= SelectStr + 'Mobile LIKE ' + quotedStr(sMobile);
        90011 : SelectStr:= SelectStr + 'Mobile LIKE ' + quotedStr(sMobile)
-             + ' AND CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+             + ' AND Organisation LIKE ' + QuotedStr(sOrg);
        90100 : SelectStr:= SelectStr + 'FirstName LIKE ' + QuotedStr(sFName);
        90101 : SelectStr:= SelectStr + 'FirstName LIKE ' + QuotedStr(sFName)
-             + ' AND CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+             + ' AND Organisation LIKE ' + QuotedStr(sOrg);
        90110 : SelectStr:= SelectStr + 'FirstName LIKE ' + QuotedStr(sFName)
              + ' AND Mobile LIKE ' + quotedStr(sMobile);
        90111 : SelectStr:= SelectStr + 'FirstName LIKE ' + QuotedStr(sFName)
              + ' AND Mobile LIKE ' + quotedStr(sMobile)
-             + ' AND CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+             + ' AND Organisationn LIKE ' + QuotedStr(sOrg);
 
        91000 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname);
        91001 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname)
-             + ' AND CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+             + ' AND Organisation LIKE ' + QuotedStr(sOrg);
        91010 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname)
              + ' AND FirstName LIKE ' + QuotedStr(sFName);
        91011 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname)
              + ' AND FirstName LIKE ' + QuotedStr(sFName)
-             + ' AND CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+             + ' AND Organisation LIKE ' + QuotedStr(sOrg);
        91100 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname)
              + ' AND FirstName LIKE ' + QuotedStr(sFName);
        91101 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname)
              + ' AND FirstName LIKE ' + QuotedStr(sFName)
-             + ' AND CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+             + ' AND Organisation LIKE ' + QuotedStr(sOrg);
        91110 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname)
              + ' AND FirstName LIKE ' + QuotedStr(sFName)
              + ' AND Mobile LIKE ' + quotedStr(sMobile);
        91111 : SelectStr:= SelectStr + 'Surname LIKE ' + QuotedStr(sSname)
              + ' AND FirstName LIKE ' + QuotedStr(sFName)
              + ' AND Mobile LIKE ' + quotedStr(sMobile)
-             + ' AND CardOrganisation.Description LIKE ' + QuotedStr(sOrg);
+             + ' AND Organisation LIKE ' + QuotedStr(sOrg);
     End;
-    SelectStr:= SelectStr + ' Order by Surname, FirstName, ID';
-    End
-    Else
-    Begin
-    SelectStr:= 'SELECT * FROM qCardCatGroup '
-            + 'ORDER BY SurName, FirstName, ID';
+    SelectStr:= SelectStr + ' ORDER BY SurName, FirstName, Card.ID';
+    dstCardSearch.Active:= False;
+    dstCardSearch.CommandText:= SelectStr;
+    dstCardSearch.Active:= True;
   End;
-  dstCardSearch.Active:= False;
-  dstCardSearch.CommandText:= SelectStr;
-  dstCardSearch.Active:= True;
 End;
 
 
 function TdmoMaintenance.SaveCustomFieldName(sNewName: String): Boolean;
 Begin
+  Result:= False;
   dstOmnibus.Active:= False;
   dstOmnibus.CommandText:= 'Select Description FROM CardCustomFieldName '
             + 'WHERE Description = ' + QuotedStr(sNewName);
