@@ -18,6 +18,7 @@ Type
     dstHeader: TADODataSet;
     dst1: TADODataSet;
     dstGroup: TADODataSet;
+    dstCategory: TADODataSet;
     Procedure  DataModuleCreate(Sender: TObject);
     Procedure  DataModuleDestroy(Sender: TObject);
   Private

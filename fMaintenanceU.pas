@@ -143,6 +143,10 @@ type
     dbchbGroup4: TDBCheckBox;
     dbchbGroup5: TDBCheckBox;
     dbchbGroup6: TDBCheckBox;
+    dbeOccupation: TDBEdit;
+    lblOccupation: TLabel;
+    lblOccupationDetail: TLabel;
+    dbeOccupationDetail: TDBEdit;
     Procedure FormShow(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
@@ -185,7 +189,9 @@ type
     Procedure CardSelected;
     Procedure UpdSearchGrid;
     Procedure PopulateMemNote(s1: String);
-    Procedure UpDateAMember;
+    Procedure aMemberUpdate;
+    Procedure SaveContactCard;
+    Procedure aContacUpdtNote(iLines: Integer);
     Procedure ShowContactPage;
   public
     { Public declarations }
@@ -415,49 +421,85 @@ Begin
 End;
 
 
-Procedure TfMaintenance.btnSaveClick(Sender: TObject);
+Procedure TfMaintenance.SaveContactCard;
 Var
-  iOrgID, iMemoLinesCount, ii: Integer;
+  iOrgID: Integer;
+Begin
+  If dbluComboBoxOrg.KeyValue = 2 then
+     dbluComboBoxOrg.KeyValue:= null;
+  If dbluComboBoxOrg.KeyValue > 0 then
+    iOrgID:= dbluComboBoxOrg.KeyValue
+  Else
+    iOrgID:= 0;
+  aContact.Group1:= dbchbGroup1.Checked;
+  aContact.Group2:= dbchbGroup2.Checked;
+  aContact.Group3:= dbchbGroup3.Checked;
+  aContact.Group4:= dbchbGroup4.Checked;
+  aContact.Group5:= dbchbGroup5.Checked;
+  aContact.Group6:= dbchbGroup6.Checked;
+  dmoMaintenance.SaveContact(iOrgID, aContact);
+  dmoMaintenance.CardReset;
+  dmoMaintenance.UpdateOperatorColumns(aContact, TheSysUser);
+End;
+
+
+Procedure TfMaintenance.aContacUpdtNote(iLines: Integer);
+Var
+  ii: Integer;
+Begin
+  ii:= 0;
+  aContact.LastNote:= memNote.Lines[ii];
+  ii:= 1;
+  while ii < iLines do
+  Begin
+    aContact.LastNote:= aContact.LastNote + '  ' + memNote.Lines[ii];
+    ii:= ii + 1;
+  End;
+End;
+
+
+Procedure TfMaintenance.aMemberUpdate;
+Begin
+  aMember.bIsInactive:= cbxIsInactive.Checked;
+  aMember.bIsInactive:= cbxIsInactive.Checked;
+  aMember.iMemberType:= DBLUComboBoxMemType.KeyValue;
+  aMember.iStatus:= DBLUComboBoxMemStatus.KeyValue;
+  aMember.iGender:= DBLUComboBoxMemGender.KeyValue;
+  aMember.dAccepted:= dtpAcceptedDate.Date;
+  aMember.dDOB:= dtpDateBirth.Date;
+  aMember.bBadgePrinted:= cbxBadgePrinted.Checked;
+//  aMember.sOccupation:= dbeOccupation.DataField;     //  See qty in dmoMaintenance
+//  aMember.sOccupationDetail:= dbeOccupationDetail.DataField;
+  aMember.bFinancial:= cbxFinancial.Checked;
+  aMember.dReceiptDate:= dtpReceiptDate.Date;
+//  aMember.sReceiptNum:= dbeReceiptNumber.DataField;
+  aMember.dFinancialTo:= dtpFinancialTo.Date;
+  aMember.bChildClearance:= cbxChildClearance.Checked;
+  aMember.bPoliceClearance:= cbxPoliceClearance.Checked;
+End;
+//  qryMember.FieldByName('Occupation').AsInteger:= aMember.iOccupation;
+//  qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
+
+
+Procedure TfMaintenance.btnSaveClick(Sender: TObject);
 Begin
   if (length(aContact.sSurname) + Length(aContact.sFirstName)) > 5 Then
   Begin
     If dmoMaintenance.qryCard.State in [dsEdit, dsInsert] then
     Begin
-      if dbluComboBoxOrg.KeyValue = 2 then
-         dbluComboBoxOrg.KeyValue:= null;
-      if dbluComboBoxOrg.KeyValue > 0 then
-        iOrgID:= dbluComboBoxOrg.KeyValue
-      Else
-        iOrgID:= 0;
-      aContact.Group1:= dbchbGroup1.Checked;
-      aContact.Group2:= dbchbGroup2.Checked;
-      aContact.Group3:= dbchbGroup3.Checked;
-      aContact.Group4:= dbchbGroup4.Checked;
-      aContact.Group5:= dbchbGroup5.Checked;
-      aContact.Group6:= dbchbGroup6.Checked;
-      dmoMaintenance.SaveContact(iOrgID, aContact);
-      dmoMaintenance.CardReset;
-      dmoMaintenance.UpdateOperatorColumns(aContact, TheSysUser);
+      SaveContactCard;
     End;
 
-    iMemoLinesCount:= memNote.Lines.Count;
-    if iMemoLinesCount > 0 then
+    if memNote.Lines.Count > 0 then
     Begin
-      ii:= 0;
-      aContact.LastNote:= memNote.Lines[ii];
-      ii:= 1;
-      while ii < iMemoLinesCount do
-      Begin
-        aContact.LastNote:= aContact.LastNote + '  ' + memNote.Lines[ii];
-        ii:= ii + 1;
-      End;
+      aContacUpdtNote(memNote.Lines.Count);
     End;
     dmoMaintenance.SaveCardNote(aContact);
     txtNoteAdded.Enabled:= True;
 
     if aContact.bIsMember then
     Begin
-      UpdateAMember;
+      aMemberUpdate;
       dmoMaintenance.SaveMember(aMember);
     End;
 
@@ -730,21 +772,6 @@ Begin
 End;
 
 
-Procedure TfMaintenance.UpDateAMember;
-Begin
-  aMember.bIsInactive:= cbxIsInactive.Checked;
-  aMember.bBadgePrinted:= cbxBadgePrinted.Checked;
-  aMember.bFinancial:= cbxFinancial.Checked;
-  aMember.dReceiptDate:= dtpReceiptDate.Date;
-  aMember.dFinancialTo:= dtpFinancialTo.Date;
-  aMember.dAccepted:= dtpAcceptedDate.Date;
-  aMember.dDOB:= dtpDateBirth.Date;
-  aMember.bChildClearance:= cbxChildClearance.Checked;
-  aMember.bPoliceClearance:= cbxPoliceClearance.Checked;
-
-End;
-//  qryMember.FieldByName('Occupation').AsInteger:= aMember.iOccupation;
-//  qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
 
 
 End.

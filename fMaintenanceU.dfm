@@ -44,8 +44,8 @@ object fMaintenance: TfMaintenance
     OnClick = btnExitClick
   end
   object btnSave: TSpeedButton
-    Left = 101
-    Top = -1
+    Left = 96
+    Top = -2
     Width = 60
     Height = 22
     Caption = 'Save'
@@ -57,7 +57,7 @@ object fMaintenance: TfMaintenance
     Top = 45
     Width = 1104
     Height = 675
-    ActivePage = tshSearch
+    ActivePage = tshMember
     Align = alBottom
     TabOrder = 0
     object tshSearch: TTabSheet
@@ -809,6 +809,22 @@ object fMaintenance: TfMaintenance
       Caption = 'Member'
       ImageIndex = 1
       OnShow = tshMemberShow
+      object lblOccupation: TLabel
+        Left = 16
+        Top = 307
+        Width = 91
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Trades / Skills'
+      end
+      object lblOccupationDetail: TLabel
+        Left = 23
+        Top = 360
+        Width = 84
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Occupation Detail'
+      end
       object txtIsInactive: TStaticText
         Left = 61
         Top = 159
@@ -1063,7 +1079,7 @@ object fMaintenance: TfMaintenance
       end
       object DBLUComboBoxMemGender: TDBLookupComboBox
         Left = 158
-        Top = 129
+        Top = 133
         Width = 145
         Height = 21
         DataField = 'Gender'
@@ -1091,6 +1107,24 @@ object fMaintenance: TfMaintenance
         Time = 0.909811886573152100
         TabOrder = 28
         OnCloseUp = dtpAcceptedDateCloseUp
+      end
+      object dbeOccupation: TDBEdit
+        Left = 135
+        Top = 304
+        Width = 880
+        Height = 21
+        DataField = 'Occupation'
+        DataSource = dscMember
+        TabOrder = 29
+      end
+      object dbeOccupationDetail: TDBEdit
+        Left = 135
+        Top = 357
+        Width = 880
+        Height = 21
+        DataField = 'OccupationDetail'
+        DataSource = dscMember
+        TabOrder = 30
       end
     end
   end

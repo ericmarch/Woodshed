@@ -805,7 +805,7 @@ Begin
     aMember.dAccepted:= qryMember.FieldByName('Accepted').AsDateTime;
     aMember.dDOB:= qryMember.FieldByName('DOB').AsDateTime;
     aMember.bBadgePrinted:= qryMember.FieldByName('BadgePrinted').AsBoolean;
-    aMember.iOccupation:=  qryMember.FieldByName('Occupation').AsInteger;
+    aMember.sOccupation:=  qryMember.FieldByName('Occupation').AsString;
     aMember.sOccupationDetail:=  qryMember.FieldByName('OccupationDetail').AsString;
     aMember.bFinancial:= qryMember.FieldByName('Financial').AsBoolean;
     aMember.dReceiptDate:= qryMember.FieldByName('ReceiptDate').AsDateTime;
@@ -828,16 +828,17 @@ Begin
 //  qryMember.FieldByName('Status').AsInteger:= aMember.iStatus;
 //  qryMember.FieldByName('Gender').AsInteger:= aMember.iGender;
   qryMember.FieldByName('Accepted').AsDateTime:= aMember.dAccepted;
+  qryMember.FieldByName('DOB').AsDateTime:= aMember.dAccepted;
   qryMember.FieldByName('BadgePrinted').AsBoolean:= aMember.bBadgePrinted;
-//  qryMember.FieldByName('Occupation').AsInteger:= aMember.iOccupation;
+//  qryMember.FieldByName('Occupation').AsString:= aMember.sOccupation;
 //  qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
   qryMember.FieldByName('Financial').AsBoolean:= aMember.bFinancial;
   qryMember.FieldByName('ReceiptDate').AsDateTime:= aMember.dReceiptDate;
-
+  qryMember.FieldByName('ReceiptNum').AsString:= aMember.sReceiptNum;
   qryMember.FieldByName('FinancialTo').AsDateTime:= aMember.dFinancialTo;
   qryMember.FieldByName('ChildrenClearance').AsBoolean:= aMember.bChildClearance;
   qryMember.FieldByName('PoliceClearance').AsBoolean:= aMember.bPoliceClearance;
-//  qryMember.Post;
+  qryMember.Post;
 End;
 
 
@@ -860,20 +861,22 @@ begin
     qryMember.AppEnd;
     qryMember.FieldByName('CardID').AsInteger:= aMember.iCardID;
   End;
-  //  qryMember.FieldByName('IsInactive').AsBoolean:= aMember.bIsInactive;
+  qryMember.FieldByName('IsInactive').AsBoolean:= aMember.bIsInactive;
 //  qryMember.FieldByName('MemberType').AsInteger:= aMember.iMemberType;
 //  qryMember.FieldByName('Status').AsInteger:= aMember.iStatus;
 //  qryMember.FieldByName('Gender').AsInteger:= aMember.iGender;
-//  qryMember.FieldByName('Accepted').AsDateTime:= aMember.dAccepted;
-//  qryMember.FieldByName('Occupation').AsInteger:= aMember.iOccupation;
-//  qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
-//  qryMember.FieldByName('Financial').AsBoolean:= aMember.bFinancial;
-//  qryMember.FieldByName('ReceiptDate').AsDateTime:= aMember.dReceiptDate;
-//
-//  qryMember.FieldByName('FinancialTo').AsDateTime:= amember.dFinancialTo;
-//  qryMember.FieldByName('ChildrenClearance').AsBoolean:= aMember.bChildClearance;
-//  qryMember.FieldByName('PoliceClearance').AsBoolean:= aMember.bPoliceClearance;
-//  qryMember.Post;
+  qryMember.FieldByName('Accepted').AsDateTime:= aMember.dAccepted;
+  qryMember.FieldByName('DOB').AsDateTime:= aMember.dAccepted;
+  qryMember.FieldByName('BadgePrinted').AsBoolean:= aMember.bBadgePrinted;
+  qryMember.FieldByName('Occupation').AsString:= aMember.sOccupation;
+  qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
+  qryMember.FieldByName('Financial').AsBoolean:= aMember.bFinancial;
+  qryMember.FieldByName('ReceiptDate').AsDateTime:= aMember.dReceiptDate;
+  qryMember.FieldByName('ReceiptNum').AsString:= aMember.sReceiptNum;
+  qryMember.FieldByName('FinancialTo').AsDateTime:= aMember.dFinancialTo;
+  qryMember.FieldByName('ChildrenClearance').AsBoolean:= aMember.bChildClearance;
+  qryMember.FieldByName('PoliceClearance').AsBoolean:= aMember.bPoliceClearance;
+  qryMember.Post;
 End;
 
 

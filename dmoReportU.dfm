@@ -17,18 +17,21 @@ object dmoReport: TdmoReport
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     LockType = ltReadOnly
-    CommandText = 'Select * FROM vContactCard'
+    CommandText = 'Select * FROM vMember'
     Parameters = <>
     Left = 168
     Top = 93
   end
   object dstHeader: TADODataSet
+    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
-    CommandText = 'select ID, IsSelected, Description from CardCategory'
+    CommandText = 
+      'select ID, registeredName, Addr1, AddrCity, AddrState, AddrPostC' +
+      'ode, Email, Phone, ContactPerson from RegistrationOfSoftware'
     Parameters = <>
-    Left = 280
-    Top = 30
+    Left = 40
+    Top = 94
   end
   object dst1: TADODataSet
     Connection = dmoConnect.conConnect
@@ -37,8 +40,8 @@ object dmoReport: TdmoReport
       'upLink ON Card.ID = CardGroupLink.CardID) LEFT JOIN CardGroup ON' +
       ' CardGroupLink.GroupID = CardGroup.ID WHERE (((CardGroup.ID)=1))'
     Parameters = <>
-    Left = 296
-    Top = 88
+    Left = 272
+    Top = 24
   end
   object dstGroup: TADODataSet
     Connection = dmoConnect.conConnect
@@ -46,5 +49,12 @@ object dmoReport: TdmoReport
     Parameters = <>
     Left = 168
     Top = 29
+  end
+  object dstCategory: TADODataSet
+    Connection = dmoConnect.conConnect
+    CommandText = 'select ID, IsSelected, Description from CardCategory'
+    Parameters = <>
+    Left = 288
+    Top = 96
   end
 end

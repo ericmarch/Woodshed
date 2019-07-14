@@ -70,7 +70,7 @@ type
     fdAccepted: TDate;
     fdDOB: TDate;
     fbBadgePrinted: Boolean;
-    fiOccupation: Integer;
+    fsOccupation: String;
     fsOccupationDetail: String;
     fbFinancial: Boolean;
     fdReceiptDate: TDate;
@@ -87,7 +87,7 @@ type
     property dAccepted: TDate Read fdAccepted Write fdAccepted;
     property dDOB: TDate Read fdDOB Write fdDOB;
     property bBadgePrinted: Boolean Read fbBadgePrinted Write fbBadgePrinted;
-    property iOccupation: Integer Read fiOccupation Write fiOccupation;
+    property sOccupation: String Read fsOccupation Write fsOccupation;
     property sOccupationDetail: String Read fsOccupationDetail Write fsOccupationDetail;
     property bFinancial: Boolean Read fbFinancial Write fbFinancial;
     property dReceiptDate: TDate Read fdReceiptDate Write fdReceiptDate;
