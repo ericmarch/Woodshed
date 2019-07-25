@@ -66,6 +66,7 @@ type
     Function  CheckCardOrg(s1: String):Boolean;
     Function  CardIDAlpha(aContact: TContact; iRecID: Integer):String;
     Procedure CardReset;
+    Procedure GridSearchReset;
     Procedure SaveContact(iOrgID: Integer; aContact:TContact);
     Procedure FilterGridName(sSname, sFname, sMobile, sOrg: String);
     Procedure SetID_SearchGrid(aContact:TContact);
@@ -271,11 +272,12 @@ Begin
 End;
 
 
-//function TdmoMaintenance.GroupName(iGroupID: Integer): String;
-//Var Ll: Integer;
-//Begin
-//End;
-
+procedure TdmoMaintenance.GridSearchReset;
+begin
+  dstCardSearch.Active:= False;
+  dstCardSearch.CommandText:= 'SELECT * FROM vContactCard Order by FullName';
+  dstCardSearch.Active:= True;
+end;
 
 
 Function  TdmoMaintenance.GetNote(iCardID: Integer): String;
@@ -692,6 +694,8 @@ End;
 Procedure TdmoMaintenance.CardReset;
 Begin
   qryCard.Active:= False;
+  qryCard.SQL.Clear;
+  qryCard.SQL.Add('Select * From Card');
   qryCard.Active:= True;
 End;
 
@@ -819,26 +823,12 @@ End;
 
 Procedure TdmoMaintenance.SaveMember(amember: TMember);   // Fix this & above later
 Begin
-  if NOT (qryMember.State in dsEditModes) then
+  if qryMember.State in dsEditModes then
   Begin
-    qryMember.Edit;
+    qryMember.FieldByName('IsInactive').AsBoolean:= aMember.bIsInactive;
+    qryMember.FieldByName('BadgePrinted').AsBoolean:= aMember.bBadgePrinted;
+    qryMember.Post;
   End;
-  qryMember.FieldByName('IsInactive').AsBoolean:= aMember.bIsInactive;
-//  qryMember.FieldByName('MemberType').AsInteger:= aMember.iMemberType;
-//  qryMember.FieldByName('Status').AsInteger:= aMember.iStatus;
-//  qryMember.FieldByName('Gender').AsInteger:= aMember.iGender;
-  qryMember.FieldByName('Accepted').AsDateTime:= aMember.dAccepted;
-  qryMember.FieldByName('DOB').AsDateTime:= aMember.dAccepted;
-  qryMember.FieldByName('BadgePrinted').AsBoolean:= aMember.bBadgePrinted;
-//  qryMember.FieldByName('Occupation').AsString:= aMember.sOccupation;
-//  qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
-  qryMember.FieldByName('Financial').AsBoolean:= aMember.bFinancial;
-  qryMember.FieldByName('ReceiptDate').AsDateTime:= aMember.dReceiptDate;
-  qryMember.FieldByName('ReceiptNum').AsString:= aMember.sReceiptNum;
-  qryMember.FieldByName('FinancialTo').AsDateTime:= aMember.dFinancialTo;
-  qryMember.FieldByName('ChildrenClearance').AsBoolean:= aMember.bChildClearance;
-  qryMember.FieldByName('PoliceClearance').AsBoolean:= aMember.bPoliceClearance;
-  qryMember.Post;
 End;
 
 
@@ -862,18 +852,9 @@ begin
     qryMember.FieldByName('CardID').AsInteger:= aMember.iCardID;
   End;
   qryMember.FieldByName('IsInactive').AsBoolean:= aMember.bIsInactive;
-//  qryMember.FieldByName('MemberType').AsInteger:= aMember.iMemberType;
-//  qryMember.FieldByName('Status').AsInteger:= aMember.iStatus;
-//  qryMember.FieldByName('Gender').AsInteger:= aMember.iGender;
-  qryMember.FieldByName('Accepted').AsDateTime:= aMember.dAccepted;
-  qryMember.FieldByName('DOB').AsDateTime:= aMember.dAccepted;
   qryMember.FieldByName('BadgePrinted').AsBoolean:= aMember.bBadgePrinted;
   qryMember.FieldByName('Occupation').AsString:= aMember.sOccupation;
   qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
-  qryMember.FieldByName('Financial').AsBoolean:= aMember.bFinancial;
-  qryMember.FieldByName('ReceiptDate').AsDateTime:= aMember.dReceiptDate;
-  qryMember.FieldByName('ReceiptNum').AsString:= aMember.sReceiptNum;
-  qryMember.FieldByName('FinancialTo').AsDateTime:= aMember.dFinancialTo;
   qryMember.FieldByName('ChildrenClearance').AsBoolean:= aMember.bChildClearance;
   qryMember.FieldByName('PoliceClearance').AsBoolean:= aMember.bPoliceClearance;
   qryMember.Post;

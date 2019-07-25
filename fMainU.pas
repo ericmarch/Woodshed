@@ -66,6 +66,7 @@ uses dmoConnectU,
 
 Procedure TfMain.Exit1Click(Sender: TObject);
 Begin
+  dmoConnect.conConnect.Connected:= True;
   Close;
 End;
 
@@ -91,10 +92,12 @@ Begin
   Begin
     If fLogin.ShowModal = mrOK Then
     Begin
+      dmoConnect.conConnect.Connected:= True;
       aSysUser.sExeDirectory:= dmoConnect.sDirectory;
       Logon1.Caption:= '&Logoff';
       Maintenance1.Enabled:= True;
       Reports1.Enabled:= True;
+      Search1.Enabled:= True;
     End;
   End
   Else
@@ -102,6 +105,8 @@ Begin
     Logon1.Caption:= '&Logon';
     Maintenance1.Enabled:= False;
     Reports1.Enabled:= False;
+    Search1.Enabled:= false;
+    dmoConnect.conConnect.Connected:= False;
   End;
 End;
 

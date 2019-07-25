@@ -520,6 +520,7 @@ object fMain: TfMain
     end
     object Search1: TMenuItem
       Caption = '&Search'
+      Enabled = False
       OnClick = Search1Click
     end
     object Exit1: TMenuItem

@@ -57,12 +57,12 @@ end;
 
 procedure TdmoConnect.DataModuleCreate(Sender: TObject);
 begin
-  conConnect.Connected:= True;
+//  conConnect.Connected:= True;
 end;
 
 procedure TdmoConnect.DataModuleDestroy(Sender: TObject);
 begin
-  conConnect.Connected:= False;
+//  conConnect.Connected:= False;
 end;
 
 end.

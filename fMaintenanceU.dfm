@@ -45,7 +45,7 @@ object fMaintenance: TfMaintenance
   end
   object btnSave: TSpeedButton
     Left = 96
-    Top = -2
+    Top = -1
     Width = 60
     Height = 22
     Caption = 'Save'
@@ -808,11 +808,10 @@ object fMaintenance: TfMaintenance
     object tshMember: TTabSheet
       Caption = 'Member'
       ImageIndex = 1
-      OnShow = tshMemberShow
       object lblOccupation: TLabel
-        Left = 16
+        Left = 42
         Top = 307
-        Width = 91
+        Width = 65
         Height = 13
         Alignment = taRightJustify
         Caption = 'Trades / Skills'
@@ -825,57 +824,6 @@ object fMaintenance: TfMaintenance
         Alignment = taRightJustify
         Caption = 'Occupation Detail'
       end
-      object txtIsInactive: TStaticText
-        Left = 61
-        Top = 159
-        Width = 80
-        Height = 17
-        Alignment = taRightJustify
-        AutoSize = False
-        Caption = 'IsInactive'
-        TabOrder = 0
-      end
-      object txtBadgePrinted: TStaticText
-        Left = 16
-        Top = 190
-        Width = 125
-        Height = 17
-        Alignment = taRightJustify
-        AutoSize = False
-        Caption = 'Badge Printed'
-        TabOrder = 1
-      end
-      object txtFinancial: TStaticText
-        Left = 256
-        Top = 161
-        Width = 80
-        Height = 17
-        Alignment = taRightJustify
-        AutoSize = False
-        Caption = 'Financial'
-        TabOrder = 2
-      end
-      object cbxIsInactive: TCheckBox
-        Left = 158
-        Top = 160
-        Width = 15
-        Height = 17
-        TabOrder = 3
-      end
-      object cbxBadgePrinted: TCheckBox
-        Left = 158
-        Top = 190
-        Width = 15
-        Height = 17
-        TabOrder = 4
-      end
-      object cbxFinancial: TCheckBox
-        Left = 362
-        Top = 161
-        Width = 15
-        Height = 17
-        TabOrder = 5
-      end
       object DBLookupListBoxMemCat: TDBLookupListBox
         Left = 362
         Top = 38
@@ -884,7 +832,7 @@ object fMaintenance: TfMaintenance
         KeyField = 'CatID'
         ListField = 'Description'
         ListSource = dscCardCategory
-        TabOrder = 6
+        TabOrder = 0
         OnDblClick = DBLookupListBoxCategoriesDblClick
       end
       object txtMemCategory: TStaticText
@@ -899,7 +847,7 @@ object fMaintenance: TfMaintenance
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 7
+        TabOrder = 1
       end
       object DBLookupComboBoxMemcat: TDBLookupComboBox
         Left = 362
@@ -915,7 +863,7 @@ object fMaintenance: TfMaintenance
         ListField = 'Description'
         ListSource = dscMemCat
         ParentFont = False
-        TabOrder = 8
+        TabOrder = 2
         OnCloseUp = dbluComboBoxCategoriesCloseUp
       end
       object txtAccepted: TStaticText
@@ -924,7 +872,7 @@ object fMaintenance: TfMaintenance
         Width = 49
         Height = 17
         Caption = 'Accepted'
-        TabOrder = 9
+        TabOrder = 3
       end
       object txtDOB: TStaticText
         Left = 116
@@ -933,41 +881,17 @@ object fMaintenance: TfMaintenance
         Height = 17
         Alignment = taRightJustify
         Caption = 'DOB'
-        TabOrder = 10
-      end
-      object cbxChildClearance: TCheckBox
-        Left = 158
-        Top = 221
-        Width = 15
-        Height = 17
-        TabOrder = 11
-      end
-      object txtChildClearance: TStaticText
-        Left = 61
-        Top = 221
-        Width = 80
-        Height = 17
-        Alignment = taRightJustify
-        AutoSize = False
-        Caption = 'Child Clearance'
-        TabOrder = 12
-      end
-      object cbxPoliceClearance: TCheckBox
-        Left = 158
-        Top = 251
-        Width = 15
-        Height = 17
-        TabOrder = 13
+        TabOrder = 4
       end
       object txtPoliceClearance: TStaticText
-        Left = 61
-        Top = 251
+        Left = 16
+        Top = 284
         Width = 80
         Height = 17
         Alignment = taRightJustify
         AutoSize = False
         Caption = 'Police Clearance'
-        TabOrder = 14
+        TabOrder = 5
       end
       object dbeReceiptNumber: TDBEdit
         Left = 362
@@ -976,25 +900,7 @@ object fMaintenance: TfMaintenance
         Height = 21
         DataField = 'ReceiptNum'
         DataSource = dscMember
-        TabOrder = 15
-      end
-      object dtpReceiptDate: TDateTimePicker
-        Left = 362
-        Top = 188
-        Width = 100
-        Height = 21
-        Date = 43485.000000000000000000
-        Time = 0.884536446763377200
-        TabOrder = 16
-      end
-      object dtpFinancialTo: TDateTimePicker
-        Left = 362
-        Top = 218
-        Width = 100
-        Height = 21
-        Date = 43409.000000000000000000
-        Time = 0.884536446763377200
-        TabOrder = 17
+        TabOrder = 6
       end
       object StaticText2: TStaticText
         Left = 256
@@ -1004,7 +910,7 @@ object fMaintenance: TfMaintenance
         Alignment = taRightJustify
         AutoSize = False
         Caption = 'Receipt Date'
-        TabOrder = 18
+        TabOrder = 7
       end
       object StaticText3: TStaticText
         Left = 256
@@ -1014,7 +920,7 @@ object fMaintenance: TfMaintenance
         Alignment = taRightJustify
         AutoSize = False
         Caption = 'Financial To'
-        TabOrder = 19
+        TabOrder = 8
       end
       object txtReceiptNumber: TStaticText
         Left = 256
@@ -1024,7 +930,7 @@ object fMaintenance: TfMaintenance
         Alignment = taRightJustify
         AutoSize = False
         Caption = 'Receipt Number'
-        TabOrder = 20
+        TabOrder = 9
       end
       object txtMemType: TStaticText
         Left = 72
@@ -1033,7 +939,7 @@ object fMaintenance: TfMaintenance
         Height = 17
         Alignment = taRightJustify
         Caption = 'Member Type'
-        TabOrder = 21
+        TabOrder = 10
       end
       object DBLUComboBoxMemType: TDBLookupComboBox
         Left = 158
@@ -1046,7 +952,7 @@ object fMaintenance: TfMaintenance
         KeyField = 'ID'
         ListField = 'Description'
         ListSource = dscMemType
-        TabOrder = 22
+        TabOrder = 11
       end
       object DBLUComboBoxMemStatus: TDBLookupComboBox
         Left = 158
@@ -1058,7 +964,7 @@ object fMaintenance: TfMaintenance
         KeyField = 'ID'
         ListField = 'Description'
         ListSource = dscMemStatus
-        TabOrder = 23
+        TabOrder = 12
       end
       object txtMemberStatus: TStaticText
         Left = 68
@@ -1066,7 +972,7 @@ object fMaintenance: TfMaintenance
         Width = 73
         Height = 17
         Caption = 'MemberStatus'
-        TabOrder = 24
+        TabOrder = 13
       end
       object txtGender: TStaticText
         Left = 102
@@ -1075,11 +981,11 @@ object fMaintenance: TfMaintenance
         Height = 17
         Alignment = taRightJustify
         Caption = 'Gender'
-        TabOrder = 25
+        TabOrder = 14
       end
       object DBLUComboBoxMemGender: TDBLookupComboBox
         Left = 158
-        Top = 133
+        Top = 128
         Width = 145
         Height = 21
         DataField = 'Gender'
@@ -1087,26 +993,7 @@ object fMaintenance: TfMaintenance
         KeyField = 'ID'
         ListField = 'Description'
         ListSource = dscMemGender
-        TabOrder = 26
-      end
-      object dtpDateBirth: TDateTimePicker
-        Left = 158
-        Top = 38
-        Width = 100
-        Height = 21
-        Date = 43478.000000000000000000
-        Time = 0.902307256947097000
-        TabOrder = 27
-      end
-      object dtpAcceptedDate: TDateTimePicker
-        Left = 158
-        Top = 7
-        Width = 100
-        Height = 21
-        Date = 43479.000000000000000000
-        Time = 0.909811886573152100
-        TabOrder = 28
-        OnCloseUp = dtpAcceptedDateCloseUp
+        TabOrder = 15
       end
       object dbeOccupation: TDBEdit
         Left = 135
@@ -1115,7 +1002,7 @@ object fMaintenance: TfMaintenance
         Height = 21
         DataField = 'Occupation'
         DataSource = dscMember
-        TabOrder = 29
+        TabOrder = 16
       end
       object dbeOccupationDetail: TDBEdit
         Left = 135
@@ -1124,7 +1011,98 @@ object fMaintenance: TfMaintenance
         Height = 21
         DataField = 'OccupationDetail'
         DataSource = dscMember
-        TabOrder = 30
+        TabOrder = 17
+      end
+      object dbchbFinancial: TDBCheckBox
+        Left = 277
+        Top = 160
+        Width = 97
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Financial '
+        DataField = 'Financial'
+        DataSource = dscMember
+        TabOrder = 18
+      end
+      object dbeAcceptedDate: TDBEdit
+        Left = 158
+        Top = 8
+        Width = 121
+        Height = 21
+        DataField = 'Accepted'
+        DataSource = dscMember
+        TabOrder = 19
+      end
+      object dbeDOB: TDBEdit
+        Left = 160
+        Top = 38
+        Width = 121
+        Height = 21
+        DataField = 'DOB'
+        DataSource = dscMember
+        TabOrder = 20
+      end
+      object dbeReceiptDate: TDBEdit
+        Left = 362
+        Top = 188
+        Width = 100
+        Height = 21
+        DataField = 'ReceiptDate'
+        DataSource = dscMember
+        TabOrder = 21
+      end
+      object dbeFinancialTo: TDBEdit
+        Left = 362
+        Top = 218
+        Width = 100
+        Height = 21
+        DataField = 'FinancialTo'
+        DataSource = dscMember
+        TabOrder = 22
+      end
+      object dbchbIsInactive: TDBCheckBox
+        Left = 89
+        Top = 160
+        Width = 80
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Is Inactive'
+        DataField = 'IsInactive'
+        DataSource = dscMember
+        TabOrder = 23
+      end
+      object dbchbBadgePrinted: TDBCheckBox
+        Left = 72
+        Top = 190
+        Width = 97
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Badge Printed'
+        DataField = 'BadgePrinted'
+        DataSource = dscMember
+        TabOrder = 24
+      end
+      object dbchbChildClearance: TDBCheckBox
+        Left = 68
+        Top = 218
+        Width = 101
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Child Clearance'
+        DataField = 'ChildrenClearance'
+        DataSource = dscMember
+        TabOrder = 25
+      end
+      object dbchbPoliceClearance: TDBCheckBox
+        Left = 68
+        Top = 248
+        Width = 103
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Police Clearance'
+        DataField = 'PoliceClearance'
+        DataSource = dscMember
+        TabOrder = 26
       end
     end
   end

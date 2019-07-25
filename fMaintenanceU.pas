@@ -56,24 +56,13 @@ type
     txtNoteDetail: TStaticText;
     memNote: TMemo;
     dscFamily: TDataSource;
-    txtIsInactive: TStaticText;
-    txtBadgePrinted: TStaticText;
-    txtFinancial: TStaticText;
-    cbxIsInactive: TCheckBox;
-    cbxBadgePrinted: TCheckBox;
-    cbxFinancial: TCheckBox;
     DBLookupListBoxMemCat: TDBLookupListBox;
     txtMemCategory: TStaticText;
     DBLookupComboBoxMemcat: TDBLookupComboBox;
     txtAccepted: TStaticText;
     txtDOB: TStaticText;
-    cbxChildClearance: TCheckBox;
-    txtChildClearance: TStaticText;
-    cbxPoliceClearance: TCheckBox;
     txtPoliceClearance: TStaticText;
     dbeReceiptNumber: TDBEdit;
-    dtpReceiptDate: TDateTimePicker;
-    dtpFinancialTo: TDateTimePicker;
     StaticText2: TStaticText;
     StaticText3: TStaticText;
     txtReceiptNumber: TStaticText;
@@ -89,8 +78,6 @@ type
     txtGender: TStaticText;
     DBLUComboBoxMemGender: TDBLookupComboBox;
     dscMemGender: TDataSource;
-    dtpDateBirth: TDateTimePicker;
-    dtpAcceptedDate: TDateTimePicker;
     txtIDDesc: TStaticText;
     edtID: TEdit;
     edtOrgSearch: TEdit;
@@ -147,6 +134,15 @@ type
     lblOccupation: TLabel;
     lblOccupationDetail: TLabel;
     dbeOccupationDetail: TDBEdit;
+    dbchbFinancial: TDBCheckBox;
+    dbeAcceptedDate: TDBEdit;
+    dbeDOB: TDBEdit;
+    dbeReceiptDate: TDBEdit;
+    dbeFinancialTo: TDBEdit;
+    dbchbIsInactive: TDBCheckBox;
+    dbchbBadgePrinted: TDBCheckBox;
+    dbchbChildClearance: TDBCheckBox;
+    dbchbPoliceClearance: TDBCheckBox;
     Procedure FormShow(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
@@ -175,9 +171,6 @@ type
     Procedure txtNoteAddedClick(Sender: TObject);
     Procedure smdbgNoteAbbrevCellClick(Column: TColumn);
     Procedure smdbContactSearchGridCellClick(Column: TColumn);
-    Procedure btnAddOKClick(Sender: TObject);
-    Procedure btnAddCancelClick(Sender: TObject);
-    Procedure tshMemberShow(Sender: TObject);
     Procedure dtpAcceptedDateCloseUp(Sender: TObject);
     Procedure tshContactShow(Sender: TObject);
     procedure edtIDKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -192,7 +185,6 @@ type
     Procedure aMemberUpdate;
     Procedure SaveContactCard;
     Procedure aContacUpdtNote(iLines: Integer);
-    Procedure ShowContactPage;
   public
     { Public declarations }
 //    fTop: Integer;
@@ -246,9 +238,7 @@ Begin
   dbchbGroup5.Caption:= TheSysUser.sGroup5Caption;
   dbchbGroup6.Caption:= TheSysUser.sGroup6Caption;
 
-//  dmoMaintenance.RecTemp2;
-//  Close;
-
+  dmoMaintenance.CardReset;
   edtSurname.SetFocus;
   aContact.bNewContact:= False;
   tshSearch.Show;
@@ -337,11 +327,6 @@ End;
 
 Procedure TfMaintenance.UpdSearchGrid;
 Begin
-//  iOrgID:= 0;
-//  if edtOrgSearch.Text > '' then
-//  Begin
-//    iOrgID := dmoMaintenance.GetCardOrgID(edtOrgSearch.Text);
-//  End;
   dmoMaintenance.FilterGridName(edtSurname.Text, edtFirstNameSearch.Text,
                                 edtMobile.Text, edtOrgSearch.Text);
 End;
@@ -368,50 +353,22 @@ Begin
 End;
 
 
-Procedure TfMaintenance.tshMemberShow(Sender: TObject);
-Begin
-  dtpAcceptedDate.Date:= dmoMaintenance.qryMember.FieldByName('Accepted').AsDateTime;
-  dtpDateBirth.Date:= dmoMaintenance.qryMember.FieldByName('DOB').AsDateTime;
-  dtpReceiptDate.Date:= dmoMaintenance.qryMember.FieldByName('ReceiptDate').AsDateTime;
-  dtpFinancialTo.Date:= dmoMaintenance.qryMember.FieldByName('FinancialTo').AsDateTime;
-  cbxIsInactive.Checked:= dmoMaintenance.qryMember.FieldByName('IsInactive').AsBoolean;
-  cbxBadgePrinted.Checked:= dmoMaintenance.qryMember.FieldByName('BadgePrinted').AsBoolean;
-  cbxFinancial.Checked:= dmoMaintenance.qryMember.FieldByName('Financial').AsBoolean;
-  cbxChildClearance.Checked:= dmoMaintenance.qryMember.FieldByName('ChildrenClearance').AsBoolean;
-  cbxPoliceClearance.Checked:= dmoMaintenance.qryMember.FieldByName('PoliceClearance').AsBoolean;
-  //  dmoMaintenance.GetCardCategories(aContact.iCardID);       //  Get Member Categories
-End;
-
-
-Procedure TfMaintenance.btnAddCancelClick(Sender: TObject);
-Begin
-//  CloseContactPage;
-End;
-
-
-Procedure TfMaintenance.btnAddOKClick(Sender: TObject);
-Begin
-//  CloseContactPage;
-End;
-
-
 Procedure TfMaintenance.btnCancelClick(Sender: TObject);
 Begin
-//  ContactPanel1.Visible:= False;
+  tshMember.TabVisible:= False;
   tshSearch.Visible:= True;
   tshSearch.Enabled:= True;
   tshSearch.Show;
   smdbContactSearchGrid.Visible:= True;
-  edtSurname.Visible:= True;
-  txtSurnameSearch.Visible:= True;
-  edtFirstNameSearch.Visible:= True;
-  txtFirstNameSearch.Visible:= True;
-  edtMobile.Visible:= True;
-  edtOrgSearch.Visible:= True;
-  txtMobileSearch.Visible:= True;
+  edtFirstNameSearch.Text:= '';
+  edtMobile.Text:= '';
+  edtSurname.Text:= '';
+  edtID.Text:= '';
+  edtOrgSearch.Text:= '';
   edtSurname.SetFocus;
   btnSave.Enabled:= True;
-//  btnAdd.Enabled:= False;
+  dmoMaintenance.CardReset;
+  dmoMaintenance.GridSearchReset;
 End;
 
 
@@ -460,25 +417,10 @@ End;
 
 Procedure TfMaintenance.aMemberUpdate;
 Begin
-  aMember.bIsInactive:= cbxIsInactive.Checked;
-  aMember.bIsInactive:= cbxIsInactive.Checked;
   aMember.iMemberType:= DBLUComboBoxMemType.KeyValue;
   aMember.iStatus:= DBLUComboBoxMemStatus.KeyValue;
   aMember.iGender:= DBLUComboBoxMemGender.KeyValue;
-  aMember.dAccepted:= dtpAcceptedDate.Date;
-  aMember.dDOB:= dtpDateBirth.Date;
-  aMember.bBadgePrinted:= cbxBadgePrinted.Checked;
-//  aMember.sOccupation:= dbeOccupation.DataField;     //  See qty in dmoMaintenance
-//  aMember.sOccupationDetail:= dbeOccupationDetail.DataField;
-  aMember.bFinancial:= cbxFinancial.Checked;
-  aMember.dReceiptDate:= dtpReceiptDate.Date;
-//  aMember.sReceiptNum:= dbeReceiptNumber.DataField;
-  aMember.dFinancialTo:= dtpFinancialTo.Date;
-  aMember.bChildClearance:= cbxChildClearance.Checked;
-  aMember.bPoliceClearance:= cbxPoliceClearance.Checked;
 End;
-//  qryMember.FieldByName('Occupation').AsInteger:= aMember.iOccupation;
-//  qryMember.FieldByName('OccupationDetail').AsString:= aMember.sOccupationDetail;
 
 
 Procedure TfMaintenance.btnSaveClick(Sender: TObject);
@@ -512,21 +454,6 @@ Begin
 End;
 
 
-Procedure TfMaintenance.ShowContactPage;
-Begin
-//  ContactPanel1.Visible:= False;
-  tshContact.Show;
-  edtID.Text:= IntToStr(aContact.iCardID);
-  edtSurname.Visible:= False;
-  txtSurnameSearch.Visible:= False;
-  edtFirstNameSearch.Visible:= False;
-  txtFirstNameSearch.Visible:= False;
-  edtMobile.Visible:= False;
-  edtOrgSearch.Visible:= False;
-  txtMobileSearch.Visible:= False;
-End;
-
-
 Procedure TfMaintenance.edtIDKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 Begin
@@ -544,7 +471,6 @@ Var
   iOrgID : Integer;
   sNote: String;
 Begin
-//  btnAdd.Enabled:= True;
   dmoMaintenance.GetID_Address(aContact);
   if aContact.iCardID > 0 then
   Begin
@@ -553,6 +479,7 @@ Begin
     iOrgID:= dmoMaintenance.qryCard.FieldByName('OrgID').AsInteger;
     if iOrgID > 0 then
       dbluComboBoxOrg.KeyValue:= iOrgID;
+    tshMember.TabVisible:= aContact.Group3;
     dbchbGroup1.Checked:= aContact.Group1;
     dbchbGroup2.Checked:= aContact.Group2;
     dbchbGroup3.Checked:= aContact.Group3;
@@ -565,13 +492,17 @@ Begin
     PopulateMemNote(sNote);
 
     aMember.iCardID:= aContact.iCardID;
-    if (aContact.bIsMember)
-        AND (dmoMaintenance.GetMember(aMember)) then
-    Begin
-      tshMember.TabVisible:= True;
-      tshMember.Show;   //  Fills in pagecontrol sheet with DB info
-    End;
-    ShowContactPage;     // Ready to start
+//    if (aContact.bIsMember)
+//        AND (dmoMaintenance.GetMember(aMember)) then
+//    Begin
+//      tshMember.TabVisible:= True;
+//      tshMember.Show;   //  Fills in pagecontrol sheet with DB info
+//    End;
+    edtSurname.Text:= aContact.sSurname;
+    edtFirstNameSearch.Text:= aContact.sFirstName;
+    edtID.Text:= IntToStr(aContact.iCardID);
+    edtMobile.Text:= dmoMaintenance.dstCardSearch.FieldByName('Mobile').AsString;
+    tshContact.Show;     // Ready to start
   End
   Else
   Begin
@@ -711,7 +642,7 @@ End;
 
 Procedure TfMaintenance.dtpAcceptedDateCloseUp(Sender: TObject);
 Begin
-  aMember.dAccepted:= dtpAcceptedDate.Date;
+//  aMember.dAccepted:= dtpAcceptedDate.Date;
 End;
 
 Procedure TfMaintenance.edtFirstNameSearchKeyUp(Sender: TObject; var Key: Word;

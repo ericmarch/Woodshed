@@ -5,10 +5,9 @@ object dmoMaintenance: TdmoMaintenance
   Height = 493
   Width = 747
   object dstCardSearch: TADODataSet
-    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
-    CommandText = 'SELECT * FROM vContactCard;'
+    CommandText = 'SELECT * FROM vContactCard Order by FullName'
     Parameters = <>
     Left = 48
     Top = 24
