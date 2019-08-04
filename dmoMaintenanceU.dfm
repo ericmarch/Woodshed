@@ -26,7 +26,7 @@ object dmoMaintenance: TdmoMaintenance
     CursorType = ctStatic
     CommandText = 'select pcName, pcCode, pcState_Code, ID from au_Towns'
     Parameters = <>
-    Left = 48
+    Left = 153
     Top = 96
   end
   object dstUDF1Name: TADODataSet
@@ -42,7 +42,7 @@ object dmoMaintenance: TdmoMaintenance
     CursorType = ctStatic
     CommandText = 'Select id, Description FROM CardCustomFieldName'
     Parameters = <>
-    Left = 464
+    Left = 569
     Top = 96
   end
   object dstCardCategory: TADODataSet
@@ -137,13 +137,13 @@ object dmoMaintenance: TdmoMaintenance
     Parameters = <>
     SQL.Strings = (
       'Select * FROM CardCustomFieldName')
-    Left = 360
+    Left = 465
     Top = 96
   end
   object qryNote: TADOQuery
     Connection = dmoConnect.conConnect
     Parameters = <>
-    Left = 160
+    Left = 265
     Top = 96
   end
   object dstNoteAbbrev: TADODataSet
@@ -152,7 +152,7 @@ object dmoMaintenance: TdmoMaintenance
     AfterScroll = dstNoteAbbrevAfterScroll
     CommandText = 'Select CardID, NoteID, TheTime, Abbreviation from CardNote'
     Parameters = <>
-    Left = 248
+    Left = 353
     Top = 96
   end
   object dstFamily: TADODataSet
@@ -237,8 +237,8 @@ object dmoMaintenance: TdmoMaintenance
     Connection = dmoConnect.conConnect
     Filtered = True
     Parameters = <>
-    Left = 640
-    Top = 32
+    Left = 568
+    Top = 16
   end
   object dstOmnibus: TADODataSet
     Connection = dmoConnect.conConnect
@@ -246,5 +246,12 @@ object dmoMaintenance: TdmoMaintenance
     Parameters = <>
     Left = 64
     Top = 240
+  end
+  object dstAttachment: TADODataSet
+    Connection = dmoConnect.conConnect
+    CommandText = 'Select * From Attachment'
+    Parameters = <>
+    Left = 48
+    Top = 96
   end
 end

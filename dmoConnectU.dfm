@@ -5,7 +5,6 @@ object dmoConnect: TdmoConnect
   Height = 150
   Width = 215
   object conConnect: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source=Z:\Er' +
       'ic\Woodshed\Membership\MembersDB\Woodshed.mdb;Mode=Share Deny No' +
@@ -18,7 +17,6 @@ object dmoConnect: TdmoConnect
       'on Compact=False;Jet OLEDB:Compact Without Replica Repair=False;' +
       'Jet OLEDB:SFP=False;'
     LoginPrompt = False
-    Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     BeforeConnect = conConnectBeforeConnect
     Left = 104

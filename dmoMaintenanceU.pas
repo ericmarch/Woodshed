@@ -44,6 +44,7 @@ type
     dstPartnerType: TADODataSet;
     qryCardTemp: TADOQuery;
     dstOmnibus: TADODataSet;
+    dstAttachment: TADODataSet;
 
     Procedure DataModuleCreate(Sender: TObject);
     Procedure DataModuleDestroy(Sender: TObject);
@@ -86,6 +87,7 @@ type
     Procedure RecTemp1;
     Procedure RecTemp2;
     procedure UpdateOperatorColumns(aContact: TContact;aSysUser: TSysUser);
+    Procedure ShowNoteAttachment(iNotedID: Integer);
 
     //------------------- Member Procedures ------------------------------//
     Function  GetMember(aMember: TMember):Boolean;
@@ -344,6 +346,13 @@ begin
 End;
 
 
+procedure TdmoMaintenance.ShowNoteAttachment(iNotedID: Integer);
+begin
+//  dstAttachment.Active:= False;
+//  dstAttachment.CommandText:= 'Select 1.jpg from '
+//  dstAttachment.Active:= True;
+end;
+
 Procedure TdmoMaintenance.GetID_Address(aContact:TContact);
 Var
   s1: String;
@@ -543,7 +552,7 @@ Var
 Begin
 //  if qryNote.Active then
 //  Begin
-    iCardID:= qryCard.FieldByName('ID').AsInteger;
+    iCardID:= aContact.iCardID;
     if aContact.NoteAdded then
     Begin
       AddCardNote(iCardID, aContact.LastNote);

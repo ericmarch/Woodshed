@@ -50,19 +50,19 @@ begin
     ds:=vDataSource.Strings[0];
     freeandnil(vDataSource);
   end;
-  conConnect.ConnectionString:= initString + ';Data Source=' + ds;
+  conConnect.ConnectionString:= initString + 'Data Source=' + ds;
   iLast:= LastDelimiter('\', ds);
   sDirectory:= Copy(ds, 1, iLast);
 end;
 
 procedure TdmoConnect.DataModuleCreate(Sender: TObject);
 begin
-//  conConnect.Connected:= True;
+  conConnect.Connected:= True;
 end;
 
 procedure TdmoConnect.DataModuleDestroy(Sender: TObject);
 begin
-//  conConnect.Connected:= False;
+  conConnect.Connected:= False;
 end;
 
 end.

@@ -17,13 +17,12 @@ object dmoReport: TdmoReport
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     LockType = ltReadOnly
-    CommandText = 'Select * FROM vMember'
+    CommandText = 'Select * FROM vCardOrg'
     Parameters = <>
     Left = 168
     Top = 93
   end
   object dstHeader: TADODataSet
-    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     CommandText = 
@@ -44,8 +43,10 @@ object dmoReport: TdmoReport
     Top = 24
   end
   object dstGroup: TADODataSet
+    Active = True
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
+    CommandText = 'select * from cardOrganisation'
     Parameters = <>
     Left = 168
     Top = 29

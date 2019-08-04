@@ -16,7 +16,7 @@ uses
   SMDBGrid,
   SysUserClass,
   ContactClass,
-  fAddCardU;
+  fAddCardU, Vcl.Imaging.jpeg;
 
 
 
@@ -143,6 +143,15 @@ type
     dbchbBadgePrinted: TDBCheckBox;
     dbchbChildClearance: TDBCheckBox;
     dbchbPoliceClearance: TDBCheckBox;
+    txtAttachShow: TStaticText;
+    txtAttachmentAdd: TStaticText;
+    pnlAttachments: TPanel;
+    BtnNext: TSpeedButton;
+    btnPrev: TSpeedButton;
+    btnAttachmentExit: TSpeedButton;
+    dscAttachment: TDataSource;
+    txtNoneAvailable: TStaticText;
+    Image1: TImage;
     Procedure FormShow(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
@@ -177,6 +186,8 @@ type
     procedure edtOrgSearchKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure txtFamilyClick(Sender: TObject);
+    procedure txtAttachShowClick(Sender: TObject);
+    procedure btnAttachmentExitClick(Sender: TObject);
   private
     { Private declarations }
     Procedure CardSelected;
@@ -283,6 +294,22 @@ End;
 Procedure TfMaintenance.tshSearchShow(Sender: TObject);
 Begin
   btnSave.Enabled:= False;
+End;
+
+
+Procedure TfMaintenance.txtAttachShowClick(Sender: TObject);
+Begin
+  pnlAttachments.Align:= alBottom;
+  pnlAttachments.Height:= 630;
+  Image1.Picture.LoadFromFile('Z:\Eric\Woodshed\Membership\MembersDB\DoNotChange\1.jpg');
+  pnlAttachments.Visible:= True;
+End;
+
+
+Procedure TfMaintenance.btnAttachmentExitClick(Sender: TObject);
+Begin
+  pnlAttachments.Align:= alNone;
+  pnlAttachments.Visible:= False;
 End;
 
 
