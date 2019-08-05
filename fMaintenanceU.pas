@@ -16,7 +16,7 @@ uses
   SMDBGrid,
   SysUserClass,
   ContactClass,
-  fAddCardU, Vcl.Imaging.jpeg;
+  fAddCardU, Vcl.Imaging.jpeg, Vcl.ExtDlgs;
 
 
 
@@ -50,9 +50,7 @@ type
     dscNotes: TDataSource;
     dscNoteAbbrev: TDataSource;
     tshNotes: TTabSheet;
-    StaticText1: TStaticText;
     smdbgNoteAbbrev: TSMDBGrid;
-    txtNoteAdded: TStaticText;
     txtNoteDetail: TStaticText;
     memNote: TMemo;
     dscFamily: TDataSource;
@@ -143,15 +141,19 @@ type
     dbchbBadgePrinted: TDBCheckBox;
     dbchbChildClearance: TDBCheckBox;
     dbchbPoliceClearance: TDBCheckBox;
-    txtAttachShow: TStaticText;
-    txtAttachmentAdd: TStaticText;
+    dscAttachment: TDataSource;
+    OpenPictureDialog1: TOpenPictureDialog;
+    tshAttachments: TTabSheet;
     pnlAttachments: TPanel;
     BtnNext: TSpeedButton;
     btnPrev: TSpeedButton;
     btnAttachmentExit: TSpeedButton;
-    dscAttachment: TDataSource;
-    txtNoneAvailable: TStaticText;
     Image1: TImage;
+    txtNoneAvailable: TStaticText;
+    txtNoteAdded: TStaticText;
+    StaticText1: TStaticText;
+    txtAttachShow: TStaticText;
+    txtAttachmentAdd: TStaticText;
     Procedure FormShow(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
@@ -301,7 +303,9 @@ Procedure TfMaintenance.txtAttachShowClick(Sender: TObject);
 Begin
   pnlAttachments.Align:= alBottom;
   pnlAttachments.Height:= 630;
-  Image1.Picture.LoadFromFile('Z:\Eric\Woodshed\Membership\MembersDB\DoNotChange\1.jpg');
+  if OpenPictureDialog1.Execute then
+    Image1.Picture.LoadFromFile(OpenPictureDialog1.FileName);
+  //    Image1.Picture.LoadFromFile('Z:\Eric\Woodshed\Membership\MembersDB\DoNotChange\1.jpg');
   pnlAttachments.Visible:= True;
 End;
 
@@ -422,7 +426,7 @@ Begin
   aContact.Group5:= dbchbGroup5.Checked;
   aContact.Group6:= dbchbGroup6.Checked;
   dmoMaintenance.SaveContact(iOrgID, aContact);
-  dmoMaintenance.CardReset;
+//  dmoMaintenance.CardReset;
   dmoMaintenance.UpdateOperatorColumns(aContact, TheSysUser);
 End;
 
