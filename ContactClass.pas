@@ -30,6 +30,7 @@ type
     sUserName: String;
     sUserPWD: String;
     fbIsMember: Boolean;
+    fsAttachment: String;
 //    Function  getKms: Integer;
     Function  GetAlphaID: String;
 //    function GetRego: String;
@@ -55,6 +56,7 @@ type
     property UserName: String read sUserName write sUserName;
     property UserPWD: String read sUserPWD write sUserPWD;
     property bIsMember: Boolean Read fbIsMember Write fbIsMember;
+    property sAttachment: String Read fsAttachment Write fsAttachment;
 
     constructor Create;
     destructor Destroy; override;

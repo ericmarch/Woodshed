@@ -88,6 +88,7 @@ type
     Procedure RecTemp2;
     procedure UpdateOperatorColumns(aContact: TContact;aSysUser: TSysUser);
     Procedure ShowNoteAttachment(iNotedID: Integer);
+    Function  GetAttachment(iCardID: Integer):Integer;
 
     //------------------- Member Procedures ------------------------------//
     Function  GetMember(aMember: TMember):Boolean;
@@ -175,6 +176,14 @@ Begin
   End;
 End;
 
+
+Function  TdmoMaintenance.GetAttachment(iCardID: Integer):Integer;
+begin
+  dst1.Active:= false;
+  dst1.CommandText:= 'Select * FROM Attachment Where CardID = ' + IntToStr(icardID);
+  dst1.Active:= True;
+  Result:= dst1.RecordCount;
+end;
 
 Procedure TdmoMaintenance.GetCardCategories(iCardID: Integer);
 Begin

@@ -1,12 +1,12 @@
 object fMain: TfMain
-  Left = 320
-  Top = 150
+  Left = 20
+  Top = 50
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   BorderWidth = 10
   Caption = 'Contacts'
-  ClientHeight = 241
-  ClientWidth = 287
+  ClientHeight = 891
+  ClientWidth = 1445
   Color = clBtnHighlight
   Constraints.MinHeight = 300
   Constraints.MinWidth = 300

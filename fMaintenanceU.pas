@@ -190,6 +190,9 @@ type
     procedure txtFamilyClick(Sender: TObject);
     procedure txtAttachShowClick(Sender: TObject);
     procedure btnAttachmentExitClick(Sender: TObject);
+    procedure btnPrevClick(Sender: TObject);
+    procedure BtnNextClick(Sender: TObject);
+    procedure tshAttachmentsExit(Sender: TObject);
   private
     { Private declarations }
     Procedure CardSelected;
@@ -198,6 +201,7 @@ type
     Procedure aMemberUpdate;
     Procedure SaveContactCard;
     Procedure aContacUpdtNote(iLines: Integer);
+    Procedure LoadImage;
   public
     { Public declarations }
 //    fTop: Integer;
@@ -210,7 +214,6 @@ var
   aContact: TContact;
   aMember: TMember;
   fAddCard: TfAddCard;
-
 
 implementation
 
@@ -242,8 +245,8 @@ End;
 
 Procedure TfMaintenance.FormShow(Sender: TObject);
 Begin
-//  Top:= fTop;
-//  Left:= fLeft;
+  Top:= 0;
+  Left:= 0;
   dbchbGroup1.Caption:= TheSysUser.sGroup1Caption;     //  Can be differnt Group Names for different users
   dbchbGroup2.Caption:= TheSysUser.sGroup2Caption;
   dbchbGroup3.Caption:= TheSysUser.sGroup3Caption;
@@ -293,19 +296,61 @@ Begin
 End;
 
 
+procedure TfMaintenance.tshAttachmentsExit(Sender: TObject);
+begin
+//  pnlAttachments.Visible:= False;
+end;
+
+
 Procedure TfMaintenance.tshSearchShow(Sender: TObject);
 Begin
   btnSave.Enabled:= False;
 End;
 
 
+procedure TfMaintenance.LoadImage;
+Var
+  fImage: String;
+begin
+  fImage:= TheSysUser.sExeDirectory + 'DoNotChange\' + dmoMaintenance.dst1.FieldByName('DocumentName').AsString;
+  Image1.Picture.LoadFromFile(fImage);
+End;
+
+
+procedure TfMaintenance.BtnNextClick(Sender: TObject);
+begin
+  if NOT dmoMaintenance.dst1.Eof then
+  Begin
+    dmoMaintenance.dst1.Next;
+    LoadImage;
+  End;
+end;
+
+
+procedure TfMaintenance.btnPrevClick(Sender: TObject);
+Var
+  fImage: String;
+begin
+  if NOT dmoMaintenance.dst1.Bof then
+  Begin
+    dmoMaintenance.dst1.Prior;
+    LoadImage;
+  End;
+end;
+
+
 Procedure TfMaintenance.txtAttachShowClick(Sender: TObject);
 Begin
-  pnlAttachments.Align:= alBottom;
-  pnlAttachments.Height:= 630;
-  if OpenPictureDialog1.Execute then
-    Image1.Picture.LoadFromFile(OpenPictureDialog1.FileName);
-  //    Image1.Picture.LoadFromFile('Z:\Eric\Woodshed\Membership\MembersDB\DoNotChange\1.jpg');
+  If dmoMaintenance.GetAttachment(aContact.iCardID) > 0 Then
+  Begin
+    dmoMaintenance.dst1.Last;
+    LoadImage;
+  End
+  Else
+  Begin
+    if OpenPictureDialog1.Execute then
+      Image1.Picture.LoadFromFile(OpenPictureDialog1.FileName);
+  End;
   pnlAttachments.Visible:= True;
 End;
 

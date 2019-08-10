@@ -3,8 +3,8 @@ object fMaintenance: TfMaintenance
   Top = 0
   BorderIcons = []
   Caption = 'Maintenance'
-  ClientHeight = 720
-  ClientWidth = 1104
+  ClientHeight = 961
+  ClientWidth = 1884
   Color = clBtnFace
   Constraints.MinWidth = 1120
   Font.Charset = DEFAULT_CHARSET
@@ -55,8 +55,8 @@ object fMaintenance: TfMaintenance
   object PageControl1: TPageControl
     Left = 0
     Top = 27
-    Width = 1104
-    Height = 693
+    Width = 1884
+    Height = 934
     ActivePage = tshAttachments
     Align = alBottom
     TabOrder = 0
@@ -64,12 +64,11 @@ object fMaintenance: TfMaintenance
       Caption = 'Search'
       ImageIndex = 2
       OnShow = tshSearchShow
-      ExplicitHeight = 692
       object smdbContactSearchGrid: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1096
-        Height = 665
+        Width = 1876
+        Height = 906
         Align = alClient
         DataSource = dscCardSearch
         Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -140,7 +139,6 @@ object fMaintenance: TfMaintenance
     object tshNotes: TTabSheet
       Caption = 'Notes'
       ImageIndex = 3
-      ExplicitHeight = 692
       object smdbgNoteAbbrev: TSMDBGrid
         Left = 3
         Top = 23
@@ -243,7 +241,6 @@ object fMaintenance: TfMaintenance
     object tshContact: TTabSheet
       Caption = 'Contact'
       OnShow = tshContactShow
-      ExplicitHeight = 692
       object lblSurname: TLabel
         Left = 30
         Top = 19
@@ -811,12 +808,13 @@ object fMaintenance: TfMaintenance
     object tshAttachments: TTabSheet
       Caption = 'Attachments'
       ImageIndex = 4
-      ExplicitHeight = 642
+      OnExit = tshAttachmentsExit
       object pnlAttachments: TPanel
-        Left = -3
-        Top = 16
-        Width = 1096
-        Height = 649
+        Left = 0
+        Top = 0
+        Width = 1876
+        Height = 906
+        Align = alClient
         TabOrder = 0
         object BtnNext: TSpeedButton
           Left = 160
@@ -831,6 +829,7 @@ object fMaintenance: TfMaintenance
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          OnClick = BtnNextClick
         end
         object btnPrev: TSpeedButton
           Left = 53
@@ -845,6 +844,7 @@ object fMaintenance: TfMaintenance
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          OnClick = btnPrevClick
         end
         object btnAttachmentExit: TSpeedButton
           Left = 270
@@ -863,9 +863,10 @@ object fMaintenance: TfMaintenance
         end
         object Image1: TImage
           Left = 1
-          Top = 48
-          Width = 1095
-          Height = 625
+          Top = 28
+          Width = 1874
+          Height = 877
+          Align = alBottom
           AutoSize = True
           Center = True
         end
@@ -925,8 +926,6 @@ object fMaintenance: TfMaintenance
     object tshMember: TTabSheet
       Caption = 'Member'
       ImageIndex = 1
-      ExplicitLeft = 20
-      ExplicitTop = 23
       object lblOccupation: TLabel
         Left = 42
         Top = 307
