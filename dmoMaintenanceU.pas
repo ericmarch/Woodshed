@@ -45,6 +45,8 @@ type
     qryCardTemp: TADOQuery;
     dstOmnibus: TADODataSet;
     dstAttachment: TADODataSet;
+    qryOrgDetails: TADOQuery;
+    dstOrganisation: TADODataSet;
 
     Procedure DataModuleCreate(Sender: TObject);
     Procedure DataModuleDestroy(Sender: TObject);
@@ -77,6 +79,7 @@ type
     Function  GetCardOrgID(s1: String): Integer;
     Function  GetGroupName(iID: Integer): String;
     Procedure GetID_Address(aContact:TContact);
+    procedure GetOrgDetail(iCardOrgID: Integer);
     Procedure GetNoteAbbrev(iCardID: Integer);
     Function  GetNote(iCardID: Integer): String;
     Procedure SaveCardNote(aContact:TContact);
@@ -119,22 +122,18 @@ Var
 Begin
   qryCard.Active:= True;
   qryAddressPostal.Active:= True;
-  qryAddressLocation.Active:= True;
   qryOrganisation.Active:= True;
   dstCardSearch.Active:= True;
   dstPostCode.Active:= True;
   dstUDF1Name.Active:= True;
   dstUDF2Name.Active:= True;
   dstOmnibus.Active:= True;
-  dst1.Active:= False;
-  dst1.CommandText:= 'Select ID, Description from CardOrganisation Where ID > 2';
-  dst1.Active:= True;
+  dstOrganisation.Active:= True;
 
   qryMember.Active:= True;
   dstMemStatus.Active:= True;
   dstMemGender.Active:= True;
   dstMemType.Active:= True;
-//    s1:= TheSysUser.DisplayName;
 End;
 
 
@@ -143,12 +142,11 @@ Begin
   qryCard.Active:= False;
   qryAddressPostal.Active:= False;
   qryAddressLocation.Active:= False;
-  qryOrganisation.Active:= False;
   dstCardSearch.Active:= False;
   dstPostCode.Active:= False;
   dstUDF1Name.Active:= False;
   dstOmnibus.Active:= False;
-  dst1.Active:= False;
+  dstOrganisation.Active:= False;
 
   qryMember.Active:= False;
   dstMemStatus.Active:= False;
@@ -280,6 +278,22 @@ Begin
           + ' ORDER BY TheTime';
   dstNoteAbbrev.Active:= True;
   dstNoteAbbrev.Last;
+End;
+
+
+procedure TdmoMaintenance.GetOrgDetail(iCardOrgID: Integer);
+Var
+  iCardOrgDetails: Integer;
+begin
+  qryOrganisation.Active:= False;
+  qryOrganisation.SQL.Clear;
+  qryOrganisation.SQL.Add('Select * FROM CardOrganisation WHERE ID = ' + IntToStr(iCardOrgID));
+  qryOrganisation.Active:= True;
+  iCardOrgDetails:= qryOrganisation.FieldByName('CardOrgDetailsID').AsInteger;
+  qryOrgDetails.Active:= False;
+  qryOrgDetails.SQL.Clear;
+  qryOrgDetails.SQL.Add('Select * FROM CardOrgDetails where ID = ' + IntToStr(iCardOrgDetails));
+  qryOrgDetails.Active:= True;
 End;
 
 
@@ -491,7 +505,7 @@ function TdmoMaintenance.CheckCardOrg(s1: String): Boolean;
 Begin
   s1:= s1 + '%';
   dst1.Active:= False;
-  dst1.CommandText:= 'Select ID, Description from CardOrganisation '
+  dst1.CommandText:= 'Select ID, Description, CardOrgDetailsID from CardOrganisation '
           + 'Where Description LIKE ' + QuotedStr(s1);
   dst1.Active:= True;
   Result:= False;

@@ -14,9 +14,11 @@ uses
   Data.DB,
   STRUtils,
   SMDBGrid,
+  Vcl.Imaging.jpeg,
+  Vcl.ExtDlgs,
   SysUserClass,
   ContactClass,
-  fAddCardU, Vcl.Imaging.jpeg, Vcl.ExtDlgs;
+  fAddCardU;
 
 
 
@@ -97,15 +99,13 @@ type
     dbeMobile: TDBEdit;
     dbePostalLine1: TDBEdit;
     dbePostalLine2: TDBEdit;
-    dbePostalPostcade: TDBEdit;
+    dbePostalPostcode: TDBEdit;
     dbePostalState: TDBEdit;
     dblucbTownLocation: TDBLookupComboBox;
     dblucbTownPostal: TDBLookupComboBox;
     txtMobile: TStaticText;
     txtLandLine: TStaticText;
     txtEmail: TStaticText;
-    txtOrganisation: TStaticText;
-    dbluComboBoxOrg: TDBLookupComboBox;
     dbeEmail: TDBEdit;
     txtUDF_Header: TStaticText;
     txtUDF_Add: TStaticText;
@@ -154,6 +154,42 @@ type
     StaticText1: TStaticText;
     txtAttachShow: TStaticText;
     txtAttachmentAdd: TStaticText;
+    tshOrg: TTabSheet;
+    StaticText4: TStaticText;
+    dbeOrgPostalLine1: TDBEdit;
+    StaticText5: TStaticText;
+    dbeOrgLocn2: TDBEdit;
+    CheckBox1: TCheckBox;
+    dbeOrgPostalLine2: TDBEdit;
+    CheckBox2: TCheckBox;
+    dblucbOrgTownPostal: TDBLookupComboBox;
+    dblucbOrgTownLocation: TDBLookupComboBox;
+    dbeOrgLocnPostcode: TDBEdit;
+    dbeOrgLocnState: TDBEdit;
+    dbeOrgPostalPostcode: TDBEdit;
+    dbeOrgPostalState: TDBEdit;
+    dbeOrgMobile: TDBEdit;
+    dbeOrgLandline: TDBEdit;
+    dbeOrgEmail: TDBEdit;
+    StaticText6: TStaticText;
+    StaticText7: TStaticText;
+    dblucbOrgUDF1: TDBLookupComboBox;
+    dbeOrgUDF1Detail: TDBEdit;
+    dblucbOrgUDF2: TDBLookupComboBox;
+    dbeOrgUDF2Detail: TDBEdit;
+    dbeOrgLocn1: TDBEdit;
+    lblOrganisation: TLabel;
+    StaticText8: TStaticText;
+    StaticText9: TStaticText;
+    dbluComboBoxOrg: TDBLookupComboBox;
+    txtAddOrg: TStaticText;
+    StaticText10: TStaticText;
+    smdbgOrgAssociatedContacts: TSMDBGrid;
+    dscOrgDetail: TDataSource;
+    dscOrgAssociatedContacts: TDataSource;
+    txtOrgEmail: TStaticText;
+    Shape1: TShape;
+    btnOrgDetailsAdd: TSpeedButton;
     Procedure FormShow(Sender: TObject);
     Procedure FormCreate(Sender: TObject);
     Procedure FormDestroy(Sender: TObject);
@@ -193,6 +229,7 @@ type
     procedure btnPrevClick(Sender: TObject);
     procedure BtnNextClick(Sender: TObject);
     procedure tshAttachmentsExit(Sender: TObject);
+    procedure txtAddOrgClick(Sender: TObject);
   private
     { Private declarations }
     Procedure CardSelected;
@@ -336,6 +373,12 @@ begin
     dmoMaintenance.dst1.Prior;
     LoadImage;
   End;
+end;
+
+
+procedure TfMaintenance.txtAddOrgClick(Sender: TObject);
+begin
+  //
 end;
 
 
@@ -563,17 +606,13 @@ Begin
     dbchbGroup5.Checked:= aContact.Group5;
     dbchbGroup6.Checked:= aContact.Group6;
 
+    dmoMaintenance.GetOrgDetail(iOrgID);
+
     dmoMaintenance.GetNoteAbbrev(aContact.iCardID);
     sNote:= dmoMaintenance.GetNote(aContact.iCardID);
     PopulateMemNote(sNote);
 
     aMember.iCardID:= aContact.iCardID;
-//    if (aContact.bIsMember)
-//        AND (dmoMaintenance.GetMember(aMember)) then
-//    Begin
-//      tshMember.TabVisible:= True;
-//      tshMember.Show;   //  Fills in pagecontrol sheet with DB info
-//    End;
     edtSurname.Text:= aContact.sSurname;
     edtFirstNameSearch.Text:= aContact.sFirstName;
     edtID.Text:= IntToStr(aContact.iCardID);

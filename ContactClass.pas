@@ -16,6 +16,12 @@ type
     fsIDAlpha: String;
     fsSurname: String;
     fsFirstName: String;
+    fbIsActive: Boolean;
+    fIsDeleted: Boolean;
+    fiOrgID: Integer;
+    fbNewOrg: Boolean;
+    fPostauTownsID: Integer;
+    fLocnauTownsID: Integer;
     bGroup1: Boolean;
     bGroup2: Boolean;
     bGroup3: Boolean;
@@ -42,6 +48,12 @@ type
     property sIDAlpha: String read fsIDAlpha write fsIDAlpha;
     property sSurname: String read fsSurname write fsSurname;
     property sFirstName: String read fsFirstName write fsFirstName;
+    property bIsActive: Boolean Read fbIsActive write fbIsActive;
+    property IsDeleted: Boolean Read fIsDeleted Write fIsDeleted;
+    property iOrgID: Integer Read fiOrgID Write fiOrgID;
+    property bNewOrg: Boolean Read fbNewOrg Write fbNewOrg;
+    property PostauTownsID: Integer Read fPostauTownsID Write fPostauTownsID;
+    property LocnauTownsID: Integer Read fLocnauTownsID Write fLocnauTownsID;
     property Group1: Boolean read bGroup1 write bGroup1;
     property Group2: Boolean read bGroup2 write bGroup2;
     property Group3: Boolean read bGroup3 write bGroup3;

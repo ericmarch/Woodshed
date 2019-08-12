@@ -2,7 +2,7 @@ object dmoMaintenance: TdmoMaintenance
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 493
+  Height = 580
   Width = 747
   object dstCardSearch: TADODataSet
     Connection = dmoConnect.conConnect
@@ -26,7 +26,7 @@ object dmoMaintenance: TdmoMaintenance
     CursorType = ctStatic
     CommandText = 'select pcName, pcCode, pcState_Code, ID from au_Towns'
     Parameters = <>
-    Left = 153
+    Left = 257
     Top = 96
   end
   object dstUDF1Name: TADODataSet
@@ -34,16 +34,16 @@ object dmoMaintenance: TdmoMaintenance
     CursorType = ctStatic
     CommandText = 'Select id, Description FROM CardCustomFieldName'
     Parameters = <>
-    Left = 272
-    Top = 240
+    Left = 568
+    Top = 168
   end
   object dstUDF2Name: TADODataSet
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     CommandText = 'Select id, Description FROM CardCustomFieldName'
     Parameters = <>
-    Left = 569
-    Top = 96
+    Left = 657
+    Top = 168
   end
   object dstCardCategory: TADODataSet
     Connection = dmoConnect.conConnect
@@ -62,7 +62,7 @@ object dmoMaintenance: TdmoMaintenance
     Parameters = <>
     SQL.Strings = (
       'Select * From CardCatLink')
-    Left = 64
+    Left = 48
     Top = 168
   end
   object cmd1: TADOCommand
@@ -72,8 +72,8 @@ object dmoMaintenance: TdmoMaintenance
         Size = -1
         Value = Null
       end>
-    Left = 376
-    Top = 240
+    Left = 664
+    Top = 336
   end
   object dstCardCatLink: TADODataSet
     Connection = dmoConnect.conConnect
@@ -85,16 +85,16 @@ object dmoMaintenance: TdmoMaintenance
     Aggregates = <>
     CommandText = 'Select * from Card'
     Params = <>
-    Left = 464
-    Top = 240
+    Left = 664
+    Top = 424
   end
   object dst1: TADODataSet
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     CommandText = 'select ID, Description from CardOrganisation where ID > 2;'
     Parameters = <>
-    Left = 168
-    Top = 240
+    Left = 664
+    Top = 256
   end
   object qryAddressPostal: TADOQuery
     Connection = dmoConnect.conConnect
@@ -125,10 +125,8 @@ object dmoMaintenance: TdmoMaintenance
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      
-        'SELECT ID, Description FROM CardOrganisation Order by Descriptio' +
-        'n;')
-    Left = 472
+      'SELECT *  FROM CardOrganisation Order by Description;')
+    Left = 568
     Top = 24
   end
   object qryCustomFieldName: TADOQuery
@@ -137,13 +135,13 @@ object dmoMaintenance: TdmoMaintenance
     Parameters = <>
     SQL.Strings = (
       'Select * FROM CardCustomFieldName')
-    Left = 465
+    Left = 569
     Top = 96
   end
   object qryNote: TADOQuery
     Connection = dmoConnect.conConnect
     Parameters = <>
-    Left = 265
+    Left = 345
     Top = 96
   end
   object dstNoteAbbrev: TADODataSet
@@ -152,7 +150,7 @@ object dmoMaintenance: TdmoMaintenance
     AfterScroll = dstNoteAbbrevAfterScroll
     CommandText = 'Select CardID, NoteID, TheTime, Abbreviation from CardNote'
     Parameters = <>
-    Left = 353
+    Left = 457
     Top = 96
   end
   object dstFamily: TADODataSet
@@ -162,7 +160,7 @@ object dmoMaintenance: TdmoMaintenance
       'select cardID, Description, Email, FirstName, LandLine, Mobile, ' +
       'MoreInfo, RelationshipType, SurName from qCardPartner'
     Parameters = <>
-    Left = 360
+    Left = 352
     Top = 168
   end
   object qryMember: TADOQuery
@@ -172,7 +170,7 @@ object dmoMaintenance: TdmoMaintenance
     SQL.Strings = (
       'Select * FROM member')
     Left = 56
-    Top = 336
+    Top = 440
   end
   object dstMemCat: TADODataSet
     Connection = dmoConnect.conConnect
@@ -180,7 +178,7 @@ object dmoMaintenance: TdmoMaintenance
     CommandText = 'Select * FROM MemCategory'
     Parameters = <>
     Left = 152
-    Top = 336
+    Top = 440
   end
   object dstMemCatLink: TADODataSet
     Connection = dmoConnect.conConnect
@@ -188,7 +186,7 @@ object dmoMaintenance: TdmoMaintenance
     CommandText = 'Select * FROM MemCatLink'
     Parameters = <>
     Left = 248
-    Top = 336
+    Top = 440
   end
   object dstMemType: TADODataSet
     Connection = dmoConnect.conConnect
@@ -196,7 +194,7 @@ object dmoMaintenance: TdmoMaintenance
     CommandText = 'Select * FROM MemType'
     Parameters = <>
     Left = 360
-    Top = 336
+    Top = 440
   end
   object dstMemStatus: TADODataSet
     Connection = dmoConnect.conConnect
@@ -204,7 +202,7 @@ object dmoMaintenance: TdmoMaintenance
     CommandText = 'Select * From MemStatus'
     Parameters = <>
     Left = 448
-    Top = 336
+    Top = 440
   end
   object dstMemGender: TADODataSet
     Connection = dmoConnect.conConnect
@@ -212,44 +210,57 @@ object dmoMaintenance: TdmoMaintenance
     CommandText = 'Select * FROM MemGender'
     Parameters = <>
     Left = 56
-    Top = 400
+    Top = 504
   end
   object dstMemOccLink: TADODataSet
     Parameters = <>
     Left = 152
-    Top = 408
+    Top = 504
   end
   object dstMemOccupation: TADODataSet
     Connection = dmoConnect.conConnect
     Parameters = <>
     Left = 248
-    Top = 408
+    Top = 504
   end
   object dstPartnerType: TADODataSet
     Connection = dmoConnect.conConnect
     CursorType = ctStatic
     CommandText = 'Select * From CardPartnerType order by Description'
     Parameters = <>
-    Left = 472
+    Left = 464
     Top = 168
   end
   object qryCardTemp: TADOQuery
     Connection = dmoConnect.conConnect
     Filtered = True
     Parameters = <>
-    Left = 568
-    Top = 16
+    Left = 456
+    Top = 24
   end
   object dstOmnibus: TADODataSet
     Connection = dmoConnect.conConnect
     CommandText = 'select ID, Description from tbGroup where ID = 1'
     Parameters = <>
-    Left = 64
-    Top = 240
+    Left = 664
+    Top = 216
   end
   object dstAttachment: TADODataSet
     Connection = dmoConnect.conConnect
     CommandText = 'Select * From Attachment'
+    Parameters = <>
+    Left = 152
+    Top = 96
+  end
+  object qryOrgDetails: TADOQuery
+    Connection = dmoConnect.conConnect
+    Parameters = <>
+    Left = 664
+    Top = 24
+  end
+  object dstOrganisation: TADODataSet
+    Connection = dmoConnect.conConnect
+    CommandText = 'Select * From CardOrganisation'
     Parameters = <>
     Left = 48
     Top = 96
