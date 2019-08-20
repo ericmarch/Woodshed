@@ -43,7 +43,7 @@ begin
              + 'Jet OLEDB:Encrypt Database=False;'
              + 'Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB:SFP=False;';
 
-  ds:= 'Z:\Eric\Woodshed\Membership\MembersDB\Woodshed.mdb';
+  ds:= 'E:\database\Woodshed.mdb';
   if fileexists('connect.cfg') then begin
     vDataSource:=TStringList.Create;
     vDataSource.LoadFromFile('connect.cfg');

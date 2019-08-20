@@ -58,7 +58,7 @@ object fMaintenance: TfMaintenance
     Top = 32
     Width = 1054
     Height = 744
-    ActivePage = tshOrg
+    ActivePage = tshAttachments
     Align = alBottom
     TabOrder = 0
     object tshSearch: TTabSheet
@@ -1638,7 +1638,7 @@ object fMaintenance: TfMaintenance
     OnKeyUp = edtFirstNameSearchKeyUp
   end
   object edtMobile: TEdit
-    Left = 894
+    Left = 895
     Top = 0
     Width = 121
     Height = 21

@@ -234,6 +234,7 @@ type
     { Private declarations }
     Procedure CardSelected;
     Procedure UpdSearchGrid;
+    Function  PadMobileNumber(s1: String): String;
     Procedure PopulateMemNote(s1: String);
     Procedure aMemberUpdate;
     Procedure SaveContactCard;
@@ -774,6 +775,62 @@ Begin
 End;
 
 
+Function TfMaintenance.PadMobileNumber(s1: String): String;
+Var
+  iMM, iNN: Integer;
+  s2, s3, s4: String;
+Begin
+  if Length(s1) > 8 then   // Insert a blank at Position 8 if necessary
+  Begin
+    s2:= AnsiMidStr(s1, 9, 1);
+    If s2 > ' ' then       // Insert a Blank
+    Begin
+      s3:= AnsiLeftStr(s1, 8);
+      iMM:= Length(s1);
+      If iMM > 9 then
+      Begin
+        iNN:= iMM - 9;
+        s4:= AnsiRightStr(s1, iNN);
+        Result:= s3 + ' ' + s4;
+      End
+      Else
+      Begin
+        Result:= s3 + ' ' + AnsiRightStr(s1, 1);
+      End;
+    End
+    Else
+    Begin
+      Result:= s1;         // Position 8 is already a blank - No action needed
+    End;                   // End Insert a Blank
+  End
+  Else
+  Begin                    //  Mobile No is less than 9 Characters - Check Position 5 blank
+    s2:= AnsiLeftStr(s1, 5, 1);
+    If Length(s1) > 4 then
+    Begin
+      s2:= AnsiMidStr(s1, 5, 1);
+      If s2 > ' ' then       // Insert a Blank
+      Begin
+
+      End;
+      End;
+  End;
+End;
+
+
+//Const
+//  cInvdComma = #39;
+//Var
+//  s2: String;
+//Begin
+//  s2:= AnsiReplaceStr(s1, ' ', '');
+//  s1:= AnsiReplaceStr(s2, ',', '');
+//  s2:= AnsiReplaceStr(s1, '"', '');
+//  s2:= AnsiReplaceStr(s2, cInvdComma, '');
+//  Result:= s2;
+//End;
+//
+//
 Procedure TfMaintenance.edtMobileKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 Begin
@@ -783,6 +840,7 @@ Begin
   End
   Else
   Begin
+    edtMobile.Text:= PadMobileNumber(edtMobile.Text);
     CardSelected;
   End;
 End;
